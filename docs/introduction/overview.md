@@ -2,34 +2,34 @@
 
 # 1. Project Repository
 
-Github Url: [https://github.com/tronprotocol](https://github.com/tronprotocol)
-[java-tron](https://github.com/tronprotocol/java-tron) is the source code of the MainNet.
-[protocol](https://github.com/tronprotocol/protocol) is the definition of the api and data structure.
-[wallet-cli](https://github.com/tronprotocol/wallet-cli) is the official command line wallet.
+Github Url: [https://github.com/lindaprotocol](https://github.com/lindaprotocol)
+[java-linda](https://github.com/lindaprotocol/java-linda) is the source code of the MainNet.
+[protocol](https://github.com/lindaprotocol/protocol) is the definition of the api and data structure.
+[wallet-cli](https://github.com/lindaprotocol/wallet-cli) is the official command line wallet.
 
 MainNet Configuration:
-[https://github.com/tronprotocol/TronDeployment/blob/master/main_net_config.conf](https://github.com/tronprotocol/TronDeployment/blob/master/main_net_config.conf)
+[https://github.com/lindaprotocol/LindaDeployment/blob/master/main_net_config.conf](https://github.com/lindaprotocol/LindaDeployment/blob/master/main_net_config.conf)
 TestNet Configuration:
-[https://github.com/tronprotocol/TronDeployment/blob/master/test_net_config.conf](https://github.com/tronprotocol/TronDeployment/blob/master/test_net_config.conf)
+[https://github.com/lindaprotocol/LindaDeployment/blob/master/test_net_config.conf](https://github.com/lindaprotocol/LindaDeployment/blob/master/test_net_config.conf)
 
 # 2. SRs and Committee
 
 ## 2.1 How to Become a Super Representative
 
- In TRON network, any account can apply to become a super representative candidate. Every account can vote for super representative candidates. The top 27 candidates with the most votes are the super representatives. Super representatives can produce blocks. The votes will be counted every 6 hours, so super representatives may also change every 6 hours.
+ In LINDA network, any account can apply to become a super representative candidate. Every account can vote for super representative candidates. The top 27 candidates with the most votes are the super representatives. Super representatives can produce blocks. The votes will be counted every 6 hours, so super representatives may also change every 6 hours.
 
- To prevent vicious attack, TRON network burns 9999 TRX from the account that applies to become a super representative candidate.
+ To prevent vicious attack, LINDA network burns 9999 LIND from the account that applies to become a super representative candidate.
 
 ## 2.2 Super Representatives Election
 
- To vote, you need to have TRON Power(TP). To get TRON Power, you need to stake TRX. Every 1 staked TRX accounts for one TRON Power(TP). Every account in TRON network has the right to vote for a super representative candidate. After you unstake your staked TRX, you will lose the responding TRON Power(TP), so your previous vote will be invalid.
+ To vote, you need to have LINDA Power(LP). To get LINDA Power, you need to stake LIND. Every 1 staked LIND accounts for one LINDA Power(LP). Every account in LINDA network has the right to vote for a super representative candidate. After you unstake your staked LIND, you will lose the responding LINDA Power(LP), so your previous vote will be invalid.
 
- Note: Only your latest vote will be counted in TRON network which means your previous vote will be over written by your latest vote.
+ Note: Only your latest vote will be counted in LINDA network which means your previous vote will be over written by your latest vote.
 
 Example (Using wallet-cli):
 
 ```text
-freezebalancev2 10,000,000 3 // stake 10 TRX to get 10 TRON Power(TP)
+freezebalancev2 10,000,000 3 // stake 10 LIND to get 10 LINDA Power(LP)
 votewitness SR1 4 SR2 6 // Vote 4 votes for SR1, 6 votes for SR2
 votewitness SR1 3 SR2 7 // Vote 3 votes for SR1, 7 votes for SR2
 ```
@@ -39,18 +39,18 @@ The final output above is: Vote 3 votes for SR1, 7 votes for SR2
 ## 2.3 Reward for Super Representatives
 
 **Votes Reward:**
-Every 6 hours, the top 127 super representative candidates with the most votes will share a total amount of 115,200 TRX according to their votes percentage. The annual votes reward is 168,192,000 TRX in total.
+Every 6 hours, the top 127 super representative candidates with the most votes will share a total amount of 115,200 LIND according to their votes percentage. The annual votes reward is 168,192,000 LIND in total.
 
 **Block Producing Reward:**
-Every time after a super representative produces a block, it will be reward 32 TRX. The 27 super representatives take turns to produce blocks every 3 seconds. The annual block producing reward is 336,384,000 TRX in total.
+Every time after a super representative produces a block, it will be reward 32 LIND. The 27 super representatives take turns to produce blocks every 3 seconds. The annual block producing reward is 336,384,000 LIND in total.
 
-Every time after a super representative produces a block, the 32 TRX block producing reward will be sent to it's sub-account. The sub-account is a read-only account, it allows a withdraw action from sub-account to super representative account every 24 hours.
+Every time after a super representative produces a block, the 32 LIND block producing reward will be sent to it's sub-account. The sub-account is a read-only account, it allows a withdraw action from sub-account to super representative account every 24 hours.
 
 ## 2.4 Committee
 
 ### 2.4.1 What is Committee
 
-Committee can modify the TRON network parameters, like transaction fees, block producing reward amount, etc. Committee is composed of the current 27 super representatives. Every super representative has the right to start a proposal. The proposal will be passed after it gets more than 19 approves from the super representatives and will become valid in the next maintenance period.
+Committee can modify the LINDA network parameters, like transaction fees, block producing reward amount, etc. Committee is composed of the current 27 super representatives. Every super representative has the right to start a proposal. The proposal will be passed after it gets more than 19 approves from the super representatives and will become valid in the next maintenance period.
 
 ### 2.4.2 Create a Proposal
 
@@ -65,7 +65,7 @@ The network parameters can be modified([min,max]):
 - 5: WITNESS_PAY_PER_BLOCK, [0, 100 000 000 000 000 000] //the block producing reward, currently 32,000,000 SUN
 - 6: WITNESS_STANDBY_ALLOWANCE, [0, 100 000 000 000 000 000] //the votes reward for top 127 super representative candidates, currently 115,200,000,000 SUN
 - 7: CREATE_NEW_ACCOUNT_FEE_IN_SYSTEM_CONTRACT, //the fee to create an account in system, currently 1,000,000 SUN
-- 8: CREATE_NEW_ACCOUNT_BANDWIDTH_RATE, //the consumption of bandwidth or TRX while creating an account, using together with #7
+- 8: CREATE_NEW_ACCOUNT_BANDWIDTH_RATE, //the consumption of bandwidth or LIND while creating an account, using together with #7
 - 9: ALLOW_CREATION_OF_CONTRACTS, //to enable the VM
 - 10: REMOVE_THE_POWER_OF_THE_GR, //to clear the votes of GR
 - 11: ENERGY_FEE, [0,100 000 000 000 000 000] //SUN
@@ -75,7 +75,7 @@ The network parameters can be modified([min,max]):
 - 15: ALLOW_SAME_TOKEN_NAME, //to allow create a token with duplicate name, currently 1, means true
 - 16: ALLOW_DELEGATE_RESOURCE, //to enable the resource delegation
 - 17: TOTAL_ENERGY_LIMIT, //to modify the energy limit
-- 18: ALLOW_TVM_TRANSFER_TRC10, //to allow smart contract to transfer TRC-10 token, currently 0, means false
+- 18: ALLOW_TVM_TRANSFER_LRC10, //to allow smart contract to transfer LRC-10 token, currently 0, means false
 
 Example (Using wallet-cli):
 ```text
@@ -84,7 +84,7 @@ id: the serial number (0 ~ 18)
 value: the parameter value
 ```
 
-Note: In TRON network, 1 TRX = 1,000,000 SUN
+Note: In LINDA network, 1 LIND = 1,000,000 SUN
 
 ### 2.4.3 Vote for a Proposal
 
@@ -113,22 +113,22 @@ id: proposal id
 - Query all the proposals list by pagination (GetPaginatedProposalList)
 - Query a proposal by proposal id (GetProposalById)
 
-For more api detail, please refer to [TRON HTTP API](../api/http.md)
+For more api detail, please refer to [LINDA HTTP API](../api/http.md)
 
 # 3. Account Model
 
 ## 3.1 Introduction
 
-TRON uses account model. An account's identity is address, it needs private key signature to operate an account. An account has many attributes, like TRX balance, tokens balance, bandwidth, etc. TRX and tokens can be transferred from account to account and it costs bandwidth. An account can also issue a smart contract, apply to become a super representative candidate, vote, etc. All TRON's activities are based on account.
+LINDA uses account model. An account's identity is address, it needs private key signature to operate an account. An account has many attributes, like LIND balance, tokens balance, bandwidth, etc. LIND and tokens can be transferred from account to account and it costs bandwidth. An account can also issue a smart contract, apply to become a super representative candidate, vote, etc. All LINDA's activities are based on account.
 
 ## 3.2 How to Create an Account
 
-1.&nbsp;Use a wallet to generate the address and private key. To activate the account, you need to transfer TRX or transfer token to the new created account. 
+1.&nbsp;Use a wallet to generate the address and private key. To activate the account, you need to transfer LIND or transfer token to the new created account. 
 
-2.&nbsp;Use an account already existed in TRON network to create an account
+2.&nbsp;Use an account already existed in LINDA network to create an account
 
 ## 3.3 Key-pair Generation Algorithm
-TRON signature algorithm is ECDSA, curve used is SECP256K1. Private key is a random number, public key is a point in the elliptic curve. The process is: first generate a random number d to be the private key, then calculate P = d * G as the public key, G is the elliptic curve base point.
+LINDA signature algorithm is ECDSA, curve used is SECP256K1. Private key is a random number, public key is a point in the elliptic curve. The process is: first generate a random number d to be the private key, then calculate P = d * G as the public key, G is the elliptic curve base point.
 
 ## 3.4 Address Format
 Use the public key P as the input, by SHA3 get the result H. The length of the public key is 64 bytes, SHA3 uses Keccak256. Use the last 20 bytes of H, and add a byte of 0x41 in front of it, then the address comes out. Do basecheck to address, here is the final address. All addresses start with 'T'.
@@ -139,14 +139,14 @@ Character map:
 ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 ## 3.5 Signature
-[Signature introduction](https://github.com/tronprotocol/documentation/blob/master/English_Documentation/Procedures_of_transaction_signature_generation.md)
+[Signature introduction](https://github.com/lindaprotocol/documentation/blob/master/English_Documentation/Procedures_of_transaction_signature_generation.md)
 
 # 4. Network Node
 ## 4.1 SuperNode
 ### 4.1.1 SuperNode Introduction
-Super Representative(abbr: SR) is the block producer in TRON network, there are 27 SR. They verify the transactions and write the transactions into the blocks, they take turns to produce blocks. The super Representatives' information is public to everyone in TRON network. The best way to browse is using [tronscan](https://tronscan.org/#/sr/representatives).
+Super Representative(abbr: SR) is the block producer in LINDA network, there are 27 SR. They verify the transactions and write the transactions into the blocks, they take turns to produce blocks. The super Representatives' information is public to everyone in LINDA network. The best way to browse is using [lindascan](https://lindascan.org/#/sr/representatives).
 ### 4.1.2 SuperNode Deployment
-[SuperNode Deployment](https://github.com/tronprotocol/java-tron/blob/develop/run.md#running-a-super-representative-node-for-mainnet)
+[SuperNode Deployment](https://github.com/lindaprotocol/java-linda/blob/develop/run.md#running-a-super-representative-node-for-mainnet)
 
 ### 4.1.3 Recommended Hardware Configuration
 
@@ -160,7 +160,7 @@ CPU: > 64 cores RAM: > 64G, Bandwidth: > 500M, Disk: > 20T
 ### 4.2.1 FullNode Introduction
 FullNode has the complete block chain data, can update data in real time. It can broadcast the transactions and provide api service.
 ### 4.2.2 FullNode Deployment
-please refer to [TRON-Deployment](https://github.com/tronprotocol/tron-deployment)
+please refer to [LINDA-Deployment](https://github.com/lindaprotocol/linda-deployment)
 ### 4.2.3 Recommended Hardware Configuration
 Minimum requirement:
 CPU: 16 cores, RAM: 32G, Bandwidth: 100M, Disk: 1T
@@ -171,20 +171,20 @@ CPU: > 64 cores RAM: > 64G, Bandwidth: > 500M, Disk: > 20T
 ### 4.3.1 SolidityNode Introduction
 SolidityNode only synchronizes solidified block data from the fullNode it specifies. It also provides api service.
 ### 4.3.2 SolidityNode Deployment
-Please refer to [TRON-Deployment](https://github.com/tronprotocol/tron-deployment)
+Please refer to [LINDA-Deployment](https://github.com/lindaprotocol/linda-deployment)
 ### 4.3.3 Recommended Hardware Configuration
 Minimum requirement:
 CPU: 16 cores, RAM: 32G, Bandwidth: 100M, Disk: 1T
 Recommended requirement:
 CPU: > 64 cores RAM: > 64G, Bandwidth: > 500M, Disk: > 20T
 
-## 4.4 TRON Network Instructure
-TRON network uses Peer-to-Peer(P2P) network infrastructure, all nodes status equal. There are three types of node: SuperNode, FullNode, SolidityNode. SuperNode produces blocks, FullNode synchronizes blocks and broadcasts transactions, SolidityNode synchronizes solidified blocks. Any device that deploy the java-tron code can join TRON network as a node.
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/network.png)
+## 4.4 LINDA Network Instructure
+LINDA network uses Peer-to-Peer(P2P) network infrastructure, all nodes status equal. There are three types of node: SuperNode, FullNode, SolidityNode. SuperNode produces blocks, FullNode synchronizes blocks and broadcasts transactions, SolidityNode synchronizes solidified blocks. Any device that deploy the java-linda code can join LINDA network as a node.
+![image](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/network.png)
 
 ## 4.5 FullNode and SolidityNode Fast Deployment
 Download fast deployment script, run the script according to different types of node.
-please refer to [Node Fast Deployment](https://github.com/tronprotocol/tron-deployment#deployment-of-soliditynode-on-the-one-host)
+please refer to [Node Fast Deployment](https://github.com/lindaprotocol/linda-deployment#deployment-of-soliditynode-on-the-one-host)
 
 ## 4.6 MainNet, TestNet, PrivateNet
 
@@ -192,11 +192,11 @@ MainNet, TestNet, PrivateNet all use the same code, only the node start configur
 
 ### 4.6.1 MainNet
 
-[MainNet configuration](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf)
+[MainNet configuration](https://github.com/lindaprotocol/linda-deployment/blob/master/main_net_config.conf)
 
 ### 4.6.2 TestNet
 
-[TestNet configuration](https://github.com/tronprotocol/tron-deployment/blob/master/test_net_config.conf)
+[TestNet configuration](https://github.com/lindaprotocol/linda-deployment/blob/master/test_net_config.conf)
 
 ### 4.6.3 PrivateNet
 
@@ -214,7 +214,7 @@ MainNet, TestNet, PrivateNet all use the same code, only the node start configur
  1.&nbsp;download private_net_config.conf
 
 ```text
-wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf
+wget https://raw.githubusercontent.com/lindaprotocol/linda-deployment/master/private_net_config.conf
 ```
  2.&nbsp;add your private key in localwitness
  3.&nbsp;set genesis.block.witnesses as the private key's corresponding address
@@ -238,16 +238,16 @@ command line parameters introduction:
  The parameters in configuration file that need to modify:
  localwitness:
 
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/localwitness.jpg)
+ ![image](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/localwitness.jpg)
  witnesses:
 
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/witness.png)
+ ![image](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/witness.png)
  version:
 
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/p2p_version.png)
+ ![image](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/p2p_version.png)
  enable:
 
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/discovery_enable.png)
+ ![image](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/discovery_enable.png)
 
 
 **4.6.3.2.2  Step 2: FullNode Deployment**
@@ -255,7 +255,7 @@ command line parameters introduction:
  1.&nbsp;Download private_net_config.conf
 
 ```shell
-wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf
+wget https://raw.githubusercontent.com/lindaprotocol/linda-deployment/master/private_net_config.conf
 ```
 
  2.&nbsp;set seed.node ip.list with SR's ip and port
@@ -285,35 +285,35 @@ wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/priva
  The parameters in configuration file that need to modify:
  ip.list:
 
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/ip_list.png)
+ ![image](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/ip_list.png)
  p2p.version:
 
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/p2p_version.png)
+ ![image](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/p2p_version.png)
  genesis.block:
 
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/genesis_block.png)
+ ![image](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/genesis_block.png)
  needSyncCheck:
 
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/need_sync_check.png)
+ ![image](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/need_sync_check.png)
  node.discovery.enable:
 
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/discovery_enable.png)
+ ![image](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/discovery_enable.png)
 
 ## 4.7 DB Engine
 ### 4.7.1 Rocksdb
 **4.7.1.1 Configuration**
 
  Use rocksdb as the data storage engine, need to set db.engine to "ROCKSDB"
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/db_engine.png)
+ ![image](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/db_engine.png)
  Note: rocksdb only support db.version=2, do not support db.version=1
 
  The optimization parameters rocksdb support:
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/rocksdb_tuning_parameters.png)
+ ![image](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/rocksdb_tuning_parameters.png)
 
 **4.7.1.2 Use rocksdb's data backup function**
 
  Choose rocksdb to be the data storage engine, you can use it's data backup function while running
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/db_backup.png)
+ ![image](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/db_backup.png)
 
  Note: FullNode can use data backup function. In order not to affect SuperNode's block producing performance, SuperNode does not support backup service, but SuperNode's backup service node can use this function.
 
@@ -355,20 +355,20 @@ Example:
 **4.7.1.4 rocksdb vs leveldb**
 
 You can refer to:
-[ROCKSDB vs LEVELDB](https://github.com/tronprotocol/documentation/blob/master/TRX/Rocksdb_vs_Leveldb.md)
+[ROCKSDB vs LEVELDB](https://github.com/lindaprotocol/documentation/blob/master/LIND/Rocksdb_vs_Leveldb.md)
 
 # 5. Smart Contract
-## 5.1 TRON Smart Contract Introduction
+## 5.1 LINDA Smart Contract Introduction
 
 Smart contract is a computerized transaction protocol that automatically implements its terms. Smart contract is the same as common contract, they all define the terms and rules related to the participants. Once the contract is started, it can run in the way it is designed.
 
-TRON smart contract support Solidity language in (Ethereum). Currently recommend Solidity language version is 0.4.24 ~ 0.4.25. Write a smart contract, then build the smart contract and deploy it to TRON network. When the smart contract is triggered, the corresponding function will be executed automatically.
+LINDA smart contract support Solidity language in (Ethereum). Currently recommend Solidity language version is 0.4.24 ~ 0.4.25. Write a smart contract, then build the smart contract and deploy it to LINDA network. When the smart contract is triggered, the corresponding function will be executed automatically.
 
-## 5.2 TRON Smart Contract Features
-TRON virtual machine is based on Ethereum solidity language, it also has TRON's own features.
+## 5.2 LINDA Smart Contract Features
+LINDA virtual machine is based on Ethereum solidity language, it also has LINDA's own features.
 
 ### 5.2.1 Smart Contract
-TRON VM is compatible with Ethereum's smart contract, using protobuf to define the content of the contract:
+LINDA VM is compatible with Ethereum's smart contract, using protobuf to define the content of the contract:
 ```
 message SmartContract {
   message ABI {
@@ -422,7 +422,7 @@ contract_address: smart contract address
 abi: the api information of the all the function of the smart contract
 bytecode: smart contract byte code
 
-call_value: TRX transferred into smart contract while call the contract
+call_value: LIND transferred into smart contract while call the contract
 consume_user_resource_percent: resource consumption percentage set by the developer
 
 name: smart contract name
@@ -444,7 +444,7 @@ Note: If you use create command inside a contract (CREATE instruction), even use
 
 2.&nbsp;message calls
 
-Message calls can call the functions of other contracts, also can transfer TRX to the accounts of contract and none-contract. Like the common TRON triggercontract, Message calls have initiator, recipient, data, transfer amount, fees and return attributes. Every message call can generate a new one recursively. Contract can define the distribution of the remaining energy in the internal message call. If it comes with OutOfEnergyException in the internal message call, it will return false, but not error. In the meanwhile, only the gas sent with the internal message call will be consumed, if energy is not specified in call.value(energy), all the remaining energy will be used.
+Message calls can call the functions of other contracts, also can transfer LIND to the accounts of contract and none-contract. Like the common LINDA triggercontract, Message calls have initiator, recipient, data, transfer amount, fees and return attributes. Every message call can generate a new one recursively. Contract can define the distribution of the remaining energy in the internal message call. If it comes with OutOfEnergyException in the internal message call, it will return false, but not error. In the meanwhile, only the gas sent with the internal message call will be consumed, if energy is not specified in call.value(energy), all the remaining energy will be used.
 
 3.&nbsp;delegate call/call code/library
 
@@ -452,47 +452,47 @@ There is a special type of message call, delegate call. The difference with comm
 
 4.&nbsp;CREATE command
 
-This command will create a new contract with a new address. The only difference with Ethereum is the newly generated TRON address used the smart contract creation transaction id and the hash of nonce called combined. Different from Ethereum, the definition of nonce is the comtract sequence number of the creation of the root call. Even there are many CREATE commands calls, contract number in sequence from 1. Refer to the source code for more detail.
+This command will create a new contract with a new address. The only difference with Ethereum is the newly generated LINDA address used the smart contract creation transaction id and the hash of nonce called combined. Different from Ethereum, the definition of nonce is the comtract sequence number of the creation of the root call. Even there are many CREATE commands calls, contract number in sequence from 1. Refer to the source code for more detail.
 Note: Different from creating a contract by grpc's deploycontract, contract created by CREATE command does not store contract abi.
 
-5.&nbsp;built-in function and built-in function attribute (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
+5.&nbsp;built-in function and built-in function attribute (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
 
-1)TVM is compatible with solidity language's transfer format, including:
+1)LVM is compatible with solidity language's transfer format, including:
 - accompany with constructor to call transfer
 - accompany with internal function to call transfer
 - use transfer/send/call/callcode/delegatecall to call transfer
 
-Note: TRON's smart contract is different from TRON's system contract, if the transfer to address does not exist it can not create an account by smart contract transfer.
+Note: LINDA's smart contract is different from LINDA's system contract, if the transfer to address does not exist it can not create an account by smart contract transfer.
 
-2)Different accounts vote for SuperNode (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
-3)SuperNode gets all the reward (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
-4)SuperNode approves or disapproves the proposal (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
-5)SuperNode proposes a proposal (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
-6)SuperNode deletes  a proposal (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
-7)TRON byte address converts to solidity address (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
-8)TRON string address converts to solidity address (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
-9)Send token to target address (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
-10)Query token amount of target address (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
+2)Different accounts vote for SuperNode (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
+3)SuperNode gets all the reward (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
+4)SuperNode approves or disapproves the proposal (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
+5)SuperNode proposes a proposal (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
+6)SuperNode deletes  a proposal (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
+7)LINDA byte address converts to solidity address (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
+8)LINDA string address converts to solidity address (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
+9)Send token to target address (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
+10)Query token amount of target address (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
 11)Compatible with all the built-in functions of Ethereum
 
-Note: Ethereum's RIPEMD160 function is not recommended, because the return of TRON is a hash result based on TRON's sha256, not an accurate Ethereum RIPEMD160.
+Note: Ethereum's RIPEMD160 function is not recommended, because the return of LINDA is a hash result based on LINDA's sha256, not an accurate Ethereum RIPEMD160.
 
 ### 5.2.3 Contract Address Using in Solidity Language
 
-Ethereum VM address is 20 bytes, but TRON's VM address is 21 bytes.
+Ethereum VM address is 20 bytes, but LINDA's VM address is 21 bytes.
 
 1.&nbsp;address conversion
 
-Need to convert TRON's address while using in solidity (recommended):
+Need to convert LINDA's address while using in solidity (recommended):
 ```text
 /**
-     *  @dev    convert uint256 (HexString add 0x at beginning) TRON address to solidity address type
-     *  @param  tronAddress uint256 tronAddress, begin with 0x, followed by HexString
+     *  @dev    convert uint256 (HexString add 0x at beginning) LINDA address to solidity address type
+     *  @param  lindaAddress uint256 lindaAddress, begin with 0x, followed by HexString
      *  @return Solidity address type
 */
 
-function convertFromTronInt(uint256 tronAddress) public view returns(address){
-        return address(tronAddress);
+function convertFromLindaInt(uint256 lindaAddress) public view returns(address){
+        return address(lindaAddress);
 }
 ```
 This is similar with the grammar of the conversion from other types converted to address type in Ethereum.
@@ -501,9 +501,9 @@ This is similar with the grammar of the conversion from other types converted to
 
 Solidity has address constant judgement, if using 21 bytes address the compiler will throw out an error, so you should use 20 bytes address, like:
 ```text
-function compareAddress(address tronAddress) public view returns (uint256){
-        // if (tronAddress == 0x41ca35b7d915458ef540ade6068dfe2f44e8fa733c) { // compile error
-        if (tronAddress == 0xca35b7d915458ef540ade6068dfe2f44e8fa733c) { // right
+function compareAddress(address lindaAddress) public view returns (uint256){
+        // if (lindaAddress == 0x41ca35b7d915458ef540ade6068dfe2f44e8fa733c) { // compile error
+        if (lindaAddress == 0xca35b7d915458ef540ade6068dfe2f44e8fa733c) { // right
             return 1;
         } else {
             return 0;
@@ -522,14 +522,14 @@ function assignAddress() public view {
         // do something
 }
 ```
-If you want to use TRON address of string type (TLLM21wteSPs4hKjbxgmH1L6poyMjeTbHm) please refer to (2-4-7,2-4-8).
+If you want to use LINDA address of string type (TLLM21wteSPs4hKjbxgmH1L6poyMjeTbHm) please refer to (2-4-7,2-4-8).
 
 ### 5.2.4 The Special Constants Differ from Ethereum
 
 **Currency**
 
-Like solidity supports ETH, TRON VM supports trx and sun, 1 trx = 1000000 sun, case sensitive, only support lower case. tron-studio supports trx and sun, remix does not support trx and sun.
-We recommend to use tron-studio instead of remix to build TRON smart contract.
+Like solidity supports ETH, LINDA VM supports lind and sun, 1 lind = 1000000 sun, case sensitive, only support lower case. linda-studio supports lind and sun, remix does not support lind and sun.
+We recommend to use linda-studio instead of remix to build LINDA smart contract.
 
 **Block**
 
@@ -554,7 +554,7 @@ Each command of smart contract consume system resource while running, we use 'En
 
 ### 5.3.1 How to Get Energy
 
-Stake TRX to get energy.
+Stake LIND to get energy.
 
 Example (Using wallet-cli):
 
@@ -562,17 +562,17 @@ Example (Using wallet-cli):
 freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 ```
 
-Stake TRX to get energy, energy obtained = user's TRX staked amount / total amount of staked TRX in TRON * 50,000,000,000.
+Stake LIND to get energy, energy obtained = user's LIND staked amount / total amount of staked LIND in LINDA * 50,000,000,000.
 
 Example:
 
 ```text
-If there are only two users, A stakes 2 TRX, B stakes 2 TRX
+If there are only two users, A stakes 2 LIND, B stakes 2 LIND
 the energy they can get is:
 A: 25,000,000,000 and energy_limit is 25,000,000,000
 B: 25,000,000,000 and energy_limit is 25,000,000,000
 
-when C stakes 1 TRX:
+when C stakes 1 LIND:
 the energy they can get is:
 A: 20,000,000,000 and energy_limit is 20,000,000,000
 B: 20,000,000,000 and energy_limit is 20,000,000,000
@@ -587,7 +587,7 @@ Example:
 
 ```text
 at one moment, A has used 72,000,000 Energy
-if there is no continuous consumption or TRX stake
+if there is no continuous consumption or LIND stake
 one hour later, the energy consumption amount will be 72,000,000 - (72,000,000 * (60*60/60*60*24)) Energy = 69,000,000 Energy
 24 hours later, the energy consumption amount will be 0 Energy
 ```
@@ -597,7 +597,7 @@ one hour later, the energy consumption amount will be 72,000,000 - (72,000,000 *
 
 *Within the scope of this section, the smart contract developer will be called "developer", the users or other contracts which call the smart contract will be called "caller"*
 
-*The amount of energy consumed while call the contract can be converted to TRX or SUN, so within the scope of this section, when refer to the consumption of the resource, there's no strict difference between Energy, TRX and SUN, unless they are used as a number unit.*
+*The amount of energy consumed while call the contract can be converted to LIND or SUN, so within the scope of this section, when refer to the consumption of the resource, there's no strict difference between Energy, LIND and SUN, unless they are used as a number unit.*
 
 ***
 
@@ -611,7 +611,7 @@ Set a rational fee limit can guarantee the smart contract execution. And if the 
 
 4.&nbsp;For a vicious contract, if it encounters execution timeout or bug crash, all it's energy will be consumed.
 
-5.&nbsp;Developer may undertake a proportion of energy consumption(like 90%). But if the developer's energy is not enough for consumption, the rest of the energy consumption will be undertaken by caller completely. Within the fee limit range, if the caller does not have enough energy, then it will burn equivalent amount of TRX [2].
+5.&nbsp;Developer may undertake a proportion of energy consumption(like 90%). But if the developer's energy is not enough for consumption, the rest of the energy consumption will be undertaken by caller completely. Within the fee limit range, if the caller does not have enough energy, then it will burn equivalent amount of LIND [2].
 
 To encourage caller to trigger the contract, usually developer has enough energy.
 
@@ -621,17 +621,17 @@ How to estimate the fee limit:
 
 Assume contract C's last execution consumes 18000 Energy, so estimate the energy consumption limit to be 20000 Energy[3]
 
-According to the staked TRX amount and energy conversion, assume 1 TRX = 400 energy.
+According to the staked LIND amount and energy conversion, assume 1 LIND = 400 energy.
 
-When to burn TRX, 1 TRX = 10000 energy[4]
+When to burn LIND, 1 LIND = 10000 energy[4]
 
 Assume developer undertake 90% energy consumption, and developer has enough energy.
 
 Then the way to estimate the fee limit is:
 ```
-1). A = 20000 energy * (1 TRX / 400 energy) = 50 TRX = 50,000,000 SUN,
+1). A = 20000 energy * (1 LIND / 400 energy) = 50 LIND = 50,000,000 SUN,
 
-2). B = 20000 energy * (1 TRX / 10000 energy) = 2 TRX = 2,000,000 SUN,
+2). B = 20000 energy * (1 LIND / 10000 energy) = 2 LIND = 2,000,000 SUN,
 
 3). Take the greater number of A and B, which is 50,000,000 SUN,
 
@@ -643,9 +643,9 @@ So, the caller is suggested to set fee limit to 50,000,000 SUN * 10% = 5,000,000
 Note:
 ```
 [1] The energy consumption of each execution may fluctuate slightly due to the situation of all the nodes.
-[2] TRON may change this policy.
+[2] LINDA may change this policy.
 [3] The estimated energy consumption limit for the next execution should be greater than the last one.
-[4] 1 TRX = 10^4 energy is a fixed number for burning TRX to get energy, TRON may change it in future.
+[4] 1 LIND = 10^4 energy is a fixed number for burning LIND to get energy, LINDA may change it in future.
 ```
 
 ### 5.3.3 Energy Calculation (Developer Must Read)
@@ -662,17 +662,17 @@ Note:
 
 **Example 1**
 
-A has an account with a balance of 90 TRX(90000000 SUN) and 10 TRX staked for 100000 energy.
+A has an account with a balance of 90 LIND(90000000 SUN) and 10 LIND staked for 100000 energy.
 
 Smart contract C set the caller energy consumption proportion to 100% which means the caller will pay for the energy consumption completely.
 
-A triggers C, the fee limit set is 30000000 (unit SUN, 30 TRX)
+A triggers C, the fee limit set is 30000000 (unit SUN, 30 LIND)
 
 So during this trigger the energy A can use is from two parts:
-- A's energy by staking TRX;
-- The energy converted from the amount of TRX burning according to a fixed rate;
+- A's energy by staking LIND;
+- The energy converted from the amount of LIND burning according to a fixed rate;
 
-If fee limit is greater than the energy obtained from staking TRX, then it will burn TRX to get energy. The fixed rate is: 1 Energy = 100 SUN, fee limit still has (30 - 10) TRX = 20 TRX available, so the energy it can keep consuming is 20 TRX / 100 SUN = 200000 energy.
+If fee limit is greater than the energy obtained from staking LIND, then it will burn LIND to get energy. The fixed rate is: 1 Energy = 100 SUN, fee limit still has (30 - 10) LIND = 20 LIND available, so the energy it can keep consuming is 20 LIND / 100 SUN = 200000 energy.
 
 Finally, in this call, the energy A can use is (100000 + 200000) = 300000 energy.
 
@@ -680,23 +680,23 @@ If contract executes successfully without any exception, the energy needed for t
 
 If Assert-style error come out, it will consume the whole number of energy set for fee limit.
 
-Assert-style error introduction, refer to [https://developers.tron.network/docs/vm-exception](https://developers.tron.network/docs/vm-exception)
+Assert-style error introduction, refer to [https://developers.linda.network/docs/vm-exception](https://developers.linda.network/docs/vm-exception)
 
 **Example 2**
 
-A has an account with a balance of 90 TRX(90000000 SUN) and 10 TRX staked for 100000 energy.
+A has an account with a balance of 90 LIND(90000000 SUN) and 10 LIND staked for 100000 energy.
 
 Smart contract C set the caller energy consumption proportion to 40% which means the developer will pay for the rest 60% energy consumption.
 
-Developer D stakes 50 TRX to get 500000 energy.
+Developer D stakes 50 LIND to get 500000 energy.
 
-A triggers C, the fee limit set is 200000000 (unit SUN, 200 TRX).
+A triggers C, the fee limit set is 200000000 (unit SUN, 200 LIND).
 
 So during this trigger the energy A can use is from three parts:
-- A's energy by staking TRX -- X;
-- The energy converted from the amount of TRX bruning according to a fixed rate -- Y;
-If fee limit is greater than the energy obtained from staking TRX, then it will burn TRX to get energy. The fixed rate is: 1 Energy = 100 SUN, fee limit still has (200 - 10) TRX = 190 TRX available, but A only has 90 TRX left, so the energy it can keep consuming is 90 TRX / 100 SUN = 900000 energy;
-- D's energy by staking TRX -- Z;
+- A's energy by staking LIND -- X;
+- The energy converted from the amount of LIND bruning according to a fixed rate -- Y;
+If fee limit is greater than the energy obtained from staking LIND, then it will burn LIND to get energy. The fixed rate is: 1 Energy = 100 SUN, fee limit still has (200 - 10) LIND = 190 LIND available, but A only has 90 LIND left, so the energy it can keep consuming is 90 LIND / 100 SUN = 900000 energy;
+- D's energy by staking LIND -- Z;
 
 There are two situation:
 if (X + Y) / 40% >= Z / 60%, the energy A can use is X + Y + Z
@@ -705,7 +705,7 @@ if (X + Y) / 40% < Z / 60%, the energy A can use is (X + Y) / 40%
 If contract executes successfully without any exception, the energy needed for the execution will be deducted. Generally, it is far more less than the amount of energy this trigger can use.
 
 
-Assert-style error introduction, refer to [https://developers.tron.network/docs/vm-exception](https://developers.tron.network/docs/vm-exception)
+Assert-style error introduction, refer to [https://developers.linda.network/docs/vm-exception](https://developers.linda.network/docs/vm-exception)
 
 Note: when developer create a contract, do not set consume_user_resource_percent to 0, which means developer will undertake all the energy consumption. If Assert-style error comes out, it will consume all energy from the developer itself.
 
@@ -713,22 +713,22 @@ To avoid unnecessary lost, 10 - 100 is recommended for consume_user_resource_per
 
 ## 5.4 Smart Contract Development Tool
 
-### 5.4.1 TronBox
+### 5.4.1 LindaBox
 
 Support the build, deploy, transplant, etc. for solidity language written smart contract.
-[https://developers.tron.network/docs/tron-box-user-guide](https://developers.tron.network/docs/tron-box-user-guide)
+[https://developers.linda.network/docs/linda-box-user-guide](https://developers.linda.network/docs/linda-box-user-guide)
 
-### 5.4.2 TronWeb
+### 5.4.2 LindaWeb
 Provide http api service for the usage of smart contract.
-[https://developers.tron.network/docs/tron-web-intro](https://developers.tron.network/docs/tron-web-intro)
+[https://developers.linda.network/docs/linda-web-intro](https://developers.linda.network/docs/linda-web-intro)
 
-### 5.4.3 TronGrid
+### 5.4.3 LindaGrid
 Provide smart contract event query service.
-[https://developers.tron.network/docs/tron-grid-intro](https://developers.tron.network/docs/tron-grid-intro)
+[https://developers.linda.network/docs/linda-grid-intro](https://developers.linda.network/docs/linda-grid-intro)
 
 ## 5.5 Using Command Lines Tool to Develop Smart Contract
 
-First you can use TronStudio to write, build and debug the smart contract. After you finish the development of the contract, you can copy it to [SimpleWebCompiler](https://github.com/tronprotocol/tron-demo/tree/master/SmartContractTools/SimpleWebCompiler) to compile to get ABI and ByteCode. We provide a simple data read/write smart contract code example to demonstrate:
+First you can use LindaStudio to write, build and debug the smart contract. After you finish the development of the contract, you can copy it to [SimpleWebCompiler](https://github.com/lindaprotocol/linda-demo/tree/master/SmartContractTools/SimpleWebCompiler) to compile to get ABI and ByteCode. We provide a simple data read/write smart contract code example to demonstrate:
 
 ```text
 pragma solidity ^0.4.0;
@@ -748,7 +748,7 @@ contract DataStore {
 
 **Start a Private Net**
 
-Make sure the fullnode code has been deployed locally, you can check if 'Produce block successfully' log appears in FullNode/logs/tron.log
+Make sure the fullnode code has been deployed locally, you can check if 'Produce block successfully' log appears in FullNode/logs/linda.log
 
 **Develop a Smart Contract**
 
@@ -757,7 +757,7 @@ Copy the code example above to remix to debug.
 **Compile in SimpleWebCompiler for ABI and ByteCode**
 
 Copy the code example above to SimpleWebCompiler to get ABI and ByteCode.
-Because TRON's compiler is a little different from Ethereum, so you can not get ABI and ByteCode by using Remix. But it will soon be supported.
+Because LINDA's compiler is a little different from Ethereum, so you can not get ABI and ByteCode by using Remix. But it will soon be supported.
 
 **Using wallet-cli to Deploy**
 
@@ -765,7 +765,7 @@ Download wallet-cli and build
 
 ```shell
 # download source code
-git clone https://github.com/tronprotocol/wallet-cli
+git clone https://github.com/lindaprotocol/wallet-cli
 cd  wallet-cli
 # build
 ./gradlew build
@@ -804,9 +804,9 @@ ABI: ABI from SimpleWebCompiler
 bytecode: ByteCode from SimpleWebCompiler
 constructor: When deploy contract, this will be called. If is needed, write as constructor(uint256,string). If not, just write #
 params: The parameters of the constructor, use ',' to split, like  1, "test", if no constructor, just write #
-fee_limit: The TRX consumption limit for the deployment, unit is SUN(1 SUN = 10^-6 TRX)
+fee_limit: The LIND consumption limit for the deployment, unit is SUN(1 SUN = 10^-6 LIND)
 consume_user_resource_percent: Consume user's resource percentage. It should be an integer between [0, 100]. if 0, means it does not consume user's resource until the developer's resource has been used up
-value: The amount of TRX transfer to the contract when deploy
+value: The amount of LIND transfer to the contract when deploy
 library: If the contract contains library, you need to specify the library address
 
 # example
@@ -835,8 +835,8 @@ contract_address: Contract address, like TTWq4vMEYB2yibAbPV7gQ4mrqTyX92fha6
 method: The method called, like set(uint256,uint256) or fool(), use ',' to split the parameters. Do not leave space between parameters
 args: The parameters passed to the method called, use ',' to split the parameters. Do not leave space between parameters
 is_hex: whether the input parameters is Hex, false or true
-fee_limit: The TRX consumption limit for the trigger, unit is SUN(1 SUN = 10^-6 TRX)
-value: The amount of TRX transfer to the contract when trigger
+fee_limit: The LIND consumption limit for the trigger, unit is SUN(1 SUN = 10^-6 LIND)
+value: The amount of LIND transfer to the contract when trigger
 
 # trigger example
 ## set mapping 1->1
@@ -860,20 +860,20 @@ When you deploy, you need to use browser/oneLibrary.sol.Math3:TSEJ29gnBkxQZR3oDd
 # 6. Built-in Contracts and API
 ## 6.1 Built-in Contracts
 Please refer to:
-[https://github.com/tronprotocol/documentation/blob/master/English_Documentation/TRON_Protocol/TX_ContractTypes_Update.MD](https://github.com/tronprotocol/documentation/blob/master/English_Documentation/TRON_Protocol/TX_ContractTypes_Update.MD)
+[https://github.com/lindaprotocol/documentation/blob/master/English_Documentation/LINDA_Protocol/TX_ContractTypes_Update.MD](https://github.com/lindaprotocol/documentation/blob/master/English_Documentation/LINDA_Protocol/TX_ContractTypes_Update.MD)
 
 ## 6.2 GRPC API Introduction
 Please refer to:
-[https://github.com/tronprotocol/documentation/blob/master/English_Documentation/TRON_Protocol/TRON_Wallet_RPC-API.md](https://github.com/tronprotocol/documentation/blob/master/English_Documentation/TRON_Protocol/TRON_Wallet_RPC-API.md)
+[https://github.com/lindaprotocol/documentation/blob/master/English_Documentation/LINDA_Protocol/LINDA_Wallet_RPC-API.md](https://github.com/lindaprotocol/documentation/blob/master/English_Documentation/LINDA_Protocol/LINDA_Wallet_RPC-API.md)
 
 ## 6.3 Http API Introduction
 Please refer to:
-[https://github.com/tronprotocol/documentation/blob/master/TRX/Tron-http.md](https://github.com/tronprotocol/documentation/blob/master/TRX/Tron-http.md)
+[https://github.com/lindaprotocol/documentation/blob/master/LIND/Linda-http.md](https://github.com/lindaprotocol/documentation/blob/master/LIND/Linda-http.md)
 
-# 7. TRC-10 Token Introduction
-TRON network support two types of token, one is TRC-20 token issued by smart contract, the other one is TRC-10 token issued by system contract.
+# 7. LRC-10 Token Introduction
+LINDA network support two types of token, one is LRC-20 token issued by smart contract, the other one is LRC-10 token issued by system contract.
 
-## 7.1 How to Issue a TRC-10 Token
+## 7.1 How to Issue a LRC-10 Token
 HTTP API:
 
 ```text
@@ -884,7 +884,7 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/createassetissue -d '{
 "name":"0x6173736574497373756531353330383934333132313538",
 "abbr": "0x6162627231353330383934333132313538",
 "total_supply" :4321,
-"trx_num":1,
+"lind_num":1,
 "num":1,
 "start_time" : 1530894315158,
 "end_time":1533894312158,
@@ -898,8 +898,8 @@ Parameter owner_address: Owner address, default hexString
 Parameter name: Token name, default hexString
 Parameter abbr: Token name abbreviation, default hexString
 Parameter total_supply: Token total supply
-Parameter trx_num: Define the price by the ratio of trx_num/num,
-Parameter num: Define the price by the ratio of trx_num/num
+Parameter lind_num: Define the price by the ratio of lind_num/num,
+Parameter num: Define the price by the ratio of lind_num/num
 Parameter start_time: ICO start time
 Parameter end_time: ICO end time
 Parameter description: Token description, default hexString
@@ -909,10 +909,10 @@ Parameter public_free_asset_net_limit: Token public free asset net limit
 Parameter frozen_supply: Token staked supply
 Parameter permission_id: Optional, for multi-signature use
 Return: Transaction object
-Note: The unit of 'trx_num' is SUN
+Note: The unit of 'lind_num' is SUN
 ```
 
-## 7.2 Participate TRC-10 Token
+## 7.2 Participate LRC-10 Token
 HTTP API:
 
 ```text
@@ -933,7 +933,7 @@ Return: Transaction object
 Note: The unit of 'amount' is the smallest unit of the token
 ```
 
-## 7.3 TRC-10 Token Transfer
+## 7.3 LRC-10 Token Transfer
 HTTP API:
 
 ```text
@@ -952,9 +952,9 @@ Note: The unit of 'amount' is the smallest unit of the token
 # 8. Resource Model
 ## 8.1 Resource Model Introduction
 
-TRON network has 4 types of resources: Bandwidth, CPU, Storage and RAM. Benefit by TRON's exclusive RAM model, TRON's RAM resource is almost infinite.
+LINDA network has 4 types of resources: Bandwidth, CPU, Storage and RAM. Benefit by LINDA's exclusive RAM model, LINDA's RAM resource is almost infinite.
 
-TRON network imports two resource conceptions: Bandwidth points and Energy. Bandwidth Point represents Bandwidth, Energy represents CPU and Storage.
+LINDA network imports two resource conceptions: Bandwidth points and Energy. Bandwidth Point represents Bandwidth, Energy represents CPU and Storage.
 
 Note:
 - Ordinary transaction only consumes Bandwidth points
@@ -966,43 +966,43 @@ The transaction information is stored and transmitted in the form of byte array,
 
 Such as if the number of bytes of a transaction is 200, so this transaction consumes 200 Bandwidth Points.
 
-Note: Due to the change of the total amount of the staked TRX in the network and the self-staked TRX amount, the Bandwidth Points an account possesses is not fixed.
+Note: Due to the change of the total amount of the staked LIND in the network and the self-staked LIND amount, the Bandwidth Points an account possesses is not fixed.
 
 ## 8.2.1 How to Get Bandwidth Points
 
-1.&nbsp;By staking TRX to get Bandwidth Points, Bandwidth Points = the amount of TRX self-staked / the total amount of TRX staked for Bandwidth Points in the network * 43,200,000,000
+1.&nbsp;By staking LIND to get Bandwidth Points, Bandwidth Points = the amount of LIND self-staked / the total amount of LIND staked for Bandwidth Points in the network * 43,200,000,000
 
-2.&nbsp;Every account has a fixed amount of free Bandwidth Points every day, it is defined in #61 network parameter, user can check the value on tronscan(https://tronscan.org/#/sr/committee).
+2.&nbsp;Every account has a fixed amount of free Bandwidth Points every day, it is defined in #61 network parameter, user can check the value on lindascan(https://lindascan.org/#/sr/committee).
 
 ### 8.2.2 Bandwidth Points Consumption
 
 Transactions other than queries consume Bandwidth points.
 
-A special scenario: When transferring TRX or TRC-10 tokens to an account that does not yet exist, this procedure creates the account prior to the transfer.
+A special scenario: When transferring LIND or LRC-10 tokens to an account that does not yet exist, this procedure creates the account prior to the transfer.
 
-To create an account, a flat charge of 1 TRX is required. If there are insufficient Bandwidth points obtained by TRX staking, an additional 0.1 TRX will be spent.
+To create an account, a flat charge of 1 LIND is required. If there are insufficient Bandwidth points obtained by LIND staking, an additional 0.1 LIND will be spent.
 
-Bandwidth points consumption sequence for TRC-10 transfer:
+Bandwidth points consumption sequence for LRC-10 transfer:
 
 1. Free Bandwidth points.
 
-2. TRC-10 issuer's Bandwidth points(if possible.)
+2. LRC-10 issuer's Bandwidth points(if possible.)
 
-3. Bandwidth points TRX staking.
+3. Bandwidth points LIND staking.
 
-4. Bandwidth points obtained by TRX burning, the rate = the number of bytes of the transaction * 1,000 SUN;
+4. Bandwidth points obtained by LIND burning, the rate = the number of bytes of the transaction * 1,000 SUN;
 
 Bandwidth points consumption sequence for other transactions:
 
 1. Free Bandwidth points.
 
-2. Bandwidth points TRX staking.
+2. Bandwidth points LIND staking.
 
-3. Bandwidth points obtained by TRX burning, the rate = the number of bytes of the transaction * 1,000 SUN;
+3. Bandwidth points obtained by LIND burning, the rate = the number of bytes of the transaction * 1,000 SUN;
 
 ### 8.2.3 Bandwidth Points Recovery
 Every 24 hours, the amount of the usage of Bandwidth points of an account will be reset to 0. For the specific formula:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/bandwidthRestoreEqn.gif)
+![image](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/bandwidthRestoreEqn.gif)
 
 Every 24 hours, the amount of the usage of Bandwidth points of an account will be reset to 0.
 
@@ -1010,13 +1010,13 @@ Every 24 hours, the amount of the usage of Bandwidth points of an account will b
 [5.3 Energy Introduction](#53-energy-introduction)
 
 ## 8.4 Resource Delegation
-In TRON network, an account can stake TRX for Bandwidth or Energy for other accounts. The primary account owns the staked TRX and TRON power, the recipient account owns the Bandwidth or Energy. Like ordinary staking, resource delegation staking is also at least 3 days.
+In LINDA network, an account can stake LIND for Bandwidth or Energy for other accounts. The primary account owns the staked LIND and LINDA power, the recipient account owns the Bandwidth or Energy. Like ordinary staking, resource delegation staking is also at least 3 days.
 
 + Example(Using wallet-cli)
 ```text
 freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]
 
-frozen_balance: the amount of TRX to stake (unit SUN)
+frozen_balance: the amount of LIND to stake (unit SUN)
 ResourceCode: 0 for Bandwidth, 1 for Energy
 receiverAddress: recipient account address
 ```
@@ -1025,41 +1025,41 @@ receiverAddress: recipient account address
 
 |Type|Fee|
 | :------|:------:|
-|Create a SR(Super Representative)|9999 TRX|
-|Issue a TRC-10 token|1024 TRX|
-|Create an account|1 TRX|
-|Create an exchange|1024 TRX|
+|Create a SR(Super Representative)|9999 LIND|
+|Issue a LRC-10 token|1024 LIND|
+|Create an account|1 LIND|
+|Create an exchange|1024 LIND|
 
 # 9. DEX Introduction
 
-TRON network supports decentralized exchange(DEX) using Bancor protocol. DEX is composed of many exchange pairs.
+LINDA network supports decentralized exchange(DEX) using Bancor protocol. DEX is composed of many exchange pairs.
 
 ## 9.1 What is an Exchange Pair
-The term of 'Exchange Pair' describes a trade between one token with another, like A/B, A/TRX.
+The term of 'Exchange Pair' describes a trade between one token with another, like A/B, A/LIND.
 
 ## 9.2 Exchange Pair Creation
-Any account can create an exchange pair, it burns 1024 TRX.
+Any account can create an exchange pair, it burns 1024 LIND.
 
 Please refer to 'wallet/exchangecreate':
-[https://github.com/tronprotocol/documentation/blob/master/TRX/Tron-http.md](https://github.com/tronprotocol/documentation/blob/master/TRX/Tron-http.md)
+[https://github.com/lindaprotocol/documentation/blob/master/LIND/Linda-http.md](https://github.com/lindaprotocol/documentation/blob/master/LIND/Linda-http.md)
 
 ## 9.3 Exchange Pair Transaction
 Any account can trade in the DEX. The trade follows Bancor protocol.
 
 Please refer to 'wallet/exchangetransaction':
-[https://github.com/tronprotocol/documentation/blob/master/TRX/Tron-http.md](https://github.com/tronprotocol/documentation/blob/master/TRX/Tron-http.md)
+[https://github.com/lindaprotocol/documentation/blob/master/LIND/Linda-http.md](https://github.com/lindaprotocol/documentation/blob/master/LIND/Linda-http.md)
 
 ## 9.4 Exchange Pair Injection
 The exchange pair creator can inject more tokens into the exchange pair. Injection can decrease the range of ratio fluctuation. If one token is injected, the other one will be injected automatically to keep the current ratio of the two tokens unchanged.
 
 Please refer to 'wallet/exchangeinject':
-[https://github.com/tronprotocol/documentation/blob/master/TRX/Tron-http.md](https://github.com/tronprotocol/documentation/blob/master/TRX/Tron-http.md)
+[https://github.com/lindaprotocol/documentation/blob/master/LIND/Linda-http.md](https://github.com/lindaprotocol/documentation/blob/master/LIND/Linda-http.md)
 
 ## 9.5 Exchange Pair Withdrawal
 The exchange pair creator can withdraw tokens from the exchange pair. Withdrawal can increase the range of ratio fluctuation. If one token is withdrawn, the other one will be withdrawn automatically to keep the current ratio of the two tokens unchanged.
 
 Please refer to 'wallet/exchangewithdraw':
-[https://github.com/tronprotocol/documentation/blob/master/TRX/Tron-http.md)](https://github.com/tronprotocol/documentation/blob/master/TRX/Tron-http.md)
+[https://github.com/lindaprotocol/documentation/blob/master/LIND/Linda-http.md)](https://github.com/lindaprotocol/documentation/blob/master/LIND/Linda-http.md)
 
 ## 9.6 Query
 
@@ -1069,7 +1069,7 @@ GetPaginatedExchangeList: Query the list of all the exchange pairs by pagination
 GetExchangeById: Query an exchange pair by exchange pair id
 
 Please refer to:
-[https://github.com/tronprotocol/documentation/blob/master/TRX/Tron-http.md](https://github.com/tronprotocol/documentation/blob/master/TRX/Tron-http.md)
+[https://github.com/lindaprotocol/documentation/blob/master/LIND/Linda-http.md](https://github.com/lindaprotocol/documentation/blob/master/LIND/Linda-http.md)
 
 ### 9.6.2 Price Calculation
 The token price is determined by the ratio of the balance of the two tokens.
@@ -1093,7 +1093,7 @@ Please refer to:
 # 12. Wallet Introduction
 ## 12.1 wallet-cli Introduction
 Please refer to:
-[https://github.com/tronprotocol/wallet-cli/blob/master/README.md](https://github.com/tronprotocol/wallet-cli/blob/master/README.md)
+[https://github.com/lindaprotocol/wallet-cli/blob/master/README.md](https://github.com/lindaprotocol/wallet-cli/blob/master/README.md)
 
 ## 12.2 Get Transaction ID
 
@@ -1162,6 +1162,6 @@ public static Transaction createTransaction(byte[] from, byte[] to, long amount)
 ## 12.5 Related Demo
 
 Build transaction locally, signature demo, please refer to:
-[https://github.com/tronprotocol/wallet-cli/blob/master/src/main/java/org/tron/demo/TransactionSignDemo.java](https://github.com/tronprotocol/wallet-cli/blob/master/src/main/java/org/tron/demo/TransactionSignDemo.java)
+[https://github.com/lindaprotocol/wallet-cli/blob/master/src/main/java/org/linda/demo/TransactionSignDemo.java](https://github.com/lindaprotocol/wallet-cli/blob/master/src/main/java/org/linda/demo/TransactionSignDemo.java)
 nodejs demo, please refer to:
-[https://github.com/tronprotocol/tron-demo/tree/master/demo/nodejs](https://github.com/tronprotocol/tron-demo/tree/master/demo/nodejs)
+[https://github.com/lindaprotocol/linda-demo/tree/master/demo/nodejs](https://github.com/lindaprotocol/linda-demo/tree/master/demo/nodejs)

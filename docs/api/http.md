@@ -2,13 +2,13 @@
 This article introduces FullNode's HTTP APIs and their usage.
 
 !!! Note
-    Although TRON has avoided XSS by setting the Content-Type of HTTP APIs to application/json, there are a few APIs that don't have input validation. To better protect user data security, we recommend that you correctly encode any data from APIs before using it in any UI, especially when the parameter visible equals true.
+    Although LINDA has avoided XSS by setting the Content-Type of HTTP APIs to application/json, there are a few APIs that don't have input validation. To better protect user data security, we recommend that you correctly encode any data from APIs before using it in any UI, especially when the parameter visible equals true.
     
     Here is a typical XSS protection method: Encode all data from the APIs in HTML. Use methods such as `encodeURIComponent()` or `escape()` to encode the data, which can convert special characters into their HTML entities and prevent them from being interpreted as HTML code by the browser.
     
     Please ensure that XSS protection is implemented for all data from the APIs to maintain the security of user data. We understand that you may need more information about XSS protection. It is recommended that you refer to the following resources: [OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).
 
-The TRON node's HTTP API supports two address formats. Developers can use the visible parameter to control the address format in both requests and responses.
+The LINDA node's HTTP API supports two address formats. Developers can use the visible parameter to control the address format in both requests and responses.
 
 The rules for the visible parameter are as follows:
 
@@ -44,9 +44,9 @@ The Fullnode HTTP API is categorized as follows:
 - [Account Resources](#resources)
 - [Query the Network](#network)
 - [Smart Contracts](#contract)
-- [TRC-10 Token](#trc10)
+- [LRC-10 Token](#lrc10)
 - [Voting & SRs](#sr)
-- [Proposals](#tip)
+- [Proposals](#lip)
 - [DEX Exchange](#dex)
 - [Pending Pool](#pending-pool)
 
@@ -67,7 +67,7 @@ The following are the APIs related to on-chain accounts:
 
 
 #### wallet/validateaddress
-Description: Validates if a TRON address is effective. This is useful for pre-checking user-inputted addresses in applications before sending a transaction.
+Description: Validates if a LINDA address is effective. This is useful for pre-checking user-inputted addresses in applications before sending a transaction.
 
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/validateaddress -d '{"address": "4189139CB1387AF85E3D24E212A008AC974967E561"}'
@@ -93,7 +93,7 @@ Return Value: Indicates whether the address is valid or invalid. Example:
 
 
 #### wallet/createaccount
-Description: Activates an account. If the creator's account has enough Bandwidth from staking TRX, this only consumes Bandwidth. Otherwise, it burns 0.1 TRX for Bandwidth and an additional 1 TRX as an account creation fee.
+Description: Activates an account. If the creator's account has enough Bandwidth from staking LIND, this only consumes Bandwidth. Otherwise, it burns 0.1 LIND for Bandwidth and an additional 1 LIND as an account creation fee.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/createaccount -d '{"owner_address":"41d1e7a6bc354106cb410e65ff8b181c600ff14292", "account_address": "41e552f6487585c2b58bc2c9bb4492bc1f17132cd0"}'
 ```
@@ -110,7 +110,7 @@ Return Value: An unsigned transaction for activating the account.
 
 
 #### wallet/getaccount
-Description: Queries and returns the complete on-chain information for a specified TRON account, including balance, resources, permissions, and assets.
+Description: Queries and returns the complete on-chain information for a specified LINDA account, including balance, resources, permissions, and assets.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getaccount -d '{"address": "41E552F6487585C2B58BC2C9BB4492BC1F17132CD0"}'
 ```
@@ -121,7 +121,7 @@ curl -X POST  http://127.0.0.1:8090/wallet/getaccount -d '{"address": "41E552F64
 Return Value: An Account object.
 
 #### wallet/updateaccount
-Description: Updates or sets the on-chain name (`account_name`) for a specified TRON account.
+Description: Updates or sets the on-chain name (`account_name`) for a specified LINDA account.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/updateaccount -d '{"account_name": "0x7570646174654e616d6531353330383933343635353139" ,"owner_address":"41d1e7a6bc354106cb410e65ff8b181c600ff14292"}'
 ```
@@ -184,7 +184,7 @@ Parameters:
 Return Value: An unsigned transaction.
 
 #### wallet/getaccountbalance
-Description: Queries the TRX balance of a TRON account at a specific historical block height.
+Description: Queries the LIND balance of a LINDA account at a specific historical block height.
 The following official nodes currently support this query:
 
 * 13.228.119.63
@@ -227,7 +227,7 @@ Return Value Example:
 ```
 
 #### wallet/setaccountid
-Description: Sets or updates a custom Account ID (`account_id`) for a specified TRON account.
+Description: Sets or updates a custom Account ID (`account_id`) for a specified LINDA account.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/setaccountid -d '{
 "owner_address":"41a7d8a35b260395c14aa456297662092ba3b76fc0","account_id":"6161616162626262"}'
@@ -264,7 +264,7 @@ The following are transfer and transaction related APIs:
 - [wallet/getapprovedlist](#walletgetapprovedlist)
 
 #### wallet/createtransaction
-Description: Creates a TRX transfer transaction. If the to_address does not exist, this transaction will also create the account on the blockchain
+Description: Creates a LIND transfer transaction. If the to_address does not exist, this transaction will also create the account on the blockchain
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/createtransaction -d '{"to_address": "41e9d79cc47518930bc322d9bf7cddd260a0260a8d", "owner_address": "41D1E7A6BC354106CB410E65FF8B181C600FF14292", "amount": 1000 }'
 ```
@@ -273,14 +273,14 @@ Parameters:
 
 * `to_address`: The recipient's address.
 * `owner_address`: The sender's address.
-* `amount`: The transfer amount, in sun (1 TRX = 1,000,000 sun).
+* `amount`: The transfer amount, in sun (1 LIND = 1,000,000 sun).
 * `Permission_id` (optional): Specifies the ID of the Account Management Permission used to sign the transaction.
 * `visible` (optional): Sets the address format. `true` for Base58Check, `false` (or omitted) for HexString.
 
-Return Value: An unsigned TRX transfer transaction.
+Return Value: An unsigned LIND transfer transaction.
 
 #### wallet/broadcasttransaction
-Description: Broadcasts a signed transaction to the TRON network.
+Description: Broadcasts a signed transaction to the LINDA network.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/broadcasttransaction -d '{"signature":["97c825b41c77de2a8bd65b3df55cd4c0df59c307c0187e42321dcc1cc455ddba583dd9502e17cfec5945b34cad0511985a6165999092a6dec84c2bdd97e649fc01"],"txID":"454f156bf1256587ff6ccdbc56e64ad0c51e4f8efea5490dcbc720ee606bc7b8","raw_data":{"contract":[{"parameter":{"value":{"amount":1000,"owner_address":"41e552f6487585c2b58bc2c9bb4492bc1f17132cd0","to_address":"41d1e7a6bc354106cb410e65ff8b181c600ff14292"},"type_url":"type.googleapis.com/protocol.TransferContract"},"type":"TransferContract"}],"ref_block_bytes":"267e","ref_block_hash":"9a447d222e8de9f2","expiration":1530893064000,"timestamp":1530893006233}}'
 ```
@@ -412,7 +412,7 @@ The following are the APIs related to on-chain resources:
 - [wallet/getdelegatedresourceaccountindexv2](#walletgetdelegatedresourceaccountindexv2)
 
 #### wallet/getaccountresource
-Description: Queries the resource overview for a specified TRON account, including Bandwidth, Energy, TRON Power, and related staking information.
+Description: Queries the resource overview for a specified LINDA account, including Bandwidth, Energy, LINDA Power, and related staking information.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getaccountresource -d {"address" : "419844f7600e018fd0d710e2145351d607b3316ce9"}
 ```
@@ -425,7 +425,7 @@ Return Value:
 * A JSON object containing all resource-related information for the account.
 
 #### wallet/getaccountnet
-Description: Queries the Bandwidth resource details for a specified TRON account.
+Description: Queries the Bandwidth resource details for a specified LINDA account.
 
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getaccountnet -d '{"address": "4112E621D5577311998708F4D7B9F71F86DAE138B5"}'
@@ -440,11 +440,11 @@ Return Value:
 * A JSON object containing all Bandwidth-related information for the account.
 
 #### wallet/freezebalance
-Description: [Deprecated] This API is from the TRON Stake 1.0 era and has been officially deprecated. Please use `freezebalancev2` for all new staking operations.
+Description: [Deprecated] This API is from the LINDA Stake 1.0 era and has been officially deprecated. Please use `freezebalancev2` for all new staking operations.
 
 
 #### wallet/unfreezebalance
-Description: Unstakes TRX that was staked during the Stake 1.0 phase and has completed its freezing period. This will also cause the loss of the Bandwidth and TRON Power associated with this stake.
+Description: Unstakes LIND that was staked during the Stake 1.0 phase and has completed its freezing period. This will also cause the loss of the Bandwidth and LINDA Power associated with this stake.
 ```
 curl -X POST http://127.0.0.1:8090/wallet/unfreezebalance -d '{
 "owner_address":"41e472f387585c2b58bc2c9bb4492bc1f17342cd1",
@@ -454,7 +454,7 @@ curl -X POST http://127.0.0.1:8090/wallet/unfreezebalance -d '{
 ```
 Parameters:
 
-* `owner_address`: The address of the account unstaking TRX.
+* `owner_address`: The address of the account unstaking LIND.
 * `resource`: Can be Bandwidth or Energy.
 * `receiverAddress`: The address of the delegated account.
 * `Permission_id` (optional): Specifies the ID of the Account Management Permission used to sign the transaction.
@@ -499,7 +499,7 @@ Return Value:
 * A `DelegatedResourceAccountIndex` object showing the account's delegation overview.
 
 #### wallet/freezebalancev2
-Description: Stakes TRX under the **Stake 2.0** mechanism. This operation allows the staker to obtain a specified network resource (Energy or Bandwidth) and will **simultaneously** grant an equivalent amount of **TRON Power (TP)** at a 1:1 ratio with the staked TRX.
+Description: Stakes LIND under the **Stake 2.0** mechanism. This operation allows the staker to obtain a specified network resource (Energy or Bandwidth) and will **simultaneously** grant an equivalent amount of **LINDA Power (LP)** at a 1:1 ratio with the staked LIND.
 ```
 curl -X POST http://127.0.0.1:8090/wallet/freezebalancev2 -d
 '{
@@ -511,8 +511,8 @@ curl -X POST http://127.0.0.1:8090/wallet/freezebalancev2 -d
 
 Parameters:
 
-- `owner_address`: The address of the account staking TRX.
-- `frozen_balance`: The amount of TRX to stake, in sun.
+- `owner_address`: The address of the account staking LIND.
+- `frozen_balance`: The amount of LIND to stake, in sun.
 - `resource`: The type of resource to obtain, can be `BANDWIDTH` or `ENERGY`.
 - `Permission_id` (optional): Specifies the ID of the Account Management Permission used to sign the transaction.
 - `visible` (optional): Sets the address format. true for Base58Check, false (or omitted) for HexString.
@@ -523,7 +523,7 @@ Return Value:
 
 #### wallet/unfreezebalancev2
 
-Description: Unstakes TRX staked via the Stake 2.0 mechanism. This releases the corresponding amount of Bandwidth or Energy and reclaims the equivalent amount of TRON Power (TP).
+Description: Unstakes LIND staked via the Stake 2.0 mechanism. This releases the corresponding amount of Bandwidth or Energy and reclaims the equivalent amount of LINDA Power (LP).
 ```
 curl -X POST http://127.0.0.1:8090/wallet/unfreezebalancev2 -d
 '{
@@ -535,9 +535,9 @@ curl -X POST http://127.0.0.1:8090/wallet/unfreezebalancev2 -d
 
 Parameters:
 
-* `owner_address`: The address of the account unstaking TRX.
+* `owner_address`: The address of the account unstaking LIND.
 * `resource`: The type of resource being unstaked, BANDWIDTH or ENERGY.
-* `unfreeze_balance`: The amount of TRX to unstake, in sun.
+* `unfreeze_balance`: The amount of LIND to unstake, in sun.
 * `Permission_id` (optional): Specifies the ID of the Account Management Permission used to sign the transaction.
 * `visible` (optional): Sets the address format. `true` for Base58Check, `false` (or omitted) for HexString.
 
@@ -550,8 +550,8 @@ Return Value:
 
 Description: Immediately cancels all pending (not yet unlocked) unfreeze requests for an account. This has a dual effect:
 
-* Restakes: All TRX from the canceled unfreezing requests are immediately restaked for the same resource type.
-* Withdraws: Any TRX from unfreeze requests that have already completed their 14-day pending period is automatically withdrawn to the account's balance.
+* Restakes: All LIND from the canceled unfreezing requests are immediately restaked for the same resource type.
+* Withdraws: Any LIND from unfreeze requests that have already completed their 14-day pending period is automatically withdrawn to the account's balance.
 
 ```
 curl -X POST http://127.0.0.1:8090/wallet/cancelallunfreezev2 -d
@@ -572,7 +572,7 @@ Return Value:
 
 #### wallet/delegateresource
 
-Description: Delegates `Energy` or `Bandwidth` obtained from staking TRX to another TRON account. TRON Power (TP) cannot be delegated.
+Description: Delegates `Energy` or `Bandwidth` obtained from staking LIND to another LINDA account. LINDA Power (LP) cannot be delegated.
 
 ```
 curl -X POST http://127.0.0.1:8090/wallet/delegateresource -d
@@ -589,7 +589,7 @@ Parameters:
 
 * `owner_address`: The address of the transaction initiator.
 * `receiver_address`: The recipient account address.
-* `balance`: The amount of TRX whose corresponding resource share will be delegated, in sun.
+* `balance`: The amount of LIND whose corresponding resource share will be delegated, in sun.
 * `resource`: The type of resource to delegate, `BANDWIDTH` or `ENERGY`.
 * `lock`: true sets a 3-day lock on the delegation, during which it cannot be canceled. If resources are delegated again to the same address during the lock period, the 3-day timer resets. false means no lock period.
 * `lock_period`: A custom lock period in units of blocks (1 block ≈ 3s). Only effective when lock is true. For a 1-day lock, lock_period would be 28800.
@@ -619,7 +619,7 @@ Parameters:
 
 * `owner_address`: The address of the transaction initiator.
 * `receiver_address`: The recipient account from which resources are being reclaimed.
-* `balance`: The amount of TRX whose corresponding resource share will be undelegated, in sun.
+* `balance`: The amount of LIND whose corresponding resource share will be undelegated, in sun.
 * `resource`: The type of resource to undelegate, `BANDWIDTH` or `ENERGY`.
 * `Permission_id` (optional): Specifies the ID of the Account Management Permission used to sign the transaction.
 * `visible` (optional): Sets the address format. `true` for Base58Check, `false` (or omitted) for HexString.
@@ -629,7 +629,7 @@ Return Value:
 
 #### wallet/withdrawexpireunfreeze
 
-Description: Withdraws all unstaked TRX that have completed their lock period.
+Description: Withdraws all unstaked LIND that have completed their lock period.
 ```
 curl -X POST http://127.0.0.1:8090/wallet/withdrawexpireunfreeze -d
 '{
@@ -646,7 +646,7 @@ Return Value: An unsigned withdraw expired unfreeze transaction object.
 
 #### wallet/getavailableunfreezecount
 
-Description: Queries the remaining number of unstake operations an account can initiate. The TRON network limits each account to a maximum of 32 concurrent unstaking operations within the 14-day lock period. This API can be used to pre-check whether there is an available "unstaking quota" before calling `unfreezebalancev2`.
+Description: Queries the remaining number of unstake operations an account can initiate. The LINDA network limits each account to a maximum of 32 concurrent unstaking operations within the 14-day lock period. This API can be used to pre-check whether there is an available "unstaking quota" before calling `unfreezebalancev2`.
 
 ```
 curl -X POST http://127.0.0.1:8090/wallet/getavailableunfreezecount -d
@@ -770,7 +770,7 @@ The following is the API for querying data on the chain:
 - [wallet/getenergyprices](#walletgetenergyprices)
 - [wallet/getbandwidthprices](#walletgetbandwidthprices)
 - [wallet/getmemofee](#walletgetmemofee)
-- [wallet/getburntrx](#walletgetburntrx)
+- [wallet/getburnlind](#walletgetburnlind)
 
 #### wallet/getnowblock
 Description: Query the latest block.
@@ -836,7 +836,7 @@ Return Value: An array containing multiple Block objects (Block[]).
 
 
 #### wallet/getblockbalance
-Description: Get the details of TRX balance changes caused by all transactions in a specified block.
+Description: Get the details of LIND balance changes caused by all transactions in a specified block.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getblockbalance -d
 '{
@@ -945,7 +945,7 @@ curl  http://127.0.0.1:8090/wallet/getnodeinfo
 Return Value: An object containing information such as node version, network status, block synchronization status, etc.
 
 #### wallet/getchainparameters
-Description: Query all dynamic parameters of the current TRON network.
+Description: Query all dynamic parameters of the current LINDA network.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getchainparameters
 ```
@@ -972,12 +972,12 @@ curl -X POST  http://127.0.0.1:8090/wallet/getmemofee
 ```
 Return Value: All historical memo price information. Each price change is separated by a comma, with the millisecond timestamp before the colon and the memo price in sun after the colon.
 
-#### wallet/getburntrx
-Description: Query the total amount of TRX burned since the TRON network's genesis.
+#### wallet/getburnlind
+Description: Query the total amount of LIND burned since the LINDA network's genesis.
 ```
-curl -X POST  http://127.0.0.1:8090/wallet/getburntrx
+curl -X POST  http://127.0.0.1:8090/wallet/getburnlind
 ```
-Return Value: The amount of TRX burned, in sun.
+Return Value: The amount of LIND burned, in sun.
 
 
 
@@ -1031,14 +1031,14 @@ Parameters:
 - `bytecode`: The bytecode of the contract, must be in HexString format.
 - `parameter`: The parameter list for the constructor needs to be ABI encoded and then converted to HexString format. If the constructor has no parameters, this parameter can be omitted.
 - `consume_user_resource_percent`: The percentage of resources used by users calling this contract, an integer between. If 0, users will not consume resources. If the developer's resources are exhausted, then user resources will be fully consumed.
-- `fee_limit`：Maximum sun to be consumed (1 TRX = 1,000,000 sun).
-- `call_value`: The amount of sun (1 TRX = 1,000,000 sun) to transfer to the contract during this call.
+- `fee_limit`：Maximum sun to be consumed (1 LIND = 1,000,000 sun).
+- `call_value`: The amount of sun (1 LIND = 1,000,000 sun) to transfer to the contract during this call.
 - `owner_address`: The account address initiating the `deploycontract`, defaults to HexString format.
 name: The contract name.
 - `name`: The contract name.
 - `origin_energy_limit`: The maximum energy that the creator is willing to consume for themselves during a single contract execution or creation, an integer greater than 0.
-- `call_token_value`: The amount of TRC-10 tokens to transfer to the contract during this call. If `token_id` is not set, this should be `0` or not set.
-- `token_id`: The ID of the TRC-10 token to transfer to the contract during this call. If none, do not set.
+- `call_token_value`: The amount of LRC-10 tokens to transfer to the contract during this call. If `token_id` is not set, this should be `0` or not set.
+- `token_id`: The ID of the LRC-10 token to transfer to the contract during this call. If none, do not set.
 - `Permission_id` (optional): Specifies the ID of the Account Management Permission used to sign the transaction.
 - `visible`: sets the address format. `true` for Base58Check, `false` or omitted for HexString.
 
@@ -1055,11 +1055,11 @@ Parameters：
 - `function_selector`：The function signature, no spaces allowed.
 - `parameter`：The virtual machine format of the call parameters. Use the JS tool provided by Remix to convert the contract caller's parameter array into the format required by the virtual machine.
 - `data`：Data for interacting with the smart contract, including the called contract function and parameters. You can choose to interact through this field, or through `function_selector` and `parameter`. If `data` and `function_selector` exist simultaneously, `function_selector` will be used for contract interaction.
-- `fee_limit`：Maximum sun to be consumed (1 TRX = 1,000,000 sun).
-- `call_value`：The amount of sun (1 TRX = 1,000,000 sun) to transfer to the contract during this call.
+- `fee_limit`：Maximum sun to be consumed (1 LIND = 1,000,000 sun).
+- `call_value`：The amount of sun (1 LIND = 1,000,000 sun) to transfer to the contract during this call.
 - `owner_address`：The account address initiating the `triggercontract`, defaults to HexString format.
-- `call_token_value`:The amount of TRC-10 tokens to transfer to the contract during this call. If `token_id` is not set, this should be `0` or not set.
-- `token_id`:The ID of the TRC-10 token to transfer to the contract during this call. If none, do not set.
+- `call_token_value`:The amount of LRC-10 tokens to transfer to the contract during this call. If `token_id` is not set, this should be `0` or not set.
+- `token_id`:The ID of the LRC-10 token to transfer to the contract during this call. If none, do not set.
 - `Permission_id` (optional): Specifies the ID of the Account Management Permission used to sign the transaction.
 - `visible` :Sets the address format. `true` for Base58Check, `false` or omitted for HexString.
 
@@ -1078,9 +1078,9 @@ Parameters：
 - `parameter`：The virtual machine format of the call parameters. Use the JS tool provided by Remix to convert the contract caller's parameter array into the format required by the virtual machine.
 - `data`：Contract bytecode or data for interacting with the smart contract, including the called contract function and parameters. You can choose to interact through this field or through `function_selector` and parameter. If `data` and `function_selector` exist simultaneously, function_selector will be prioritized.
 - `owner_address`：The account address initiating the `triggercontract`, defaults to HexString format.
-- `call_value`：The amount of sun (1 TRX = 1,000,000 sun) to transfer to the contract during this call.
-- `call_token_value`:The amount of TRC-10 tokens to transfer to the contract during this call. If `token_id` is not set, this should be `0` or not set.
-- `token_id`:The ID of the TRC-10 token to transfer to the contract during this call. If none, do not set.
+- `call_value`：The amount of sun (1 LIND = 1,000,000 sun) to transfer to the contract during this call.
+- `call_token_value`:The amount of LRC-10 tokens to transfer to the contract during this call. If `token_id` is not set, this should be `0` or not set.
+- `token_id`:The ID of the LRC-10 token to transfer to the contract during this call. If none, do not set.
 - `visible` Sets the address format. `true` for Base58Check, `false` or omitted for HexString.
 
 Return Value: The return value of the contract function, encoded in ABI format.
@@ -1151,16 +1151,16 @@ Parameters：
 - `parameter`: The virtual machine format of the call parameters. Use the JS tool provided by Remix to convert the contract caller's parameter array into the format required by the virtual machine.
 - `data`: Contract bytecode or data for interacting with the smart contract, including the called contract function and parameters. You can choose to interact through this field, or through `function_selector` and parameter. If `data` and `function_selector` exist simultaneously, `function_selector` will be prioritized.
 - `owner_address`: The account address initiating the `triggercontract`, defaults to HexString format.
-- `call_value`: The amount of sun (1 TRX = 1,000,000 sun) to transfer to the contract during this call.
-- `call_token_value`: The amount of TRC-10 tokens to transfer to the contract during this call. If `token_id` is not set, this should be `0` or not set.
-- `token_id`: The ID of the TRC-10 token to transfer to the contract during this call. If none, do not set.
+- `call_value`: The amount of sun (1 LIND = 1,000,000 sun) to transfer to the contract during this call.
+- `call_token_value`: The amount of LRC-10 tokens to transfer to the contract during this call. If `token_id` is not set, this should be `0` or not set.
+- `token_id`: The ID of the LRC-10 token to transfer to the contract during this call. If none, do not set.
 - `visible` Sets the address format. `true` for Base58Check, `false` or omitted for HexString.
 
 Return Value: This interface returns an object containing the estimated energy value.
 
-<a id="trc10"></a>
-### TRC-10 token
-The following are TRC-10 token-related APIs:
+<a id="lrc10"></a>
+### LRC-10 token
+The following are LRC-10 token-related APIs:
 
 - [wallet/getassetissuebyaccount](#walletgetassetissuebyaccount)
 - [wallet/getassetissuebyname](#walletgetassetissuebyname)
@@ -1176,7 +1176,7 @@ The following are TRC-10 token-related APIs:
 
 
 #### wallet/getassetissuebyaccount
-Description: Query all TRC-10 tokens issued by a specified account.
+Description: Query all LRC-10 tokens issued by a specified account.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getassetissuebyaccount -d '{"address": "41F9395ED64A6E1D4ED37CD17C75A1D247223CAF2D"}'
 ```
@@ -1186,52 +1186,52 @@ Parameters:
 * `address`: The issuer account address, defaults to HexString format.
 * `visible`: Sets the address format. `true` for Base58Check, `false` or omitted for HexString.
 
-Return Value: This interface returns an object containing a list of TRC-10 tokens issued by the address.
+Return Value: This interface returns an object containing a list of LRC-10 tokens issued by the address.
 
 #### wallet/getassetissuebyname
-Description: Query TRC-10 tokens by name.
+Description: Query LRC-10 tokens by name.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getassetissuebyname -d '{"value": "44756354616E"}'
 ```
 Parameter: `value`：Token name, defaults to HexString format.
  
-Return Value: A TRC-10 token object.
+Return Value: A LRC-10 token object.
 
 
 Note: Starting from Odyssey-v3.2, it is recommended to use getassetissuebyid or getassetissuelistbyname to replace this interface, because starting from 3.2, tokens are allowed to have the same name. If identical token names exist, this interface will report an error.
 
 #### wallet/getassetissuelistbyname
-Description: Query all matching TRC-10 token lists by name.
+Description: Query all matching LRC-10 token lists by name.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getassetissuelistbyname -d '{"value": "44756354616E"}'
 ```
 Parameters:
  - `value`：Token name, defaults to HexString format.
 
-Return Value: An array containing all TRC-10 token objects with the same name.
+Return Value: An array containing all LRC-10 token objects with the same name.
 
 #### wallet/getassetissuebyid
-Description: Query TRC-10 token by ID.
+Description: Query LRC-10 token by ID.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getassetissuebyid -d '{"value": "1000001"}'
 ```
 Parameters：
-* `value`: The ID of the TRC-10 token.
+* `value`: The ID of the LRC-10 token.
 
-Return Value: The specified TRC-10 token object.
+Return Value: The specified LRC-10 token object.
 
 
 #### wallet/getassetissuelist
-Description: Query a list of all TRC-10 tokens on the entire network.
+Description: Query a list of all LRC-10 tokens on the entire network.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getassetissuelist
 ```
 Parameters: None
 
-Return Value: An array containing objects for all TRC-10 tokens on the network.
+Return Value: An array containing objects for all LRC-10 tokens on the network.
 
 #### wallet/getpaginatedassetissuelist
-Description:Paginate and query a list of TRC-10 tokens on the entire network.
+Description:Paginate and query a list of LRC-10 tokens on the entire network.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getpaginatedassetissuelist -d '{"offset": 0, "limit": 10}'
 ```
@@ -1240,11 +1240,11 @@ Parameters:
 *  `offset`: The starting index for pagination.
 *  `limit`: The desired number of tokens to return in this query.
 
-Return Value: An array containing TRC-10 token objects for the paginated results.
+Return Value: An array containing LRC-10 token objects for the paginated results.
 
 
 #### wallet/transferasset
-Description: Create a TRC-10 token transfer transaction.
+Description: Create a LRC-10 token transfer transaction.
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/transferasset -d '{"owner_address":"41d1e7a6bc354106cb410e65ff8b181c600ff14292", "to_address": "41e552f6487585c2b58bc2c9bb4492bc1f17132cd0", "asset_name": "0x6173736574497373756531353330383934333132313538", "amount": 100}'
 ```
@@ -1252,16 +1252,16 @@ Parameters:
 
 *   `owner_address`: The sender's address, defaults to HexString format.
 *   `to_address`: The recipient's address, defaults to HexString format.
-*   `asset_name`: The TRC-10 token ID, defaults to HexString format.
+*   `asset_name`: The LRC-10 token ID, defaults to HexString format.
 *   `amount`: The amount of tokens to transfer.
 *   `Permission_id` (optional): Used to specify the permission ID when signing with a permission other than the default owner permission.
 *   `visible`: Sets the address format. `true` for Base58Check, `false` or omitted for HexString.
 
-Return Value: An unsigned TRC-10 transfer transaction object.
+Return Value: An unsigned LRC-10 transfer transaction object.
 
 
 #### wallet/participateassetissue
-Description: Create a transaction to participate in a TRC-10 token crowdsale.
+Description: Create a transaction to participate in a LRC-10 token crowdsale.
 
 ```
 curl -X POST http://127.0.0.1:8090/wallet/participateassetissue -d '{
@@ -1286,14 +1286,14 @@ Return Value: An unsigned participate in crowdsale transaction object.
 
 
 #### wallet/createassetissue
-Description: Create a transaction to issue TRC-10 tokens (costing 1024 TRX).
+Description: Create a transaction to issue LRC-10 tokens (costing 1024 LIND).
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/createassetissue -d '{
 "owner_address":"41e552f6487585c2b58bc2c9bb4492bc1f17132cd0",
 "name":"0x6173736574497373756531353330383934333132313538",
 "abbr": "0x6162627231353330383934333132313538",
 "total_supply" :4321,
-"trx_num":1,
+"lind_num":1,
 "num":1,
 "start_time" : 1530894315158,
 "end_time":1533894312158,
@@ -1310,7 +1310,7 @@ Parameters:
 *   `name`: The token name, defaults to HexString format.
 *   `abbr`: The token abbreviation, defaults to HexString format.
 *   `total_supply`: The total supply to be issued.
-*   `trx_num` and `num`: The minimum exchange ratio between token and TRX.
+*   `lind_num` and `num`: The minimum exchange ratio between token and LIND.
 *   `start_time` and `end_time`: The start and end times for token issuance.
 *   `description`: The token description, defaults to HexString format.
 *   `url`: The official website of the token issuer, defaults to HexString format.
@@ -1320,7 +1320,7 @@ Parameters:
 *   `Permission_id` (optional): Used to specify the permission ID when signing with a permission other than the default owner permission.
 *   `visible`: Sets the address format. `true` for Base58Check, `false` or omitted for HexString.
 
-Return Value: An unsigned TRC-10 token issuance transaction object.
+Return Value: An unsigned LRC-10 token issuance transaction object.
 
 #### wallet/unfreezeasset
 Description: Unfreeze tokens whose freezing period has ended.
@@ -1338,7 +1338,7 @@ Parameters:
 Return Value: An unsigned unfreeze token transaction object.
 
 #### wallet/updateasset
-Description: Update the information of an issued TRC-10 token.
+Description: Update the information of an issued LRC-10 token.
 ```
 curl -X POST http://127.0.0.1:8090/wallet/updateasset -d '{
 "owner_address":"41e472f387585c2b58bc2c9bb4492bc1f17342cd1",
@@ -1506,7 +1506,7 @@ Parameter: None
 Return Value: The millisecond timestamp of the next vote count.
 
 
-<a id="tip"></a>
+<a id="lip"></a>
 ### Proposals
 The following are proposal-related APIs:
 
@@ -1866,7 +1866,7 @@ Return Value: An object containing the size of the pending pool.
 
 #### walletsolidity/getaccount
 
-Description: Queries and returns the complete on-chain information for a specified TRON account (including balance, resources, permissions, and assets).
+Description: Queries and returns the complete on-chain information for a specified LINDA account (including balance, resources, permissions, and assets).
 
 ```
 curl -X POST  http://127.0.0.1:8091/walletsolidity/getaccount -d '{"address": "41E552F6487585C2B58BC2C9BB4492BC1F17132CD0"}'
@@ -1921,7 +1921,7 @@ Return Value: An Account object.
 
 #### walletsolidity/getavailableunfreezecount
 
-Description: Queries the remaining number of unstake operations an account can initiate. The TRON network limits each account to a maximum of 32 concurrent unstaking operations within the 14-day lock period. This API can be used to pre-check whether there is an available "unstaking quota" before calling `unfreezebalancev2`.
+Description: Queries the remaining number of unstake operations an account can initiate. The LINDA network limits each account to a maximum of 32 concurrent unstaking operations within the 14-day lock period. This API can be used to pre-check whether there is an available "unstaking quota" before calling `unfreezebalancev2`.
 
 ```
 curl -X POST http://127.0.0.1:8090/walletsolidity/getavailableunfreezecount -d
@@ -2042,19 +2042,19 @@ Parameter: None
 
 Return Value: A list of all witness information.
 
-### TRC-10 Token
+### LRC-10 Token
 
 #### walletsolidity/getassetissuelist
-Description: Query a list of all TRC-10 tokens on the entire network.
+Description: Query a list of all LRC-10 tokens on the entire network.
 ```
 curl -X POST  http://127.0.0.1:8091/walletsolidity/getassetissuelist
 ```
 Parameter: None
 
-Return Value: An array containing objects for all TRC-10 tokens on the network.
+Return Value: An array containing objects for all LRC-10 tokens on the network.
 
 #### walletsolidity/getpaginatedassetissuelist
-Description: Paginate and query a list of TRC-10 tokens on the entire network.
+Description: Paginate and query a list of LRC-10 tokens on the entire network.
 ```
 curl -X POST  http://127.0.0.1:8091/walletsolidity/getpaginatedassetissuelist -d '{"offset": 0, "limit":10}'
 ```
@@ -2063,37 +2063,37 @@ Parameters:
 *  `offset`: The starting index for pagination.
 *  `limit`: The desired number of tokens to return in this query.
 
-Return Value: An array containing TRC-10 token objects for the paginated results.
+Return Value: An array containing LRC-10 token objects for the paginated results.
 
 #### walletsolidity/getassetissuebyname
-Description: Query TRC-10 tokens by name.
+Description: Query LRC-10 tokens by name.
 ```
 curl -X POST  http://127.0.0.1:8091/walletsolidity/getassetissuebyname -d '{"value": "44756354616E"}'
 ```
 Parameter: `value`：Token name, defaults to HexString format.
  
-Return Value: A TRC-10 token object.
+Return Value: A LRC-10 token object.
 
 
 Note: Starting from Odyssey-v3.2, it is recommended to use getassetissuebyid or getassetissuelistbyname to replace this interface, because starting from 3.2, tokens are allowed to have the same name. If identical token names exist, this interface will report an error.
 
 #### walletsolidity/getassetissuelistbyname
-Description: Query all matching TRC-10 token lists by name.
+Description: Query all matching LRC-10 token lists by name.
 ```
 curl -X POST  http://127.0.0.1:8091/walletsolidity/getassetissuelistbyname -d '{"value": "44756354616E"}'
 ```
 Parameter: `value`：Token name, defaults to HexString format.
 
-Return Value: An array containing all TRC-10 token objects with the same name.
+Return Value: An array containing all LRC-10 token objects with the same name.
 
 #### walletsolidity/getassetissuebyid
-Description: Query TRC-10 token by ID.
+Description: Query LRC-10 token by ID.
 ```
 curl -X POST  http://127.0.0.1:8091/walletsolidity/getassetissuebyid -d '{"value": "1000001"}'
 ```
-Parameter：`value`: The ID of the TRC-10 token.
+Parameter：`value`: The ID of the LRC-10 token.
 
-Return Value: The specified TRC-10 token object.
+Return Value: The specified LRC-10 token object.
 
 
 

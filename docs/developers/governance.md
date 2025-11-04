@@ -1,10 +1,10 @@
 
 # Network Governance
 
-The governance of the TRON network is primarily achieved by modifying [network parameters](https://tronscan.org/#/sr/committee), a process also known as **network upgrade**.  
+The governance of the LINDA network is primarily achieved by modifying [network parameters](https://lindascan.org/#/sr/committee), a process also known as **network upgrade**.  
 Anyone can propose changes to network parameters within the community, but only **Super Representatives (SR)** , **Super Representative Partners** and **Super Representative Candidates** can formally submit voting requests on-chain. During the voting period, the Super Representatives will vote on the proposal. When the voting deadline is reached and the required number of supporting votes is met, the proposal automatically takes effect.
 
-You can view the history of completed proposals and voting records [here](https://github.com/tronprotocol/tips/tree/master/proposal).
+You can view the history of completed proposals and voting records [here](https://github.com/lindaprotocol/tips/tree/master/proposal).
 
 ---
 
@@ -19,15 +19,15 @@ You can view the history of completed proposals and voting records [here](https:
 
 ## Initiate Proposal Discussion
 
-Any TRON network participant can initiate a discussion for a TIP vote.  
-Please create an **Issue** in the [TIP repository](https://github.com/tronprotocol/tips/issues), providing detailed information about the proposal, including:
+Any LINDA network participant can initiate a discussion for a LIP vote.  
+Please create an **Issue** in the [LIP repository](https://github.com/lindaprotocol/tips/issues), providing detailed information about the proposal, including:
 
 - Proposal motivation  
 - Network parameters to be modified and their values  
 - Technical specifications  
 - Expected impact of the changes  
 
-New proposal discussions can refer to this [example](https://github.com/tronprotocol/tips/issues/789).
+New proposal discussions can refer to this [example](https://github.com/lindaprotocol/tips/issues/789).
 
 ### Specification Requirements
 
@@ -43,7 +43,7 @@ The Issue body should include the following main sections:
 
 ```
 ## Simple Summary
-Briefly describe the TRON network parameters to be modified and their values, along with a summary of the expected impact.
+Briefly describe the LINDA network parameters to be modified and their values, along with a summary of the expected impact.
 
 ## Motivation
 Describe the motivation for the proposal, including the current issues and why certain network parameters need to be modified.
@@ -61,7 +61,7 @@ Provide a detailed description of the technical specifications or background inf
 
 ## Community Discussion
 
-After the TIP discussion is initiated, the proposer should actively encourage community users to participate in the discussion, collect opinions and feedback, and make appropriate revisions and updates to the proposal based on the discussion results.
+After the LIP discussion is initiated, the proposer should actively encourage community users to participate in the discussion, collect opinions and feedback, and make appropriate revisions and updates to the proposal based on the discussion results.
 
 ## Submit Voting Request
 
@@ -70,5 +70,5 @@ Typically, if the community has fully discussed and reached a basic consensus, a
 ## Voting and Implementation
 
 - The on-chain voting period lasts for **3 days**.  
-- During this period, all Super Representatives can vote on the TIP.  
+- During this period, all Super Representatives can vote on the LIP.  
 - After the voting deadline, if the number of supporting votes from Super Representatives is **greater than or equal to 18**, the proposal is considered passed and automatically takes effect.

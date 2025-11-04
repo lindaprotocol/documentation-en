@@ -6,7 +6,7 @@ The Energy conumption of the contract caller in one contract trigger.
 
 **energyFee**
 
-The number of TRX burned from the contract caller for Energy conumption in one contract trigger.
+The number of LIND burned from the contract caller for Energy conumption in one contract trigger.
 
 **originEnergyUsage**
 
@@ -18,11 +18,11 @@ The total Energy conumption of the contract developer and the contract caller co
 
 **Feelimit**
 
-When the user triggers or create the contract, this is used to set the usage limit of the Energy consumption got from burning TRX or staking TRX, Energy got from staking TRX will be used first.
+When the user triggers or create the contract, this is used to set the usage limit of the Energy consumption got from burning LIND or staking LIND, Energy got from staking LIND will be used first.
 
 **CallValue**
 
-When the user triggers or create the contract, this can be used to send TRX to the contract.
+When the user triggers or create the contract, this can be used to send LIND to the contract.
 
 **consume_user_resource_percent**
 
@@ -38,7 +38,7 @@ The Bandwidth consumption in one contract trigger.  (NetFee not included)
 
 **net_fee**
 
-The TRX burned for Bandwidth consumption in one contract trigger.
+The LIND burned for Bandwidth consumption in one contract trigger.
 
 **Bandwidth**
 
@@ -48,9 +48,9 @@ The Bandwidth Points consumed by a transaction is the size of the byte array in 
 
 The creation and operation of a smart contract consume CPU resources. It takes time for smart contracts to operate in virtual machines (VMs), and the time consumed in the system is calculated in microseconds. CPU resources are consumed in energy, which means 1 Energy = 1 Microsecond (μs). If a contract takes 100 μs to execute in a VM, it needs to consume 100 Energy.
 
-**TRON Power(TP)**
+**LINDA Power(LP)**
 
-1 staked TRX = 1 TP, TP can be used to vote, 1 TP = 1 vote.
+1 staked LIND = 1 LP, LP can be used to vote, 1 LP = 1 vote.
 
 **Super Representative(SR)**
 

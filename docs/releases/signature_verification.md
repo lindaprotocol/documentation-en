@@ -1,18 +1,18 @@
-# java-tron Release Package Signature Verification
+# java-linda Release Package Signature Verification
 
-This document provides developers with instructions on how to verify the signature of the TRON java-tron executable file to ensure its **authenticity** and **integrity**. The signature verification process requires three key pieces of information: the executable file to be verified, its digital signature, and the public key corresponding to the private key used for signing. The verification principle is to use the content of the executable file and its signature to derive the signing public key and compare it with the public key officially released on the [java-tron](https://github.com/tronprotocol/java-tron) GitHub repository. If they match, it confirms that the java-tron executable you obtained is consistent with the one published on GitHub and has not been tampered with.
+This document provides developers with instructions on how to verify the signature of the LINDA java-linda executable file to ensure its **authenticity** and **integrity**. The signature verification process requires three key pieces of information: the executable file to be verified, its digital signature, and the public key corresponding to the private key used for signing. The verification principle is to use the content of the executable file and its signature to derive the signing public key and compare it with the public key officially released on the [java-linda](https://github.com/lindaprotocol/java-linda) GitHub repository. If they match, it confirms that the java-linda executable you obtained is consistent with the one published on GitHub and has not been tampered with.
 
-TRON's signing method for java-tron release packages has been adjusted:
+LINDA's signing method for java-linda release packages has been adjusted:
 
 * **For new versions released on or after January 3, 2023**: **GPG** is used for signing and verification.
-* **For versions released before January 3, 2023**: A **specific TRON account's public and private keys** were used for signing and verification.
+* **For versions released before January 3, 2023**: A **specific LINDA account's public and private keys** were used for signing and verification.
 
 This document will detail both of these signature verification processes.
 
 
 ## GPG Signature Verification Process
 
-For java-tron versions released after January 3, 2023, you must use GPG for signature verification. The java-tron executable and its corresponding signature file are published together on the [GitHub Releases page](https://github.com/tronprotocol/java-tron/releases). Please follow the steps below to perform GPG signature verification.
+For java-linda versions released after January 3, 2023, you must use GPG for signature verification. The java-linda executable and its corresponding signature file are published together on the [GitHub Releases page](https://github.com/lindaprotocol/java-linda/releases). Please follow the steps below to perform GPG signature verification.
 
 ### 1. Install GPG
 
@@ -30,11 +30,11 @@ sudo apt install gpg
 
 If you have previously imported the public key, you can skip this step, as it only needs to be imported once.
 
-First, get the **public key hash** and **UID** of the java-tron release package GPG signature from the [java-tron GitHub repository](https://github.com/tronprotocol/java-tron?tab=readme-ov-file#integrity-check). For example:
+First, get the **public key hash** and **UID** of the java-linda release package GPG signature from the [java-linda GitHub repository](https://github.com/lindaprotocol/java-linda?tab=readme-ov-file#integrity-check). For example:
 
 ```
 pub: 1254 F859 D2B1 BD9F 66E7 107D F859 BCB4 4A28 290B
-uid: build@tron.network
+uid: build@linda.network
 ```
 
 Then, import the public key from the GPG public key server to your local machine using the public key hash:
@@ -46,7 +46,7 @@ gpg --recv-keys "1254 F859 D2B1 BD9F 66E7 107D F859 BCB4 4A28 290B"
 If the public key import is successful, you will see output similar to this:
 
 ```
-gpg: key 785FB96D2C7C3CA5: "build_tron <build@tron.network>" public key imported
+gpg: key 785FB96D2C7C3CA5: "build_linda <build@linda.network>" public key imported
 gpg: Total number processed: 1
 gpg:               imported: 1
 ```
@@ -64,33 +64,33 @@ If the signature verification passes, you will see the following text:
 ```
 gpg: Signature made Wed Jan  6 12:21:51 2023 CST
 gpg:                using RSA key 1254F859D2B1BD9F66E7107D F859BCB44A28290B
-gpg: Good signature from "build_tron <build@tron.network>" [unknown]
+gpg: Good signature from "build_linda <build@linda.network>" [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 07B2 3298 AEA4 E006 BD9A  42DE 785F B96D 2C7C 3CA5
 Subkey fingerprint: 1254 F859 D2B1 BD9F 66E7  107D F859 BCB4 4A28 290B
 ```
 
-If the verification fails, it will display text like `Bad signature from "build_tron <build@tron.network>"`.
+If the verification fails, it will display text like `Bad signature from "build_linda <build@linda.network>"`.
 
 
-## TRON Address Signature Verification Process
+## LINDA Address Signature Verification Process
 
-For java-tron versions released before January 3, 2023, the release packages were signed by the TRON account `TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2`. The signing process is as follows:
+For java-linda versions released before January 3, 2023, the release packages were signed by the LINDA account `TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2`. The signing process is as follows:
 
 1.  First, the SHA256 hash of the executable file is calculated.
-2.  Then, the SHA256 hash is signed with the private key of the TRON account.
+2.  Then, the SHA256 hash is signed with the private key of the LINDA account.
 
-The SHA256 hash and signature result for the release packages can be found in the [Historical Version Signature Information](#historical-version-signature-information) section of this document or on the [GitHub Releases page](https://github.com/tronprotocol/java-tron/releases).
+The SHA256 hash and signature result for the release packages can be found in the [Historical Version Signature Information](#historical-version-signature-information) section of this document or on the [GitHub Releases page](https://github.com/lindaprotocol/java-linda/releases).
 
-Here, we will use the popular TRON JavaScript library, [TronWeb](https://tronweb.network/docu/docs/intro/), to demonstrate the signature verification process. TronWeb provides the `Trx.verifySignature` interface to verify signatures. A successful verification will return `true`; otherwise, it returns `false`. Please follow the process below to verify.
+Here, we will use the popular LINDA JavaScript library, [LindaWeb](https://lindaweb.network/docu/docs/intro/), to demonstrate the signature verification process. LindaWeb provides the `Lind.verifySignature` interface to verify signatures. A successful verification will return `true`; otherwise, it returns `false`. Please follow the process below to verify.
 
-### 1. Install TronWeb
+### 1. Install LindaWeb
 
-If you have already installed TronWeb, you can skip this step. Otherwise, install it using the following command:
+If you have already installed LindaWeb, you can skip this step. Otherwise, install it using the following command:
 
 ```
-npm install -g tronweb
+npm install -g lindaweb
 ```
 
 ### 2. Verify the Release Package's Integrity
@@ -118,11 +118,11 @@ Compare the hash value from the command's output with the hash provided in the r
 
 ### 3. Check the Release Package Signature
 
-Use the `tronweb`'s `Trx.verifySignature` interface to verify the release package's signature. Execute the following JavaScript code in your command line:
+Use the `lindaweb`'s `Lind.verifySignature` interface to verify the release package's signature. Execute the following JavaScript code in your command line:
 
 ```
-# Trx.verifySignature(SHA256, ADDRESS, SIGNATURE));
-node -e 'console.log(require("tronweb").Trx.verifySignature(
+# Lind.verifySignature(SHA256, ADDRESS, SIGNATURE));
+node -e 'console.log(require("lindaweb").Lind.verifySignature(
     "2fca93b09da4ac62641e03838e77fce99b4711ddb0c09aa91656c80fc9556d2e",
     "TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2",
     "21435e32131feb6d00ba8048df04e112e02569ec851064d8ecad2d4dd5da44b7628ddce16823dadfff6fd683fc58cee74964970621a845ee459e2c96a750de551b"

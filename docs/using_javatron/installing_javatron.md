@@ -1,13 +1,13 @@
-# Deploying a java-tron Node
+# Deploying a java-linda Node
 
-This document guides developers on how to deploy a TRON java-tron node on `Linux` or `macOS` operating systems.
+This document guides developers on how to deploy a LINDA java-linda node on `Linux` or `macOS` operating systems.
 
-**Important Note:** The java-tron node currently requires **Oracle JDK 1.8**. Other JDK versions are not supported.
+**Important Note:** The java-linda node currently requires **Oracle JDK 1.8**. Other JDK versions are not supported.
 
 
 ## Hardware Configuration Requirements
 
-The minimum hardware configuration required to run a java-tron node is as follows:
+The minimum hardware configuration required to run a java-linda node is as follows:
 
 * **CPU**: 8 Cores
 * **Memory**: 16 GB
@@ -29,39 +29,39 @@ For a Super Representative (SR) node acting as a **block production node**, the 
 * **Network Bandwidth**: 100 Mbps
 
 
-## Obtaining the java-tron Client
+## Obtaining the java-linda Client
 
-You can directly download the official client [here](https://github.com/tronprotocol/java-tron/releases), or you can compile the source code yourself to package the client.
+You can directly download the official client [here](https://github.com/lindaprotocol/java-linda/releases), or you can compile the source code yourself to package the client.
 
-### Compiling java-tron Source Code
+### Compiling java-linda Source Code
 
 Before you begin compiling, ensure that **git** is installed on your system.
 
-1. First, clone the java-tron source code to your local machine using the `git` command and switch to the `master` branch:
+1. First, clone the java-linda source code to your local machine using the `git` command and switch to the `master` branch:
 ```
-git clone https://github.com/tronprotocol/java-tron.git
+git clone https://github.com/lindaprotocol/java-linda.git
 git checkout -t origin/master
 ```
-2. Then, execute the following commands to compile the java-tron source code:
+2. Then, execute the following commands to compile the java-linda source code:
 ```
-cd java-tron
+cd java-linda
 ./gradlew clean build -x test
 ```
     * The parameter `-x test` indicates skipping the execution of test cases. You can remove this parameter to execute test code during compilation, but this will extend the compilation time.
-    * After compilation is complete, the `FullNode.jar` file will be generated in the `java-tron/build/libs/` directory.
+    * After compilation is complete, the `FullNode.jar` file will be generated in the `java-linda/build/libs/` directory.
 
-## Starting a java-tron Node
+## Starting a java-linda Node
 
-You can choose different configuration files to connect the java-tron node to different TRON networks:
+You can choose different configuration files to connect the java-linda node to different LINDA networks:
 
-* For Mainnet FullNode configuration file: [config.conf](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)
+* For Mainnet FullNode configuration file: [config.conf](https://github.com/lindaprotocol/java-linda/blob/master/framework/src/main/resources/config.conf)
 * For other network node configuration:
     * Nile Testnet: https://nileex.io/
-    * Private Network: please refer to [Private Network](https://tronprotocol.github.io/documentation-en/using_javatron/private_network/)
+    * Private Network: please refer to [Private Network](https://lindaprotocol.github.io/documentation-en/using_javalinda/private_network/)
 
 ### Starting a FullNode
 
-A **FullNode** serves as an entry point to the TRON network, possesses complete historical data, and provides external access via **HTTP API**, **gRPC API**, and **JSON-RPC API**. You can interact with the TRON network through a FullNode for activities such as asset transfers, smart contract deployments, and smart contract interactions.
+A **FullNode** serves as an entry point to the LINDA network, possesses complete historical data, and provides external access via **HTTP API**, **gRPC API**, and **JSON-RPC API**. You can interact with the LINDA network through a FullNode for activities such as asset transfers, smart contract deployments, and smart contract interactions.
 
 Below is the command to start a **Mainnet FullNode**, specifying the configuration file with the `-c` parameter:
 
@@ -174,12 +174,12 @@ node.backup {
 
 ### Speeding Up Node Data Synchronization
 
-For Mainnet and Nile Testnet, a newly launched node needs to synchronize a large amount of data, which will take a significant amount of time. You can use [data snapshots](https://tronprotocol.github.io/documentation-en/using_javatron/backup_restore/#main-net-data-snapshot) to accelerate node synchronization.
+For Mainnet and Nile Testnet, a newly launched node needs to synchronize a large amount of data, which will take a significant amount of time. You can use [data snapshots](https://lindaprotocol.github.io/documentation-en/using_javalinda/backup_restore/#main-net-data-snapshot) to accelerate node synchronization.
 
 The operational steps are as follows:
 
 1. Download the latest data snapshot.
-2. Unzip it to the `output-directory` within your `tron` project.
+2. Unzip it to the `output-directory` within your `linda` project.
 3. Then start the node; the node will continue to synchronize based on the data snapshot.
 
 ### Specifying Super Representative Account Private Key Using Keystore + Password

@@ -2,19 +2,19 @@
 
 ## Introduction
 
-TRON shielded transaction uses zk-SNARK(Zero-Knowledge Succinct Non-Interactive Argument of Knowledge) to implement a completely anonymous transaction. TronZ is the name of shielded trc10 token.
+LINDA shielded transaction uses zk-SNARK(Zero-Knowledge Succinct Non-Interactive Argument of Knowledge) to implement a completely anonymous transaction. LindaZ is the name of shielded lrc10 token.
 
-In shielded transaction of transferring TronZ, the sender and the receiver's address and transfer amount can both be completely confidential.
+In shielded transaction of transferring LindaZ, the sender and the receiver's address and transfer amount can both be completely confidential.
 
-In shielded transaction of transferring TronZ, there are two types of address:
+In shielded transaction of transferring LindaZ, there are two types of address:
 
 - "t-addr" (Transparent Address)
 - "z-addr" (Shielded Address)
 
-"t-addr" address uses TRON account model.
+"t-addr" address uses LINDA account model.
 "z-addr" address uses Anonymous account model.
 
-In shielded transaction of transferring TronZ, there are three types of transfer transaction:
+In shielded transaction of transferring LindaZ, there are three types of transfer transaction:
 - From "t-addr" to "z-addr":
 The transaction information of "t-addr" can be tracked, "z-addr" can not be tracked.
 
@@ -35,7 +35,7 @@ From "t-addr" to "t-addr" are not supported.
 3.&nbsp;The fee for each shielded transaction is xx.
 
 
-The doc below describes how to use TRON Shielded Transaction with http api.
+The doc below describes how to use LINDA Shielded Transaction with http api.
 
 ### Transfer from transparent address to shielded address
 
@@ -51,7 +51,7 @@ Parameters:
         "note":
         {
              "value": 500000000,
-             "payment_address": "ztron1jld8fmvujrz2vgkc867zuwklmewy4ypw0wtwgweqs2paee0uhc8f3azy90el770arksa2kunl02",
+             "payment_address": "zlinda1jld8fmvujrz2vgkc867zuwklmewy4ypw0wtwgweqs2paee0uhc8f3azy90el770arksa2kunl02",
              "rcm": "723053bcbfecdf5da66c18ab0376476ef308c61b7abe891b2c01e903bcb87c0e"
         }
     }]
@@ -108,7 +108,7 @@ Parameter:
         {
             "note": {
                 "value": 90000000,
-                "payment_address": "ztron1jld8fmvujrz2vgkc867zuwklmewy4ypw0wtwgweqs2paee0uhc8f3azy90el770arksa2kunl02",
+                "payment_address": "zlinda1jld8fmvujrz2vgkc867zuwklmewy4ypw0wtwgweqs2paee0uhc8f3azy90el770arksa2kunl02",
                 "rcm": "e48836a3cfae0e1b27b5230460199b46ebd88ad650fa9db5ac1eafb20b516302"
             },
 
@@ -123,7 +123,7 @@ Parameter:
         {
             "note": {
                 "value": 80000000,
-                "payment_address": "ztron1wd46s6fwmz99gulqpxul6zffqtevzfpl93ng3s5834fhwf6e7w5l6zmjhmpvtwsc4wxa7dusmvr",
+                "payment_address": "zlinda1wd46s6fwmz99gulqpxul6zffqtevzfpl93ng3s5834fhwf6e7w5l6zmjhmpvtwsc4wxa7dusmvr",
                 "rcm": "ccced07d36641fc93cba33cddda7064cb82f6962a0bdf15a4240a4a742770e03"
             }
         }
@@ -177,7 +177,7 @@ Parameter:
         {
             "note": {
                 "value": 80000000,
-                "payment_address": "ztron1wd46s6fwmz99gulqpxul6zffqtevzfpl93ng3s5834fhwf6e7w5l6zmjhmpvtwsc4wxa7dusmvr",
+                "payment_address": "zlinda1wd46s6fwmz99gulqpxul6zffqtevzfpl93ng3s5834fhwf6e7w5l6zmjhmpvtwsc4wxa7dusmvr",
                 "rcm": "ccced07d36641fc93cba33cddda7064cb82f6962a0bdf15a4240a4a742770e03"
             },
             "alpha": "3ad5406efd6efcd81d27696d5f91efc07ba5c98ea6fb0f787b93e557b51df405",

@@ -1,6 +1,6 @@
-# Toolkit: A Java-tron Node Maintenance Suite
+# Toolkit: A Java-linda Node Maintenance Suite
 
-The TRON Toolkit is a comprehensive utility that integrates various ecosystem tools for `java-tron`, designed to streamline node maintenance and management operations. We are committed to expanding its functionality in future releases to improve the developer experience. The Toolkit currently offers the following core features:
+The LINDA Toolkit is a comprehensive utility that integrates various ecosystem tools for `java-linda`, designed to streamline node maintenance and management operations. We are committed to expanding its functionality in future releases to improve the developer experience. The Toolkit currently offers the following core features:
 
 * [Database Partitioning](#database-partitioning-tool): Alleviates storage pressure caused by on-chain data growth.
 * [Lite Fullnode Data Pruning](#lite-fullnode-data-pruning): Enables periodic pruning of Lite Fullnode data.
@@ -8,32 +8,32 @@ The TRON Toolkit is a comprehensive utility that integrates various ecosystem to
 * [Data Conversion](#data-conversion-tool): Supports data format conversion from LevelDB to RocksDB.
 * [LevelDB Startup Optimization](#leveldb-startup-optimization-tool): Accelerates the startup speed for nodes using LevelDB.
 
-This document provides a detailed guide on how to acquire and use the TRON Toolkit.
+This document provides a detailed guide on how to acquire and use the LINDA Toolkit.
 
 
 ## Obtaining the Toolkit
 
-You can obtain the `Toolkit.jar` file either by compiling the `java-tron` source code or by downloading a pre-compiled binary from the official releases. We recommend downloading the latest version from [GitHub Releases](https://github.com/tronprotocol/java-tron/releases).
+You can obtain the `Toolkit.jar` file either by compiling the `java-linda` source code or by downloading a pre-compiled binary from the official releases. We recommend downloading the latest version from [GitHub Releases](https://github.com/lindaprotocol/java-linda/releases).
 
 ### Compiling from Source
 
 
-1. **Clone the `java-tron` source repository**：
+1. **Clone the `java-linda` source repository**：
    ```
-   $ git clone https://github.com/tronprotocol/java-tron.git
+   $ git clone https://github.com/lindaprotocol/java-linda.git
    $ git checkout -t origin/master
    ```
 2. **Build the project**：
    ```
-   $ cd java-tron
+   $ cd java-linda
    $ ./gradlew clean build -x test
    ```
-Upon successful compilation, the `Toolkit.jar` artifact will be located in the `java-tron/build/libs/` directory.
+Upon successful compilation, the `Toolkit.jar` artifact will be located in the `java-linda/build/libs/` directory.
 
 
 ## Database Partitioning Tool
 
-The continuous growth of TRON's on-chain data (Mainnet Fullnode database currently exceeds 2TB and grows by approximately 1.2GB daily) places increasing storage demands on nodes. To address the limitations of single-disk capacity, the TRON Toolkit includes a **database storage partitioning tool**. This tool enables you to migrate specific database components to different storage disks based on a configuration file. This allows you to expand storage capacity by adding new devices rather than replacing existing ones when disk space becomes insufficient.
+The continuous growth of LINDA's on-chain data (Mainnet Fullnode database currently exceeds 2TB and grows by approximately 1.2GB daily) places increasing storage demands on nodes. To address the limitations of single-disk capacity, the LINDA Toolkit includes a **database storage partitioning tool**. This tool enables you to migrate specific database components to different storage disks based on a configuration file. This allows you to expand storage capacity by adding new devices rather than replacing existing ones when disk space becomes insufficient.
 
 ### Command and Parameters
 
@@ -42,7 +42,7 @@ Use the `db mv` command to execute the data migration：
 # full command
 java -jar Toolkit.jar db mv [-h] [-c=<config>] [-d=<database>]
 # examples
-java -jar Toolkit.jar db mv -c main_net_config.conf -d /data/tron/output-directory
+java -jar Toolkit.jar db mv -c main_net_config.conf -d /data/linda/output-directory
 ```
 
 **Optional Parameters**：
@@ -72,9 +72,9 @@ kill -15 $(ps -ef | grep FullNode.jar | grep -v grep | awk '{print $2}')
 
 #### 2. Configure Database Storage Migration
 
-Database migration is configured via the `storage.properties `field in the `java-tron` node configuration file. You can find an example configuration in the [tron-deployment repository](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf#L37).
+Database migration is configured via the `storage.properties `field in the `java-linda` node configuration file. You can find an example configuration in the [linda-deployment repository](https://github.com/lindaprotocol/linda-deployment/blob/master/main_net_config.conf#L37).
 
-The following example demonstrates how to migrate the `block` and `trans` databases to the `/data1/tron` directory:
+The following example demonstrates how to migrate the `block` and `trans` databases to the `/data1/linda` directory:
 
 
 ```conf
@@ -83,12 +83,12 @@ storage {
   properties = [
     {
      name = "block",
-     path = "/data1/tron",
+     path = "/data1/linda",
 
     },
     {
      name = "trans",
-     path = "/data1/tron",
+     path = "/data1/linda",
    }
   ]
  ......
@@ -106,12 +106,12 @@ The tool will move the database specified by `name` to the `path` directory and 
 After configuration, run the following command to perform the migration. The command will display the current progress.
 
 ```
-java -jar Toolkit.jar db mv -c main_net_config.conf -d /data/tron/output-directory
+java -jar Toolkit.jar db mv -c main_net_config.conf -d /data/linda/output-directory
 ```
 
 #### 4. Restart the FullNode Service
 
-Once the migration is complete, restart your `java-tron` node. 
+Once the migration is complete, restart your `java-linda` node. 
 
 **FullNode Startup Command Example**：
 
@@ -140,7 +140,7 @@ nohup java -Xms9G -Xmx9G -XX:ReservedCodeCacheSize=256m \
 ```
 ## Lite Fullnode Data Pruning
 
-The TRON Toolkit provides a **data pruning tool** primarily used for generating and managing lite FullNode data.
+The LINDA Toolkit provides a **data pruning tool** primarily used for generating and managing lite FullNode data.
 
 A FullNode's complete data can be split into two parts: a snapshot dataset (Snapshot Dataset) or a historical dataset (History Dataset).
 
@@ -241,7 +241,7 @@ When the command finishes, the merged data will overwrite the snapshot dataset i
 
 ## Fast Data Copy Tool
 
-Node databases are often large, and traditional copy operations can be time-consuming. The TRON Toolkit provides a **fast database copy feature** that uses hard links to efficiently copy a LevelDB or RocksDB database within a single disk partition.
+Node databases are often large, and traditional copy operations can be time-consuming. The LINDA Toolkit provides a **fast database copy feature** that uses hard links to efficiently copy a LevelDB or RocksDB database within a single disk partition.
 
 
 ### Command and Parameters
@@ -264,7 +264,7 @@ Use the `db cp` command to perform a data copy operation:
 
 ## Data Conversion Tool
 
-The TRON Toolkit includes a data conversion feature that allows you to convert a database from LevelDB format to RocksDB format.
+The LINDA Toolkit includes a data conversion feature that allows you to convert a database from LevelDB format to RocksDB format.
 
 ### Command and Parameters
 Use the `db convert` command to perform the data conversion:
@@ -289,7 +289,7 @@ Use the `db convert` command to perform the data conversion:
 
 ## LevelDB Startup Optimization Tool
 
-As a LevelDB database operates, its `manifest` file continuously grows. An excessively large `manifest` file can slow down node startup and lead to persistent memory growth, which may cause the service to terminate unexpectedly. To solve these problems, the TRON Toolkit provides a **LevelDB Startup Optimization Tool**. It optimizes the `manifest` file size and the LevelDB startup process, reducing memory usage and accelerating node startup.
+As a LevelDB database operates, its `manifest` file continuously grows. An excessively large `manifest` file can slow down node startup and lead to persistent memory growth, which may cause the service to terminate unexpectedly. To solve these problems, the LINDA Toolkit provides a **LevelDB Startup Optimization Tool**. It optimizes the `manifest` file size and the LevelDB startup process, reducing memory usage and accelerating node startup.
 
 ### Command and Parameters
 

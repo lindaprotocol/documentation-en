@@ -1,21 +1,21 @@
-site_name: java-tron
-site_url: https://tronprotocol.github.io/documentation-en/
-repo_url: https://github.com/tronprotocol/documentation-en
+site_name: java-linda
+site_url: https://lindaprotocol.github.io/documentation-en/
+repo_url: https://github.com/lindaprotocol/documentation-en
 
 nav:
     - Home: index.md
-    - Getting Started With java-tron:
-        - Getting Started: getting_started/getting_started_with_javatron.md
-    - Using java-tron:
-        - Deploying: using_javatron/installing_javatron.md
-        - Backup and Restore: using_javatron/backup_restore.md
-        - Lite FullNode: using_javatron/litefullnode.md
-        - Private Network: using_javatron/private_network.md
+    - Getting Started With java-linda:
+        - Getting Started: getting_started/getting_started_with_javalinda.md
+    - Using java-linda:
+        - Deploying: using_javalinda/installing_javalinda.md
+        - Backup and Restore: using_javalinda/backup_restore.md
+        - Lite FullNode: using_javalinda/litefullnode.md
+        - Private Network: using_javalinda/private_network.md
         - Event Subscription: architecture/event.md
         - Database Configuration: architecture/database.md
-        - Network Connection: using_javatron/connecting_to_tron.md
-        - Node Monitoring: using_javatron/metrics.md
-        - Node Maintenance Tool: using_javatron/toolkit.md
+        - Network Connection: using_javalinda/connecting_to_linda.md
+        - Node Monitoring: using_javalinda/metrics.md
+        - Node Maintenance Tool: using_javalinda/toolkit.md
     - API:
         - HTTP API: api/http.md
         - gRPC API: api/rpc.md
@@ -29,8 +29,8 @@ nav:
         - System Contract: mechanism-algorithm/system-contracts.md
         - Decentralized Exchange: mechanism-algorithm/dex.md
         - Account Permission Management: mechanism-algorithm/multi-signatures.md
-    - For java-tron Developers:
-        - Developer Guide: developers/java-tron.md
+    - For java-linda Developers:
+        - Developer Guide: developers/java-linda.md
         - TIPs Workflow: developers/tips.md
         - Issue Workflow: developers/issue-workflow.md
         - Governance Workflow: developers/governance.md
@@ -90,9 +90,9 @@ plugins:
   - search
   - exclude:
       glob:
-        - clients/tron-grid.md
-        - contracts/trc20.md
-        - contracts/tvm.md
+        - clients/linda-grid.md
+        - contracts/lrc20.md
+        - contracts/lvm.md
         - developers/contribution.md
         - developers/gpg.md
         - developers/incentives.md
@@ -100,6 +100,6 @@ plugins:
         - faq/index.md
         - introduction/index.md
         - introduction/overview.md
-        - mechanism-algorithm/shielded-TRC20-contract.md
-        - mechanism-algorithm/trc10.md
+        - mechanism-algorithm/shielded-LRC20-contract.md
+        - mechanism-algorithm/lrc10.md
 

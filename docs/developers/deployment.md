@@ -13,30 +13,30 @@ Create separate directories for fullnode and soliditynode
 
 Create two folders for fullnode and soliditynode.
 
-Clone the latest master branch of [https://github.com/tronprotocol/java-tron](https://github.com/tronprotocol/java-tron) and extract it to
+Clone the latest master branch of [https://github.com/lindaprotocol/java-linda](https://github.com/lindaprotocol/java-linda) and extract it to
 ```text
-/deploy/java-tron
+/deploy/java-linda
 ```
 
 Make sure you have the proper dependencies.
 
 * JDK 1.8 (JDK 1.9+ is not supported yet)
-* On Linux Ubuntu system (e.g. Ubuntu 16.04.4 LTS), ensure that the machine has [__Oracle JDK 8__](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04), instead of having __Open JDK 8__ in the system. If you are building the source code by using __Open JDK 8__, you will get [__Build Failed__](https://github.com/tronprotocol/java-tron/issues/337) result.
+* On Linux Ubuntu system (e.g. Ubuntu 16.04.4 LTS), ensure that the machine has [__Oracle JDK 8__](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04), instead of having __Open JDK 8__ in the system. If you are building the source code by using __Open JDK 8__, you will get [__Build Failed__](https://github.com/lindaprotocol/java-linda/issues/337) result.
 * Open **UDP** ports for connection to the network
 * **MINIMUM** 2 CPU Cores
 
 
 ## Deployment Guide
 
-1.&nbsp;Build the java-tron project
+1.&nbsp;Build the java-linda project
 ```text
-cd /deploy/java-tron
+cd /deploy/java-linda
 ./gradlew build
 ```
 
 2.&nbsp;Copy the FullNode.jar and SolidityNode.jar along with configuration files into the respective directories
 ```shell
-download your needed configuration file from https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/resources/config.conf.
+download your needed configuration file from https://github.com/lindaprotocol/java-linda/blob/develop/framework/src/main/resources/config.conf.
 
 config.conf is the configuration for MainNet. To set up a testnet node, please modify the parameters in the configuration file.
 
@@ -47,7 +47,7 @@ cp build/libs/SolidityNode.jar ../soliditynode
 
 3.&nbsp;You can now run your FullNode using the following command
 ```text
-java -jar FullNode.jar -c config.conf // make sure that your config.conf is downloaded from https://github.com/tronprotocol/TronDeployment
+java -jar FullNode.jar -c config.conf // make sure that your config.conf is downloaded from https://github.com/lindaprotocol/LindaDeployment
 ```
 
 4.&nbsp;Configure the SolidityNode configuration file
@@ -61,17 +61,17 @@ rpc {
 
 5.&nbsp;You can now run your SolidityNode using the following command：
 ```text
-java -jar SolidityNode.jar -c config.conf //make sure that your config.conf is downloaded from https://github.com/tronprotocol/TronDeployment
+java -jar SolidityNode.jar -c config.conf //make sure that your config.conf is downloaded from https://github.com/lindaprotocol/LindaDeployment
 ```
 
 6.&nbsp;Running a Super Representative Node for mainnet
 ```text
-java -jar FullNode.jar -p your private key --witness -c your config.conf(Example：/data/java-tron/config.conf)
+java -jar FullNode.jar -p your private key --witness -c your config.conf(Example：/data/java-linda/config.conf)
 Example:
-java -jar FullNode.jar -p 650950B1...295BD812 --witness -c /data/java-tron/config.conf
+java -jar FullNode.jar -p 650950B1...295BD812 --witness -c /data/java-linda/config.conf
 ```
 
-This is similar to running a private testnet, except that the IPs in the `config.conf` are officially declared by TRON.
+This is similar to running a private testnet, except that the IPs in the `config.conf` are officially declared by LINDA.
 
 7.&nbsp;Running a Super Representative Node for private testnet
 
@@ -84,15 +84,15 @@ You should modify the config.conf:
 
 ```text
 cd build/libs
-java -jar FullNode.jar -p your private key --witness -c your config.conf (Example：/data/java-tron/config.conf)
+java -jar FullNode.jar -p your private key --witness -c your config.conf (Example：/data/java-linda/config.conf)
 Example:
-java -jar FullNode.jar -p 650950B1...295BD812 --witness -c /data/java-tron/config.conf
+java -jar FullNode.jar -p 650950B1...295BD812 --witness -c /data/java-linda/config.conf
 ```
 
 
 ## Logging and Network Connection Verification
 
-Logs for both nodes are located in `/deploy/\*/logs/tron.log`. Use `tail -f /logs/tron.log/` to follow along with the block syncing.
+Logs for both nodes are located in `/deploy/\*/logs/linda.log`. Use `tail -f /logs/linda.log/` to follow along with the block syncing.
 
 You should see something similar to this in your logs for block synchronization:
 
@@ -113,10 +113,10 @@ while true; do
   pid=`ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'`
   if [ -n "$pid" ]; then
     kill -15 $pid
-    echo "The java-tron process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently..."
+    echo "The java-linda process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently..."
     sleep 1
   else
-    echo "java-tron killed successfully!"
+    echo "java-linda killed successfully!"
     break
   fi
 done
@@ -134,13 +134,13 @@ Just Support FullNode and SolidityNode.
 <h3>Download and run script</h3>
 
 ```shell
-wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
+wget https://raw.githubusercontent.com/lindaprotocol/LindaDeployment/master/deploy_linda.sh -O deploy_linda.sh
 ```
 
 <h3>Parameter Illustration</h3>
 
 ```shell
-bash deploy_tron.sh --app [FullNode|SolidityNode] --net [mainnet|testnet|privatenet] --db [keep|remove|backup] --heap-size <heapsize>
+bash deploy_linda.sh --app [FullNode|SolidityNode] --net [mainnet|testnet|privatenet] --db [keep|remove|backup] --heap-size <heapsize>
 
 --app Optional, Running application. The default node is Fullnode and it could be FullNode or SolidityNode.
 --net Optional, Connecting network. The default network is mainnet and it could be mainnet, testnet.
@@ -156,42 +156,42 @@ bash deploy_tron.sh --app [FullNode|SolidityNode] --net [mainnet|testnet|private
 <h3> Deployment of FullNode on the one host </h3>
 
 ```shell
-wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
-bash deploy_tron.sh
+wget https://raw.githubusercontent.com/lindaprotocol/LindaDeployment/master/deploy_linda.sh -O deploy_linda.sh
+bash deploy_linda.sh
 ```
 
 <h3> Deployment of SolidityNode on the one host </h3>
 
 ```shell
-wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
+wget https://raw.githubusercontent.com/lindaprotocol/LindaDeployment/master/deploy_linda.sh -O deploy_linda.sh
 # User can self-configure the IP and Port of GRPC service in the trust-node field of SolidityNode. trust-node is the fullnode you just deploy.
-bash deploy_tron.sh --app SolidityNode --trust-node <grpc-ip:grpc-port>
+bash deploy_linda.sh --app SolidityNode --trust-node <grpc-ip:grpc-port>
 ```
 
 <h3> Deployment of FullNode and SolidityNode on the same host </h3>
 
 ```shell
 # You need to configure different gRPC ports on the same host because gRPC port is available on SolidityNode and FullNodeConfigure and it cannot be set as default value 50051. In this case the default value of rpc port is set as 50041.
-wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
-bash deploy_tron.sh --app FullNode
-bash deploy_tron.sh --app SolidityNode --rpc-port 50041
+wget https://raw.githubusercontent.com/lindaprotocol/LindaDeployment/master/deploy_linda.sh -O deploy_linda.sh
+bash deploy_linda.sh --app FullNode
+bash deploy_linda.sh --app SolidityNode --rpc-port 50041
 ```
 
 ## Grpc Gateway Deployment
 
 <h3> Summary </h3>
 
-This script helps you download the code from https://github.com/tronprotocol/grpc-gateway and deploy the code on your environment.
+This script helps you download the code from https://github.com/lindaprotocol/grpc-gateway and deploy the code on your environment.
 
 <h3> Pre-requests </h3>
 
-Please follow the guide on https://github.com/tronprotocol/grpc-gateway
+Please follow the guide on https://github.com/lindaprotocol/grpc-gateway
 Install Golang, Protoc, and set $GOPATH environment variable according to your requirement.
 
 <h3> Download and run script </h3>
 
 ```shell
-wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_grpc_gateway.sh -O deploy_grpc_gateway.sh
+wget https://raw.githubusercontent.com/lindaprotocol/LindaDeployment/master/deploy_grpc_gateway.sh -O deploy_grpc_gateway.sh
 ```
 
 <h3> Parameter Illustration </h3>
@@ -217,23 +217,23 @@ bash deploy_grpc_gateway.sh --rpchost 127.0.0.1 --rpcport 50052 --httpport 18891
 
 ## Event Subscribe plugin Deployment
 
-This is an implementation of TRON eventsubscribe model.
+This is an implementation of LINDA eventsubscribe model.
 
-* **api** module defines IPluginEventListener, a protocol between java-tron and event plugin.
+* **api** module defines IPluginEventListener, a protocol between java-linda and event plugin.
 * **app** module is an example for loading plugin, developers could use it for debugging.
-* **kafkaplugin** module is the implementation for kafka, it implements IPluginEventListener, it receives events subscribed from java-tron and relay events to kafka server.
+* **kafkaplugin** module is the implementation for kafka, it implements IPluginEventListener, it receives events subscribed from java-linda and relay events to kafka server.
 * **mongodbplugin** mongodbplugin module is the implementation for mongodb.
 
 <h3> Setup/Build </h3>
 
-1. Clone the repo `git clone https://github.com/tronprotocol/event-plugin.git`
+1. Clone the repo `git clone https://github.com/lindaprotocol/event-plugin.git`
 2. Go to eventplugin `cd event-plugin`
 3. run `./gradlew build`
 
 * This will produce one plugin zip, named `plugin-kafka-1.0.0.zip`, located in the `event-plugin/build/plugins/` directory.
 
 
-<h3> Edit **config.conf** of java-tron， add the following fields:</h3>
+<h3> Edit **config.conf** of java-linda， add the following fields:</h3>
 
 ```
 event.subscribe = {
@@ -363,7 +363,7 @@ kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractlog
 kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
 ```
 
-<h3> Load plugin in java-tron </h3>
+<h3> Load plugin in java-linda </h3>
 
 * add --es to command line, for example:
 ```
@@ -399,13 +399,13 @@ filter = {
 
 The version of MongoDB is **4.0.4**, below is the command:
 
-- cd /home/java-tron
+- cd /home/java-linda
 - curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.4.tgz
 - tar zxvf mongodb-linux-x86_64-4.0.4.tgz
 - mv mongodb-linux-x86_64-4.0.4 mongodb
 
 ** Set environment **
-- export MONGOPATH=/home/java-tron/mongodb/
+- export MONGOPATH=/home/java-linda/mongodb/
 - export PATH=$PATH:$MONGOPATH/bin
 
 ** Create mongodb config **
@@ -419,8 +419,8 @@ Create data, log subfolder in mongodb directory,  and add their absolute path to
 
 ** Example: **
 
-- dbpath=/home/java-tron/mongodb/data
-- logpath=/home/java-tron/mongodb/log/mongodb.log
+- dbpath=/home/java-linda/mongodb/data
+- logpath=/home/java-linda/mongodb/log/mongodb.log
 - port=27017
 - logappend=true
 - fork=true
@@ -444,9 +444,9 @@ Create data, log subfolder in mongodb directory,  and add their absolute path to
 
 - db.auth("root", "admin")
 - use eventlog
-- db.createUser({user:"tron",pwd:"123456",roles:[{role:"dbOwner",db:"eventlog"}]})
+- db.createUser({user:"linda",pwd:"123456",roles:[{role:"dbOwner",db:"eventlog"}]})
 
-> database: eventlog, username:tron, password: 123456
+> database: eventlog, username:linda, password: 123456
 
 ** Firewall rule: **
 - iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 27017 -j ACCEPT
@@ -455,7 +455,7 @@ Create data, log subfolder in mongodb directory,  and add their absolute path to
 
 - mongo 47.90.245.68:27017
 - use eventlog
-- db.auth("tron", "123456")
+- db.auth("linda", "123456")
 - show collections
 - db.block.find()
 
@@ -474,25 +474,25 @@ sh insertIndex.sh
 
 Download sourcecode
 
-git clone https://github.com/tronprotocol/tron-eventquery.git
-cd troneventquery
+git clone https://github.com/lindaprotocol/linda-eventquery.git
+cd lindaeventquery
 
 <h3> Build </h3>
 
 - mvn package
 
-After the build command is executed successfully, troneventquery jar to release will be generated under troneventquery/target directory.
+After the build command is executed successfully, lindaeventquery jar to release will be generated under lindaeventquery/target directory.
 
-Configuration of mongodb "config.conf" should be created for storing mongodb configuration, such as database name, username, password, and so on. We provided an example in sourcecode, which is " troneventquery/config.conf ". Replace with your specified configuration if needed.
+Configuration of mongodb "config.conf" should be created for storing mongodb configuration, such as database name, username, password, and so on. We provided an example in sourcecode, which is " lindaeventquery/config.conf ". Replace with your specified configuration if needed.
 
 **Note**:
 
-Make sure the relative path of config.conf and troneventquery jar. The config.conf 's path is the parent of troneventquery jar.
+Make sure the relative path of config.conf and lindaeventquery jar. The config.conf 's path is the parent of lindaeventquery jar.
 
  - mongo.host=IP
  - mongo.port=27017
  - mongo.dbname=eventlog
- - mongo.username=tron
+ - mongo.username=linda
  - mongo.password=123456
  - mongo.connectionsPerHost=8
  - mongo.threadsAllowedToBlockForConnectionMultiplier=4
@@ -501,8 +501,8 @@ Any configuration could be modified except **mongo.dbname**, "**eventlog**" is t
 
 <h3> Run </h3>
 
-- troneventquery/deploy.sh is used to deploy troneventquery
-- troneventquery/insertIndex.sh is used to setup mongodb index to speedup query.
+- lindaeventquery/deploy.sh is used to deploy lindaeventquery
+- lindaeventquery/insertIndex.sh is used to setup mongodb index to speedup query.
 
 
 ## Advanced Configurations

@@ -2,20 +2,20 @@
 
 ## Introduction to the Resource Model
 
-The TRON network's core system resources consist of three components: TRON Power (TP), Bandwidth, and Energy. Their definitions and functions are as follows:
+The LINDA network's core system resources consist of three components: LINDA Power (LP), Bandwidth, and Energy. Their definitions and functions are as follows:
 
-  - **TRON Power (TP):** Used exclusively for voting for Super Representatives (SRs) and Super Representative Partners. It serves as the credential for users to participate in network governance and is obtained by staking TRX.
+  - **LINDA Power (LP):** Used exclusively for voting for Super Representatives (SRs) and Super Representative Partners. It serves as the credential for users to participate in network governance and is obtained by staking LIND.
   - **Bandwidth:** Measures the byte size of a transaction on the blockchain. Every type of transaction, from a simple transfer to a contract interaction, must consume Bandwidth.
-  - **Energy:** Measures the computational resources consumed by the TRON Virtual Machine (TVM) to execute a smart contract. It can be understood as a "CPU processing fee." Energy is only consumed when deploying or triggering a smart contract.
+  - **Energy:** Measures the computational resources consumed by the LINDA Virtual Machine (LVM) to execute a smart contract. It can be understood as a "CPU processing fee." Energy is only consumed when deploying or triggering a smart contract.
 
-## TRON Power (TP)
+## LINDA Power (LP)
 
-Before voting for Super Representatives, an account must first acquire TRON Power (TP).
+Before voting for Super Representatives, an account must first acquire LINDA Power (LP).
 
-  * **How to Obtain:** When you stake TRX for either Bandwidth or Energy, you simultaneously receive an equivalent amount of TRON Power. This is the only way to get TP. For staking instructions, refer to the [Staking on TRON](#staking-on-tron) section.
-  * **Conversion Ratio:** The staking-to-TP ratio is 1:1. Staking 1 TRX grants you 1 TP.
-  * **Accumulation:** You can stake TRX in multiple, separate transactions. The TP acquired from all stakes is automatically added to your account's total TP pool.
-  * **Querying:** You can check your account's total and used TP at any time using the `wallet/getaccountresource` API endpoint.
+  * **How to Obtain:** When you stake LIND for either Bandwidth or Energy, you simultaneously receive an equivalent amount of LINDA Power. This is the only way to get LP. For staking instructions, refer to the [Staking on LINDA](#staking-on-linda) section.
+  * **Conversion Ratio:** The staking-to-LP ratio is 1:1. Staking 1 LIND grants you 1 LP.
+  * **Accumulation:** You can stake LIND in multiple, separate transactions. The LP acquired from all stakes is automatically added to your account's total LP pool.
+  * **Querying:** You can check your account's total and used LP at any time using the `wallet/getaccountresource` API endpoint.
 
 ## Bandwidth
 
@@ -29,13 +29,13 @@ For example, a transaction with a size of 200 bytes will consume 200 Bandwidth.
 
 There are three ways to obtain Bandwidth:
 
-  * **Staking TRX:** Users share a fixed total Bandwidth pool in proportion to the amount of TRX they have staked for Bandwidth.
+  * **Staking LIND:** Users share a fixed total Bandwidth pool in proportion to the amount of LIND they have staked for Bandwidth.
 
     ```
-    Bandwidth Share = (TRX Staked for Bandwidth / Total TRX Staked for Bandwidth Network-Wide) * Total Bandwidth Limit
+    Bandwidth Share = (LIND Staked for Bandwidth / Total LIND Staked for Bandwidth Network-Wide) * Total Bandwidth Limit
     ```
 
-    **Total Bandwidth** is a network parameter that can be modified through a committee proposal ([\#62](https://tronscan.io/#/sr/committee)) and is currently set to 43,200,000,000.
+    **Total Bandwidth** is a network parameter that can be modified through a committee proposal ([\#62](https://lindascan.io/#/sr/committee)) and is currently set to 43,200,000,000.
 
     Staking for Bandwidth (`wallet-cli` example):
 
@@ -52,7 +52,7 @@ There are three ways to obtain Bandwidth:
     delegateResource [OwnerAddress] balance ResourceCode(0 BANDWIDTH,1 ENERGY), ReceiverAddress [lock]
     ```
     
-  * **Daily Free Allowance:** Every account receives a fixed daily allowance of free Bandwidth, which can be modified through a committee proposal [#61](https://tronscan.io/#/sr/committee) and is currently set to 600.
+  * **Daily Free Allowance:** Every account receives a fixed daily allowance of free Bandwidth, which can be modified through a committee proposal [#61](https://lindascan.io/#/sr/committee) and is currently set to 600.
 
 ### How Bandwidth is Consumed
 
@@ -62,38 +62,38 @@ All transactions, except for query operations, consume Bandwidth. When you initi
 
 The system attempts to pay the Bandwidth fee in the following order:
 
-1.  **Staked Bandwidth:** Consumes the Bandwidth obtained by the transaction initiator from staking TRX.
+1.  **Staked Bandwidth:** Consumes the Bandwidth obtained by the transaction initiator from staking LIND.
 2.  **Free Bandwidth:** If staked Bandwidth is insufficient, consumes the initiator's 600 daily free allowance.
-3.  **TRX Burning:** If both staked and free Bandwidth are insufficient, burns the initiator's TRX to cover the fee.
+3.  **LIND Burning:** If both staked and free Bandwidth are insufficient, burns the initiator's LIND to cover the fee.
     - *Burn Fee = Transaction Size (bytes) × 1,000 sun*
 
 **Scenario 2: New Account Creation Transactions**
 
 Transactions that create a new account follow a special rule and do not use the daily free allowance:
 
-1.  **Staked Bandwidth:** First, attempts to consume the Bandwidth obtained by the transaction initiator from staking TRX.
-2.  **TRX Burning:** If staked Bandwidth is insufficient, directly burns 0.1 TRX to complete the account creation.
+1.  **Staked Bandwidth:** First, attempts to consume the Bandwidth obtained by the transaction initiator from staking LIND.
+2.  **LIND Burning:** If staked Bandwidth is insufficient, directly burns 0.1 LIND to complete the account creation.
 
-**Scenario 3: TRC-10 Token Transfers**
+**Scenario 3: LRC-10 Token Transfers**
 
-TRC-10 token transfers have a unique consumption logic that introduces the "token issuer" as a potential fee payer:
+LRC-10 token transfers have a unique consumption logic that introduces the "token issuer" as a potential fee payer:
 
 1.  **Issuer's Bandwidth (Highest Priority):** The system first attempts to consume the Bandwidth prepaid by the token issuer. This requires all three of the following conditions to be met (only if all three checks pass will the issuer's Bandwidth be deducted; otherwise, the cost falls to the transaction initiator):
       * The token issuer has a sufficient total free Bandwidth allowance.
-          * Query Method: [/wallet/getassetissuebyaccount](https://developers.tron.network/reference/getassetissuebyaccount)
+          * Query Method: [/wallet/getassetissuebyaccount](https://developers.linda.network/reference/getassetissuebyaccount)
           * Formula: `public_free_asset_net_limit - public_free_asset_net_usage`
           * Description: The remaining quota the token issuer can pay for this token's transfers.
       * The transaction initiator has a sufficient Bandwidth allowance for that specific token.
-          * Query Method: [/wallet/getaccountnet](https://developers.tron.network/reference/getaccountnet) 
+          * Query Method: [/wallet/getaccountnet](https://developers.linda.network/reference/getaccountnet) 
           * Formula: `assetNetLimit['assetID'] - assetNetUsed['assetID']`
           * Description: The free Bandwidth quota provided by the issuer that the token holder can still use.
       * The token issuer has sufficient staked Bandwidth. 
-          * Query Method: [/wallet/getaccountnet](https://developers.tron.network/reference/getaccountnet)
+          * Query Method: [/wallet/getaccountnet](https://developers.linda.network/reference/getaccountnet)
           * Formula: `NetLimit - NetUsed`
           * Description: The amount of available Bandwidth the issuer has obtained through staking.
 2.  **Initiator's Staked Bandwidth:** Attempts to consume the initiator's staked Bandwidth.
 3.  **Initiator's Free Bandwidth:** If staked Bandwidth is insufficient, consumes the initiator's free Bandwidth allowance.
-4.  **TRX Burning:** If all the above resources are insufficient, burns the initiator's TRX to pay the fee.
+4.  **LIND Burning:** If all the above resources are insufficient, burns the initiator's LIND to pay the fee.
       * *Burn Fee = Transaction Size (bytes) × 1,000 sun*
 
 ### Automatic Bandwidth Recovery
@@ -113,18 +113,18 @@ Remaining Staked Bandwidth = NetLimit - NetUsed
 
 ## Energy
 
-Energy is the unit of measurement for the computational resources consumed by the TRON Virtual Machine (TVM) when executing the instructions of a smart contract. This section provides a comprehensive overview of Energy focusing on the following three aspects:
+Energy is the unit of measurement for the computational resources consumed by the LINDA Virtual Machine (LVM) when executing the instructions of a smart contract. This section provides a comprehensive overview of Energy focusing on the following three aspects:
 
 - [The acquisition, consumption, and recovery of Energy](#get-energy)
 - [How to set the key parameter, `fee_limit`](#set-fee-limit)
-- [The TRON network's overall consumption mechanism](#energy-mechanism)
+- [The LINDA network's overall consumption mechanism](#energy-mechanism)
 
 <a id="get-energy"></a>
 ### Acquiring and Consuming Energy
 
 Energy can be acquired in two primary ways:
 
-- By Staking TRX: Users can obtain Energy by staking the TRX they hold.
+- By Staking LIND: Users can obtain Energy by staking the LIND they hold.
 - By Receiving Delegation: Users can receive Energy delegated to them from other accounts.
 
 #### Staking for Energy (`wallet-cli` example)
@@ -154,23 +154,23 @@ Remaining Energy = EnergyLimit - EnergyUsed
 The amount of Energy you receive is a dynamic value calculated in real-time based on your stake relative to the total network stake for Energy:
 
 ```
-Your Energy Share = (TRX Staked for Energy / Total TRX Staked for Energy Network-Wide) * Total Energy Limit
+Your Energy Share = (LIND Staked for Energy / Total LIND Staked for Energy Network-Wide) * Total Energy Limit
 ```
 
-Total Energy Limit is a network parameter set by the committee ([#19](https://tronscan.io/#/sr/committee)), currently at 180,000,000,000, and can be modified via proposals.
+Total Energy Limit is a network parameter set by the committee ([#19](https://lindascan.io/#/sr/committee)), currently at 180,000,000,000, and can be modified via proposals.
 
 _**Calculation Example**_
 
 Because your share is tied to the network's total stake, your available Energy will fluctuate as other users stake or unstake.
 
 ```
-Assume only two users, A and B, have staked 2 TRX each.
+Assume only two users, A and B, have staked 2 LIND each.
 
 Their respective Energy shares are:
 A: 90,000,000,000
 B: 90,000,000,000
 
-When a third user, C, stakes 1 TRX, the shares are adjusted:
+When a third user, C, stakes 1 LIND, the shares are adjusted:
 A: 72,000,000,000
 B: 72,000,000,000
 C: 36,000,000,000
@@ -182,8 +182,8 @@ _**Payment Priority**_
 
 When a contract transaction consumes Energy, the system deducts the cost in the following order:
 
-1.  **Staked Energy:** First, the system consumes the Energy obtained by the transaction initiator from staking TRX.
-2.  **TRX Burning:** If staked Energy is insufficient to cover all instructions, the system automatically burns the initiator's TRX to cover the difference. The current price is 0.0001 TRX per unit of Energy.
+1.  **Staked Energy:** First, the system consumes the Energy obtained by the transaction initiator from staking LIND.
+2.  **LIND Burning:** If staked Energy is insufficient to cover all instructions, the system automatically burns the initiator's LIND to cover the difference. The current price is 0.0001 LIND per unit of Energy.
 
 _**Fee Deduction for Exceptions**_
 
@@ -201,28 +201,28 @@ Consumed Energy resources gradually recover over a 24-hour period.
 
 !!! Note
     In this section, "developer" refers to the person who develops and deploys the contract, while "caller" refers to the user or contract that invokes it.
-    Since the Energy consumed by a contract can be converted to TRX (or sun), this section uses "Energy" and "TRX" interchangeably to refer to the resource cost. The terms are distinguished only when referring to specific numerical units.
+    Since the Energy consumed by a contract can be converted to LIND (or sun), this section uses "Energy" and "LIND" interchangeably to refer to the resource cost. The terms are distinguished only when referring to specific numerical units.
 
-`fee_limit` is a critical safety parameter when calling a smart contract. A properly set `fee_limit` ensures that a transaction can execute successfully while preventing excessive TRX consumption if the contract requires unexpectedly high Energy.
+`fee_limit` is a critical safety parameter when calling a smart contract. A properly set `fee_limit` ensures that a transaction can execute successfully while preventing excessive LIND consumption if the contract requires unexpectedly high Energy.
 
 Before setting `fee_limit`, understand these concepts:
 
-1.  A valid `fee_limit` is an integer ranging from 0 to 15,000,000,000 sun (equivalent to 15,000 TRX). The `fee_limit` upper bound is a network parameter that can be modified by committee proposals ([#47](https://tronscan.io/#/sr/committee)), and its current value is 15,000 TRX.
+1.  A valid `fee_limit` is an integer ranging from 0 to 15,000,000,000 sun (equivalent to 15,000 LIND). The `fee_limit` upper bound is a network parameter that can be modified by committee proposals ([#47](https://lindascan.io/#/sr/committee)), and its current value is 15,000 LIND.
 2.  Contracts of varying complexity consume different amounts of Energy. The same contract generally consumes a similar amount of Energy per execution[^1], but with the dynamic energy model, popular contracts may require more Energy at different times. For details, see the [Dynamic Energy Model](#dynamic-energy-model) section. During execution, Energy is deducted instruction by instruction. If the cost exceeds the `fee_limit`, the execution fails, and the consumed Energy is not refunded.
-3.  The `fee_limit` currently specifies the maximum amount of TRX the **caller** is willing to pay to execute a contract[^2]. Note that the total Energy consumed by the contract's execution can be a combination of what the caller pays and what the developer covers for the contract.
-4.  If a contract execution times out or crashes due to a bug, all the Energy allowed for the current transaction will be consumed. This total energy pool is the sum of the following components: `Total Consumed Energy = Energy from Caller's Stake + Energy from Developer's Share + Energy from Burned TRX`. The "Energy from Burned TRX" component is capped by `fee_limit`.
-5.  Through the [Energy sharing mechanism](https://developers.tron.network/docs/energy-consumption-mechanism#tron-energy-sharing-mechanism), a developer may cover a percentage of the Energy cost (e.g., 90%). However, if the developer's account has insufficient Energy, the remaining cost falls entirely to the caller. Within the `fee_limit`, if the caller's Energy is also insufficient, an equivalent amount of TRX will be burned.
+3.  The `fee_limit` currently specifies the maximum amount of LIND the **caller** is willing to pay to execute a contract[^2]. Note that the total Energy consumed by the contract's execution can be a combination of what the caller pays and what the developer covers for the contract.
+4.  If a contract execution times out or crashes due to a bug, all the Energy allowed for the current transaction will be consumed. This total energy pool is the sum of the following components: `Total Consumed Energy = Energy from Caller's Stake + Energy from Developer's Share + Energy from Burned LIND`. The "Energy from Burned LIND" component is capped by `fee_limit`.
+5.  Through the [Energy sharing mechanism](https://developers.linda.network/docs/energy-consumption-mechanism#linda-energy-sharing-mechanism), a developer may cover a percentage of the Energy cost (e.g., 90%). However, if the developer's account has insufficient Energy, the remaining cost falls entirely to the caller. Within the `fee_limit`, if the caller's Energy is also insufficient, an equivalent amount of LIND will be burned.
 
 **Example:**
 Here's how to estimate the `fee_limit` for executing a contract `C`:
 
-  - Assume contract C consumed 18,000 Energy during its last successful execution. By calling the [estimateenergy](https://developers.tron.network/reference/estimateenergy) API to get a pre-execution estimate, let's assume the upper limit of Energy consumption for this transaction is approximately 20,000 Energy.
-  - When burning TRX, since the unit price of Energy is currently 100 sun, 10 TRX can be exchanged for a fixed 100,000 Energy units.
+  - Assume contract C consumed 18,000 Energy during its last successful execution. By calling the [estimateenergy](https://developers.linda.network/reference/estimateenergy) API to get a pre-execution estimate, let's assume the upper limit of Energy consumption for this transaction is approximately 20,000 Energy.
+  - When burning LIND, since the unit price of Energy is currently 100 sun, 10 LIND can be exchanged for a fixed 100,000 Energy units.
   - Assume the developer has committed to covering 90% of the Energy cost and has sufficient Energy.
 
 The `fee_limit` estimation method is as follows:
 
-- **Step 1: Calculate the Total Transaction Fee**: Calculate the total potential cost of the transaction by multiplying the estimated maximum Energy consumption by the current Energy price: `20,000 Energy * 100 sun = 2,000,000 sun (equivalent to 2 TRX)`.
+- **Step 1: Calculate the Total Transaction Fee**: Calculate the total potential cost of the transaction by multiplying the estimated maximum Energy consumption by the current Energy price: `20,000 Energy * 100 sun = 2,000,000 sun (equivalent to 2 LIND)`.
 - **Step 2: Determine the User's Share**: Calculate the portion of the fee the user is responsible for. Given the developer commits to covering 90%, the user's share is 10%: `2,000,000 sun * 10% = 200,000 sun`.
 - **Step 3: Set the Final `fee_limit`**: The recommended `fee_limit` for the user to set is 200,000 sun.
 
@@ -234,25 +234,24 @@ The `fee_limit` estimation method is as follows:
 When executing smart contract transactions, the system calculates and deducts the Energy required for each instruction sequentially. The consumption of Energy in an account follows these priority principles:
 
 1. Available Energy (obtained through staking or renting) in the account is first used.
-2. If that part of Energy is insufficient, the remaining part will be covered by burning TRX from the account at a fixed rate (0.0001 TRX per Energy unit).
+2. If that part of Energy is insufficient, the remaining part will be covered by burning LIND from the account at a fixed rate (0.0001 LIND per Energy unit).
 
 **Contract Energy Sharing Mechanism**
 
-For smart contract calls, to reduce the caller's costs, TRON allows contract deployers to bear a portion of the Energy consumption. For specific details, please refer to the Contract Energy Sharing Mechanism section.
+For smart contract calls, to reduce the caller's costs, LINDA allows contract deployers to bear a portion of the Energy consumption. For specific details, please refer to the Contract Energy Sharing Mechanism section.
 
 Energy Deduction Rules:
 
 - Portion borne by the contract deployer:
-    - Directly deducted from the available Energy in the deployer's account. TRX in the deployer's account will not be burned.
+    - Directly deducted from the available Energy in the deployer's account. LIND in the deployer's account will not be burned.
 - Portion borne by the contract caller:
     - Available Energy in the caller’s account is consumed first.
-    - If insufficient, the remaining part will be covered by burning TRX from the caller's account at a fixed rate.
+    - If insufficient, the remaining part will be covered by burning LIND from the caller's account at a fixed rate.
 
 <a id="dynamic-energy-model"></a>
 ## Dynamic Energy Model
 
-The Dynamic Energy Model is a resource-balancing mechanism on the TRON network. It dynamically adjusts the Energy consumption of each contract based on its resource usage, promoting a more equitable distribution of Energy and preventing network resources from being excessively concentrated on a few popular contracts. For more details, see the [Introduction to Dynamic Energy Model](https://medium.com/tronnetwork/introduction-to-dynamic-energy-model-31917419b61a).
-
+The Dynamic Energy Model is a resource-balancing mechanism on the LINDA network. It dynamically adjusts the Energy consumption of each contract based on its resource usage, promoting a more equitable distribution of Energy and preventing network resources from being excessively concentrated on a few popular contracts.
 ### How It Works
 
 If a contract consumes an excessive amount of Energy within a maintenance period (currently 6 hours), transactions calling that same contract will incur additional Energy costs in the next period. When the contract's resource usage returns to a reasonable level, the Energy cost for calling it will gradually return to normal.
@@ -297,29 +296,29 @@ The dynamic energy model is active on Mainnet with the following parameters:
 
 Since the Energy cost for popular contracts can vary between maintenance periods, it is crucial to set an appropriate `fee_limit` for transactions.
 
-<a id="staking-on-tron"></a>
-## Staking on TRON
+<a id="staking-on-linda"></a>
+## Staking on LINDA
 
 ### How to Stake for System Resources
 
-On the TRON network, staking TRX is the unified mechanism for obtaining the three core resources: Energy, Bandwidth, and TRON Power (TP).
+On the LINDA network, staking LIND is the unified mechanism for obtaining the three core resources: Energy, Bandwidth, and LINDA Power (LP).
 
 #### How to Stake
 
   * **HTTP API:** Call the `wallet/freezebalancev2` endpoint.
-  * **Smart Contract:** Use the [Stake 2.0 Solidity API](https://developers.tron.network/docs/stake-20-solidity-api) within a contract.
+  * **Smart Contract:** Use the [Stake 2.0 Solidity API](https://developers.linda.network/docs/stake-20-solidity-api) within a contract.
 
-When you unstake, the corresponding resources (Energy/Bandwidth) and TP are released and reclaimed simultaneously.
+When you unstake, the corresponding resources (Energy/Bandwidth) and LP are released and reclaimed simultaneously.
 
 ### How to Delegate Resources
 
-After an account obtains Energy or Bandwidth through staking, it can choose to delegate these resources to other TRON accounts. This allows accounts with a surplus of resources to help those with insufficient resources complete transactions.
+After an account obtains Energy or Bandwidth through staking, it can choose to delegate these resources to other LINDA accounts. This allows accounts with a surplus of resources to help those with insufficient resources complete transactions.
 
 **Delegation Rules and Key Restrictions**
 
 Before delegating, you must understand the following key rules:
 
-  * **Delegable Resources:** Only Energy and Bandwidth can be delegated. TP cannot.
+  * **Delegable Resources:** Only Energy and Bandwidth can be delegated. LP cannot.
   * **Source of Resources:** Only available resources obtained through Stake 2.0 are eligible for delegation.
   * **Recipient:** The recipient must be an activated external account, not a contract address.
 
@@ -339,29 +338,29 @@ When delegating, you can choose to enable a time lock, which affects when you ca
 
 ### How to Unstake
 
-After staking TRX, you can initiate an unstake operation at any time using the `unfreezebalancev2` API. However, this process has a time delay and follows specific rules.
+After staking LIND, you can initiate an unstake operation at any time using the `unfreezebalancev2` API. However, this process has a time delay and follows specific rules.
 
-After staking TRX, you can initiate an unstake operation at any time using the `unfreezebalancev2` API. After initiating an unstake, your TRX enters a 14-day pending period. This pending period is TRON network parameter [#70](https://tronscan.io/#/sr/committee) and can be changed in the future through network governance. After the 14-day period has ended, you can withdraw the funds to your account balance using the `withdrawexpireunfreeze` API.
+After staking LIND, you can initiate an unstake operation at any time using the `unfreezebalancev2` API. After initiating an unstake, your LIND enters a 14-day pending period. This pending period is LINDA network parameter [#70](https://lindascan.io/#/sr/committee) and can be changed in the future through network governance. After the 14-day period has ended, you can withdraw the funds to your account balance using the `withdrawexpireunfreeze` API.
 
 
 !!! Important Notes
     
-    * **Delegated Resources Cannot Be Unstaked:** You cannot unstake TRX corresponding to resources that are currently delegated. You must first reclaim the resources using `undelegateresource` before you can unstake that portion of TRX.
-    * **Resource Reclamation:** Unstaking will cause the resources (Energy or Bandwidth) and TRON Power (TP) corresponding to the staked TRX to be synchronously reclaimed by the system. As a result, you will lose the respective Energy or Bandwidth and an equivalent amount of TP.
+    * **Delegated Resources Cannot Be Unstaked:** You cannot unstake LIND corresponding to resources that are currently delegated. You must first reclaim the resources using `undelegateresource` before you can unstake that portion of LIND.
+    * **Resource Reclamation:** Unstaking will cause the resources (Energy or Bandwidth) and LINDA Power (LP) corresponding to the staked LIND to be synchronously reclaimed by the system. As a result, you will lose the respective Energy or Bandwidth and an equivalent amount of LP.
     * **Concurrent Operation Limit:** You can have a maximum of 32 unstake operations in the 14-day pending period at any one time. Use the `getavailableunfreezecount` endpoint to check your remaining unstake capacity.
 
-**Automatic Effects of Unstaking**: Calling `unfreezebalancev2` not only initiates a new unstaking process, but it also automatically withdraws any TRX that has already completed its 14-day pending period.
+**Automatic Effects of Unstaking**: Calling `unfreezebalancev2` not only initiates a new unstaking process, but it also automatically withdraws any LIND that has already completed its 14-day pending period.
 
-**How to Verify Withdrawn Amount**: To find out exactly how much unstaked TRX was automatically withdrawn during a specific unstaking operation, you can query the details of that unstake transaction using the `gettransactioninfobyid` API and look for the field `withdraw_expire_amount`, which shows the amount of matured unstaked TRX that was automatically withdrawn in this transaction.
+**How to Verify Withdrawn Amount**: To find out exactly how much unstaked LIND was automatically withdrawn during a specific unstaking operation, you can query the details of that unstake transaction using the `gettransactioninfobyid` API and look for the field `withdraw_expire_amount`, which shows the amount of matured unstaked LIND that was automatically withdrawn in this transaction.
 
-#### Reclaiming TRON Power
+#### Reclaiming LINDA Power
 
-Under Stake 2.0, unstaking TRX simultaneously reclaims an equivalent amount of TRON Power (TP). If the amount of TP to be reclaimed exceeds your account's idle (unvoted) TP, the system will proportionally revoke your cast votes.
+Under Stake 2.0, unstaking LIND simultaneously reclaims an equivalent amount of LINDA Power (LP). If the amount of LP to be reclaimed exceeds your account's idle (unvoted) LP, the system will proportionally revoke your cast votes.
 
-_**TP Reclamation Priority**_: When the system reclaims TP, it follows the following two-step process:
+_**LP Reclamation Priority**_: When the system reclaims LP, it follows the following two-step process:
 
-1.  **Reclaim Idle TP First:** The system first reclaims all of your account's TP that is not currently being used for voting.
-2.  **Cancel Votes as Needed:** If the idle TP is insufficient to meet the reclamation demand, the system will begin to revoke your cast votes to reclaim the remaining required TP.
+1.  **Reclaim Idle LP First:** The system first reclaims all of your account's LP that is not currently being used for voting.
+2.  **Cancel Votes as Needed:** If the idle LP is insufficient to meet the reclamation demand, the system will begin to revoke your cast votes to reclaim the remaining required LP.
 
 _**Rules for Calculating Vote Revocation**_
 
@@ -377,27 +376,27 @@ The revocation operation is not random. Instead, votes are revoked proportionall
 
     Assume User `A`'s initial account state is:
     
-      * Total Staked: 2,000 TRX
-      * Total TP: 2,000 TP
-      * Votes Cast: 1,000 TP (600 for SR1, 400 for SR2)
-      * Unused TP: 1,000 TP
+      * Total Staked: 2,000 LIND
+      * Total LP: 2,000 LP
+      * Votes Cast: 1,000 LP (600 for SR1, 400 for SR2)
+      * Unused LP: 1,000 LP
     
-    Now, User `A` unstakes 1,500 TRX.
+    Now, User `A` unstakes 1,500 LIND.
     
     *System Process:*
     
-    1.  Reclamation Demand: The system needs to reclaim 1,500 TP.
-    2.  Reclaim Unused TP: First, it reclaims all 1,000 idle TP.
-    3.  Calculate Shortfall: A remaining `1,500 - 1,000 = 500 TP` must be reclaimed by revoking votes.
+    1.  Reclamation Demand: The system needs to reclaim 1,500 LP.
+    2.  Reclaim Unused LP: First, it reclaims all 1,000 idle LP.
+    3.  Calculate Shortfall: A remaining `1,500 - 1,000 = 500 LP` must be reclaimed by revoking votes.
     4.  Proportional revocation:
           * Votes revoked for SR1: `500 * (600 / 1000) = 300` votes.
           * Votes revoked for SR2: `500 * (400 / 1000) = 200` votes.
-    5.  Final State: User A successfully unstakes 1,500 TRX. Their voting state is updated to: 300 votes for SR1 and 200 votes for SR2.
+    5.  Final State: User A successfully unstakes 1,500 LIND. Their voting state is updated to: 300 votes for SR1 and 200 votes for SR2.
 
 !!! Note
     Stake 1.0 vs. Stake 2.0
     
-    Although Stake 2.0 is the current standard, TRX staked via the legacy Stake 1.0 system is still valid and can be redeemed using its corresponding `wallet/unfreezebalance` API. Unstaking TRX from Stake 1.0 will revoke **all** of the account's votes.
+    Although Stake 2.0 is the current standard, LIND staked via the legacy Stake 1.0 system is still valid and can be redeemed using its corresponding `wallet/unfreezebalance` API. Unstaking LIND from Stake 1.0 will revoke **all** of the account's votes.
 
 ### How to Cancel All Unstaking Requests
 
@@ -405,29 +404,29 @@ If you initiate an unstake but change your mind, Stake 2.0 provides an efficient
 
 **Please note**: this endpoint cancels all of your account's unstaking requests that are currently in the 14-day pending period.
 
-  * **TRX Status:** The canceled TRX is immediately re-staked.
+  * **LIND Status:** The canceled LIND is immediately re-staked.
   * **Resource Type:** The re-staked funds will acquire the same resource type (Energy or Bandwidth) as the original stake.
 
-**Additional Effect - Automatic Withdrawal**: This operation will also automatically withdraw any unstaked TRX that has already completed its 14-day pending period and is awaiting withdrawal.
+**Additional Effect - Automatic Withdrawal**: This operation will also automatically withdraw any unstaked LIND that has already completed its 14-day pending period and is awaiting withdrawal.
 
 **How to Verify the Result**
 
 You can query the transaction details using `gettransactioninfobyid` and check the following fields:
 
-  * `cancel_unfreezeV2_amount`: The total amount of TRX that was successfully canceled and re-staked.
-  * `withdraw_expire_amount`: The total amount of matured unstaked TRX that was automatically withdrawn to your account balance.
+  * `cancel_unfreezeV2_amount`: The total amount of LIND that was successfully canceled and re-staked.
+  * `withdraw_expire_amount`: The total amount of matured unstaked LIND that was automatically withdrawn to your account balance.
 
 ### Relevant API Endpoints
 
 | API Endpoint | Description |
 | :--- | :--- |
-| `wallet/freezebalancev2` | Stake TRX. |
-| `wallet/unfreezebalancev2` | Unstake TRX. |
+| `wallet/freezebalancev2` | Stake LIND. |
+| `wallet/unfreezebalancev2` | Unstake LIND. |
 | `wallet/delegateresource` | Delegate resources. |
 | `wallet/undelegateresource` | Undelegate resources. |
-| `wallet/withdrawexpireunfreeze` | Withdraw unstaked TRX that has passed the pending period. |
+| `wallet/withdrawexpireunfreeze` | Withdraw unstaked LIND that has passed the pending period. |
 | `wallet/getavailableunfreezecount` | Check the remaining number of unstake operations allowed. |
-| `wallet/getcanwithdrawunfreezeamount` | Check the amount of withdrawable unstaked TRX. |
+| `wallet/getcanwithdrawunfreezeamount` | Check the amount of withdrawable unstaked LIND. |
 | `wallet/getcandelegatedmaxsize` | Check the maximum amount of delegable resources. |
 | `wallet/getdelegatedresourcev2` | Check resources delegated from one address to another. |
 | `wallet/getdelegatedresourceaccountindexv2` | Check an account's delegation and received delegation status. |

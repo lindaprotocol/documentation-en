@@ -1,17 +1,17 @@
 # Private Network
-This document will guide you through setting up a basic TRON private network. This network will consist of one Super Representative (SR) node responsible for block production and one regular FullNode used only for syncing block data and broadcasting transactions.
+This document will guide you through setting up a basic LINDA private network. This network will consist of one Super Representative (SR) node responsible for block production and one regular FullNode used only for syncing block data and broadcasting transactions.
 
 ## Prerequisites
 
 Before you begin, please ensure your development environment meets the following requirements:
 
 - **Java Development Kit (JDK)**: You must have Oracle JDK 1.8 installed.
-- **TRON Accounts**: You need to create at least two TRON network addresses in advance and securely store the addresses and their corresponding private keys. One address will serve as the initial SR node (Block Production), and the other will be a regular account.
-- **Address Creation Tools**: You can use any of the following tools to generate and manage your TRON accounts:
-    - [Wallet-cli](https://github.com/tronprotocol/wallet-cli): An official command-line wallet tool, suitable for server environments.
-    - [TronLink](https://www.tronlink.org/): A multi-chain wallet that supports the TRON network, featuring a user-friendly graphical interface for easy address creation and management.
-    - [TronWeb](https://tronweb.network/docu/docs/intro/): A JavaScript library for developers to interact with the TRON network and build dApps.
-    - [Trident](https://github.com/tronprotocol/trident): A lightweight Java SDK designed to help developers easily and efficiently integrate TRON blockchain functionality into Java applications.
+- **LINDA Accounts**: You need to create at least two LINDA network addresses in advance and securely store the addresses and their corresponding private keys. One address will serve as the initial SR node (Block Production), and the other will be a regular account.
+- **Address Creation Tools**: You can use any of the following tools to generate and manage your LINDA accounts:
+    - [Wallet-cli](https://github.com/lindaprotocol/wallet-cli): An official command-line wallet tool, suitable for server environments.
+    - [LindaLink](https://www.lindalink.org/): A multi-chain wallet that supports the LINDA network, featuring a user-friendly graphical interface for easy address creation and management.
+    - [LindaWeb](https://lindaweb.network/docu/docs/intro/): A JavaScript library for developers to interact with the LINDA network and build dApps.
+    - [Trident](https://github.com/lindaprotocol/trident): A lightweight Java SDK designed to help developers easily and efficiently integrate LINDA blockchain functionality into Java applications.
 
 
 ## Deployment Guide
@@ -29,9 +29,9 @@ The operational steps for deploying a private network node are fundamentally the
       $ mkdir FullNode
       ```
 
-2. Get the java-tron Client
+2. Get the java-linda Client
 
-    - Download the latest `FullNode.jar` from the [java-tron GitHub Releases](https://github.com/tronprotocol/java-tron/releases) page.
+    - Download the latest `FullNode.jar` from the [java-linda GitHub Releases](https://github.com/lindaprotocol/java-linda/releases) page.
     - Copy the downloaded `JAR` file into each of the two node directories:
 
          ```
@@ -41,7 +41,7 @@ The operational steps for deploying a private network node are fundamentally the
 
 3. Prepare Configuration Files
 
-     - Download the official configuration file template ([config.conf](https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/resources/config.conf)) and change the `p2p.version` to any value other than **11111** or **20180622**.
+     - Download the official configuration file template ([config.conf](https://github.com/lindaprotocol/java-linda/blob/develop/framework/src/main/resources/config.conf)) and change the `p2p.version` to any value other than **11111** or **20180622**.
      - Copy it into each node directory and rename the files for distinction.
         ```
         # Configuration file for the SR node
@@ -59,7 +59,7 @@ The operational steps for deploying a private network node are fundamentally the
       | :-------- | :-------- | :-------- | :-------- |
       | `localwitness`     | The private key of Super Representative (SR) address | Leave empty     | Generating blocks requires signing with a private key   |
       | `genesis.block.witnesses`	     | SR address(es)    | Same as SR configuration	 | Genesis block-related configuration    |
-      | `genesis.block.Assets`     | Preset TRX for specific accounts. Add the pre-prepared address to the end and specify its TRX balance as required    | Same as SR configuration	   | Genesis block related configuration     |
+      | `genesis.block.Assets`     | Preset LIND for specific accounts. Add the pre-prepared address to the end and specify its LIND balance as required    | Same as SR configuration	   | Genesis block related configuration     |
       | `p2p.version`     | Any positive integer except 11111     | Same as SR configuration   | Only nodes of the same `p2p.version` can shake hands successfully    |
       | `seed.node`     | Leave empty    | Set `ip.list` to the IP address of the SR node and the port number specified in its `listen.port` configuration   | Enables FullNode to establish connection with SR node for data synchronization     |
       | `needSyncCheck`     | `false`     | `true`     | Set the first SR’s `needSyncCheck` to `false`, other SRs `true`     |
@@ -67,7 +67,7 @@ The operational steps for deploying a private network node are fundamentally the
       | `block.proposalExpireTime`|`600000` | Same as SR configuration	 | The default proposal effective time is 3 days: 259200000 (ms). Can be set to a lower value, such as 600,000(ms) (10 minutes), to pass the proposal faster.|
       | `block.maintenanceTimeInterval`|`300000`| Same as SR configuration	 | The default maintenance time interval is 6 hours: 21600000 (ms). Can be set to a smaller value, such as 300000(ms) (5 minutes), to pass the proposal faster.|
       | `committee.allowSameTokenName` |`1`|`1`| If set to `1` (true), the creation of tokens with identical names is allowed |
-      | `committee.allowTvmTransferTrc10` | `1`|`1`| If set to 1 (true), the TVM is allowed to execute transfers of TRC-10 tokens via smart contracts. |
+      | `committee.allowTvmTransferlrc10` | `1`|`1`| If set to 1 (true), the LVM is allowed to execute transfers of LRC-10 tokens via smart contracts. |
       
 5. Adjust Network Ports (If Necessary)
 
@@ -96,13 +96,13 @@ The operational steps for deploying a private network node are fundamentally the
       
 7. Advanced Operation: Modifying Dynamic Network Parameters
 
-     Dynamic network parameters can be retrieved via the [getchainparameters](https://developers.tron.network/reference/wallet-getchainparameters) API. The current Mainnet dynamic parameters and related proposals can be viewed on the TRONSCAN [Parameters & Proposals page](https://tronscan.org/#/sr/committee). If you want your private network's dynamic parameters to match the Mainnet's, you can use the[ dbfork tool](https://github.com/tronprotocol/tron-docker/blob/main/tools/toolkit/DBFork.md), which can capture the latest state of the Mainnet.
+     Dynamic network parameters can be retrieved via the [getchainparameters](https://developers.linda.network/reference/wallet-getchainparameters) API. The current Mainnet dynamic parameters and related proposals can be viewed on the LINDASCAN [Parameters & Proposals page](https://lindascan.org/#/sr/committee). If you want your private network's dynamic parameters to match the Mainnet's, you can use the[ dbfork tool](https://github.com/lindaprotocol/linda-docker/blob/main/tools/toolkit/DBFork.md), which can capture the latest state of the Mainnet.
    
      After your private network is running, you may need to adjust certain network parameters (e.g., transaction fees, energy price). This can be achieved in two ways:
 
      - **Method 1: Set via Configuration File (For Initial Deployment)**
     
-         Some dynamic parameters can be set directly in the configuration file. You can find a list of these parameters [here](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/core/Constant.java).
+         Some dynamic parameters can be set directly in the configuration file. You can find a list of these parameters [here](https://github.com/lindaprotocol/java-linda/blob/develop/common/src/main/java/org/linda/core/Constant.java).
       
          **Example**: Add the following `committee` block to your `.conf` file to enable multi-signature and contract creation:
       
@@ -113,7 +113,7 @@ The operational steps for deploying a private network node are fundamentally the
            allowMultiSign = 1
            allowDelegateResource = 1
            allowSameTokenName = 0
-           allowTvmTransferTrc10 = 1
+           allowTvmTransferlrc10 = 1
           }
          ```
 
@@ -121,20 +121,20 @@ The operational steps for deploying a private network node are fundamentally the
 
         This is the standard method for on-chain governance. Any Super Representative (SR), SR Partner, or SR Candidate has the right to create a proposal, but only SRs have the right to vote for its approval.
      
-         - Create a Proposal: Any SR, SR Partner, or SR Candidate uses the [proposalcreate](https://developers.tron.network/reference/proposalcreate) API, specifying the parameter to be modified by its ID and the new value. (List of parameter IDs).
-         - Approve a Proposal: An SR uses the [proposalapprove](https://developers.tron.network/reference/proposalapprove) API to vote on the proposal. (Only 'approve' votes are supported; if an SR does not vote, it is considered a 'disapprove').
+         - Create a Proposal: Any SR, SR Partner, or SR Candidate uses the [proposalcreate](https://developers.linda.network/reference/proposalcreate) API, specifying the parameter to be modified by its ID and the new value. (List of parameter IDs).
+         - Approve a Proposal: An SR uses the [proposalapprove](https://developers.linda.network/reference/proposalapprove) API to vote on the proposal. (Only 'approve' votes are supported; if an SR does not vote, it is considered a 'disapprove').
          - Related APIs:
-             - Get all proposals: [listproposals](https://developers.tron.network/reference/wallet-listproposals)
-             - Get a proposal by ID: [getproposalbyid](https://developers.tron.network/reference/getproposalbyid)
+             - Get all proposals: [listproposals](https://developers.linda.network/reference/wallet-listproposals)
+             - Get a proposal by ID: [getproposalbyid](https://developers.linda.network/reference/getproposalbyid)
 
-         **Example Code (using TronWeb):**
+         **Example Code (using LindaWeb):**
      
-         The following code snippet demonstrates how to create a proposal to modify two network parameters and then vote on it. In [proposalcreate](https://developers.tron.network/reference/proposalcreate), dynamic parameters are represented by their IDs. The mapping between parameter IDs and names can be found [here](https://developers.tron.network/reference/wallet-getchainparameters).
+         The following code snippet demonstrates how to create a proposal to modify two network parameters and then vote on it. In [proposalcreate](https://developers.linda.network/reference/proposalcreate), dynamic parameters are represented by their IDs. The mapping between parameter IDs and names can be found [here](https://developers.linda.network/reference/wallet-getchainparameters).
      
       
          ```
-         var TronWeb = require('tronweb');
-         var tronWeb = new TronWeb({
+         var LindaWeb = require('lindaweb');
+         var lindaWeb = new LindaWeb({
              fullHost: 'http://localhost:16887',
              privateKey: 'privateKey'
          })
@@ -146,16 +146,16 @@ The operational steps for deploying a private network node are fundamentally the
              parameters.sort((a, b) => {
                      return a.key.toString() > b.key.toString() ? 1 : a.key.toString() === b.key.toString() ? 0 : -1;
                  })
-            var unsignedProposal1Txn = await tronWeb.transactionBuilder.createProposal(parameters,"41D0B69631440F0A494BB51F7EEE68FF5C593C00F0");
-             var signedProposal1Txn = await tronWeb.trx.sign(unsignedProposal1Txn);
-             var receipt1 = await tronWeb.trx.sendRawTransaction(signedProposal1Txn);
+            var unsignedProposal1Txn = await lindaWeb.transactionBuilder.createProposal(parameters,"41D0B69631440F0A494BB51F7EEE68FF5C593C00F0");
+             var signedProposal1Txn = await lindaWeb.lind.sign(unsignedProposal1Txn);
+             var receipt1 = await lindaWeb.lind.sendRawTransaction(signedProposal1Txn);
 
              setTimeout(async function() {
                  console.log(receipt1)
                  console.log("Vote proposal 1 !")
-                 var unsignedVoteP1Txn = await tronWeb.transactionBuilder.voteProposal(proposalID, true, tronWeb.defaultAddress.hex)
-                 var signedVoteP1Txn = await tronWeb.trx.sign(unsignedVoteP1Txn);
-                 var rtn1 = await tronWeb.trx.sendRawTransaction(signedVoteP1Txn);
+                 var unsignedVoteP1Txn = await lindaWeb.transactionBuilder.voteProposal(proposalID, true, lindaWeb.defaultAddress.hex)
+                 var signedVoteP1Txn = await lindaWeb.lind.sign(unsignedVoteP1Txn);
+                 var rtn1 = await lindaWeb.lind.sendRawTransaction(signedVoteP1Txn);
              }, 4000)
 
          }
@@ -163,6 +163,6 @@ The operational steps for deploying a private network node are fundamentally the
          modifyChainParameters(parametersForProposal1, 1) 
          ```
 
-         Once the proposal is approved and the maintenance period has passed, the new network parameters will take effect. You can verify the changes using [listproposals](https://developers.tron.network/reference/wallet-listproposals) or [getchainparameters](https://developers.tron.network/reference/wallet-getchainparameters).
+         Once the proposal is approved and the maintenance period has passed, the new network parameters will take effect. You can verify the changes using [listproposals](https://developers.linda.network/reference/wallet-listproposals) or [getchainparameters](https://developers.linda.network/reference/wallet-getchainparameters).
     
          It is important to note that dynamic parameters with interdependencies cannot be included in the same proposal. The correct approach is to separate them into different proposals and pay attention to their order of submission.

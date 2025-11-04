@@ -4,13 +4,13 @@
 
 Smart contract is a computerized transaction protocol that automatically implements its terms. Smart contract is the same as common contract, they all define the terms and rules related to the participants. Once the contract is started, it can runs in the way it is designed.
 
-TRON smart contract support Solidity language in (Ethereum). You can find the latest solidity version in the [TRON solidity repository](https://github.com/tronprotocol/solidity/releases). Write a smart contract, then build the smart contract and deploy it to TRON network. When the smart contract is triggered, the corresponding function will be executed automatically.
+LINDA smart contract support Solidity language in (Ethereum). You can find the latest solidity version in the [LINDA solidity repository](https://github.com/lindaprotocol/solidity/releases). Write a smart contract, then build the smart contract and deploy it to LINDA network. When the smart contract is triggered, the corresponding function will be executed automatically.
 
 ## Features
-TRON virtual machine is based on Ethereum solidity language, it also has TRON's own features.
+LINDA virtual machine is based on Ethereum solidity language, it also has LINDA's own features.
 
 ### Defination of Smart Contract 
-TRON VM is compatible with Ethereum's smart contract, using protobuf to define the content of the contract:
+LINDA VM is compatible with Ethereum's smart contract, using protobuf to define the content of the contract:
 ``` solidity
 message SmartContract {
   message ABI {
@@ -57,7 +57,7 @@ message SmartContract {
   string name = 7;
   int64 origin_energy_limit = 8;
   bytes code_hash = 9;
-  bytes trx_hash = 10;
+  bytes lind_hash = 10;
 }
 ```
 
@@ -65,7 +65,7 @@ message SmartContract {
 - contract_address: smart contract address
 - abi: the api information of all the function of the smart contract
 - bytecode: smart contract byte code
-- call_value: TRX transferred into smart contract while call the contract
+- call_value: LIND transferred into smart contract while call the contract
 - consume_user_resource_percent: resource consumption percentage set by the developer
 - name: smart contract name
 - origin_energy_limit: energy consumption of the developer limit in one call, must be greater than 0. For the old contracts, if this parameter is not set, it will be set 0, developer can use updateEnergyLimit api to update this parameter (must greater than 0)
@@ -84,7 +84,7 @@ Note: If you use create command inside a contract (CREATE instruction), even use
 
 * **message calls**
 
-Message calls can call the functions of other contracts, also can transfer TRX to the accounts of contract and none-contract. Like the common TRON triggercontract, Message calls have initiator, recipient, data, transfer amount, fees and return attributes. Every message call can generate a new one recursively. Contract can define the distribution of the remaining energy in the internal message call. If it comes with OutOfEnergyException in the internal message call, it will return false, but not error. In the meantime, only the gas sent with the internal message call will be consumed, if energy is not specified in call.value(energy), all the remaining energy will be used.
+Message calls can call the functions of other contracts, also can transfer LIND to the accounts of contract and none-contract. Like the common LINDA triggercontract, Message calls have initiator, recipient, data, transfer amount, fees and return attributes. Every message call can generate a new one recursively. Contract can define the distribution of the remaining energy in the internal message call. If it comes with OutOfEnergyException in the internal message call, it will return false, but not error. In the meantime, only the gas sent with the internal message call will be consumed, if energy is not specified in call.value(energy), all the remaining energy will be used.
 
 * **delegate call/call code/library**
 
@@ -92,57 +92,57 @@ There is a special type of message call, delegate call. The difference with comm
 
 * **CREATE command**
 
-This command will create a new contract with a new address. The only difference with Ethereum is the newly generated TRON address used the smart contract creation transaction id and the hash of nonce called combined. Different from Ethereum, the definition of nonce is the contract sequence number of the creation of the root call. Even there are many CREATE commands calls, contract number in sequence from 1. Refer to the source code for more detail.
+This command will create a new contract with a new address. The only difference with Ethereum is the newly generated LINDA address used the smart contract creation transaction id and the hash of nonce called combined. Different from Ethereum, the definition of nonce is the contract sequence number of the creation of the root call. Even there are many CREATE commands calls, contract number in sequence from 1. Refer to the source code for more detail.
 Note: Different from creating a contract by grpc's deploycontract, contract created by CREATE command does not store contract abi.
 
-* **built-in function and built-in function attribute (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)**
+* **built-in function and built-in function attribute (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)**
 
 ```  
-1)TVM is compatible with solidity language's transfer format, including:
+1)LVM is compatible with solidity language's transfer format, including:
 - accompany with constructor to call transfer
 - accompany with internal function to call transfer
 - use transfer/send/call/callcode/delegatecall to call transfer
 
-Note: TRON's smart contract is different from TRON's system contract, if the transfer to address does not exist it can not create an account by smart contract transfer.
+Note: LINDA's smart contract is different from LINDA's system contract, if the transfer to address does not exist it can not create an account by smart contract transfer.
 
-2)Different accounts vote for SuperNode (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
+2)Different accounts vote for SuperNode (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
 
-3)SuperNode gets all the reward (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
+3)SuperNode gets all the reward (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
 
-4)SuperNode approves or disapproves the proposal (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
+4)SuperNode approves or disapproves the proposal (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
 
-5)SuperNode proposes a proposal (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
+5)SuperNode proposes a proposal (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
 
-6)SuperNode deletes  a proposal (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
+6)SuperNode deletes  a proposal (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
 
-7)TRON byte address converts to solidity address (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
+7)LINDA byte address converts to solidity address (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
 
-8)TRON string address converts to solidity address (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
+8)LINDA string address converts to solidity address (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
 
-9)Send token to target address (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
+9)Send token to target address (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
 
-10)Query token amount of target address (Since Odyssey-v3.1.1, TVM built-in function is not supported temporarily)
+10)Query token amount of target address (Since Odyssey-v3.1.1, LVM built-in function is not supported temporarily)
 
 11)Compatible with all the built-in functions of Ethereum
 ```
-Note: Ethereum's RIPEMD160 function is not recommended, because the return of TRON is a hash result based on TRON's sha256, not an accurate Ethereum RIPEMD160.
+Note: Ethereum's RIPEMD160 function is not recommended, because the return of LINDA is a hash result based on LINDA's sha256, not an accurate Ethereum RIPEMD160.
 
 ### Contract Address Used in Solidity Language 
 
-Ethereum VM address is 20 bytes, but TRON's VM address is 21 bytes.
+Ethereum VM address is 20 bytes, but LINDA's VM address is 21 bytes.
 
 * **address conversion**
 
-Need to convert TRON's address while using in solidity (recommended):
+Need to convert LINDA's address while using in solidity (recommended):
 ```text
 /**
-     *  @dev    convert uint256 (HexString add 0x at beginning) TRON address to solidity address type
-     *  @param  tronAddress uint256 tronAddress, begin with 0x, followed by HexString
+     *  @dev    convert uint256 (HexString add 0x at beginning) LINDA address to solidity address type
+     *  @param  lindaAddress uint256 lindaAddress, begin with 0x, followed by HexString
      *  @return Solidity address type
 */
 
-function convertFromTronInt(uint256 tronAddress) public view returns(address){
-        return address(tronAddress);
+function convertFromLindaInt(uint256 lindaAddress) public view returns(address){
+        return address(lindaAddress);
 }
 ```
 This is similar with the grammar of the conversion from other types converted to address type in Ethereum.
@@ -151,9 +151,9 @@ This is similar with the grammar of the conversion from other types converted to
 
 Solidity has address constant judgement, if using 21 bytes address the compiler will throw out an error, so you should use 20 bytes address, like:
 ```text
-function compareAddress(address tronAddress) public view returns (uint256){
-        // if (tronAddress == 0x41ca35b7d915458ef540ade6068dfe2f44e8fa733c) { // compile error
-        if (tronAddress == 0xca35b7d915458ef540ade6068dfe2f44e8fa733c) { // right
+function compareAddress(address lindaAddress) public view returns (uint256){
+        // if (lindaAddress == 0x41ca35b7d915458ef540ade6068dfe2f44e8fa733c) { // compile error
+        if (lindaAddress == 0xca35b7d915458ef540ade6068dfe2f44e8fa733c) { // right
             return 1;
         } else {
             return 0;
@@ -172,13 +172,13 @@ function assignAddress() public view {
         // do something
 }
 ```
-If you want to use TRON address of string type (TLLM21wteSPs4hKjbxgmH1L6poyMjeTbHm) please refer to (2-4-7,2-4-8).
+If you want to use LINDA address of string type (TLLM21wteSPs4hKjbxgmH1L6poyMjeTbHm) please refer to (2-4-7,2-4-8).
 
 ### Special Constants Differ from Ethereum 
 
 #### Currency
-Like solidity supports ETH, TRON VM supports trx and sun, 1 trx = 1000000 sun, case sensitive, only support lower case. tron-studio supports trx and sun, remix does not support trx and sun.
-We recommend to use tron-studio instead of remix to build TRON smart contract.
+Like solidity supports ETH, LINDA VM supports lind and sun, 1 lind = 1000000 sun, case sensitive, only support lower case. linda-studio supports lind and sun, remix does not support lind and sun.
+We recommend to use linda-studio instead of remix to build LINDA smart contract.
 
 #### Block Related
 - block.blockhash (uint blockNumber) returns (bytes32): specified block hash, can only apply to the latest 256 blocks and current block excluded

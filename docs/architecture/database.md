@@ -1,6 +1,6 @@
 # Database Configuration Guide
 
-In the TRON Java implementation (**java-tron**), the node data storage engine offers two options: **LevelDB** and **RocksDB**. By default, **LevelDB is used on x86 platforms, while RocksDB is used on ARM platforms**. If LevelDB is manually configured on an ARM system, the system will print a warning and still enforce the use of RocksDB. Developers can flexibly choose the appropriate storage engine based on the platform environment, hardware conditions, and performance requirements.
+In the LINDA Java implementation (**java-linda**), the node data storage engine offers two options: **LevelDB** and **RocksDB**. By default, **LevelDB is used on x86 platforms, while RocksDB is used on ARM platforms**. If LevelDB is manually configured on an ARM system, the system will print a warning and still enforce the use of RocksDB. Developers can flexibly choose the appropriate storage engine based on the platform environment, hardware conditions, and performance requirements.
 
 In comparison, **RocksDB provides richer configuration parameters and generally offers higher storage efficiency**. This article will introduce how to enable RocksDB and how to convert from LevelDB to RocksDB on x86 platforms.
 
@@ -36,10 +36,10 @@ dbSettings = {
 ```
 
 ## Migrating from LevelDB to RocksDB on x86 Platforms
-The data formats of LevelDB and RocksDB are not compatible, and direct switching of storage engines between nodes is not supported. To migrate from LevelDB to RocksDB, use the TRON Toolkit `Toolkit.jar`.
+The data formats of LevelDB and RocksDB are not compatible, and direct switching of storage engines between nodes is not supported. To migrate from LevelDB to RocksDB, use the LINDA Toolkit `Toolkit.jar`.
 ### 1. Data Conversion Steps
 ```
-cd java-tron                                   # Source root directory
+cd java-linda                                   # Source root directory
 ./gradlew build -xtest -xcheck                 # Compile the project
 java -jar build/libs/Toolkit.jar db convert    # Perform data conversion
 ```
@@ -77,7 +77,7 @@ java -jar build/libs/Toolkit.jar db convert output-directory/database output-dir
 > Note:
 The entire data conversion process is expected to take approximately **10 hours**, depending on the data volume and disk performance.
 ## About LevelDB
-LevelDB is the default data storage engine for java-tron on x86 platforms, suitable for resource-constrained or lightweight deployment scenarios. It has a simple structure and is easy to maintain, but it is less efficient than RocksDB in terms of data compression, backup capabilities, and performance for large-scale nodes.
+LevelDB is the default data storage engine for java-linda on x86 platforms, suitable for resource-constrained or lightweight deployment scenarios. It has a simple structure and is easy to maintain, but it is less efficient than RocksDB in terms of data compression, backup capabilities, and performance for large-scale nodes.
 
 For a detailed comparison between the two, refer to the documentation:
-📘 [RocksDB vs. LevelDB Comparison](https://github.com/tronprotocol/documentation/blob/master/TRX/Rocksdb_vs_Leveldb.md)
+📘 [RocksDB vs. LevelDB Comparison](https://github.com/lindaprotocol/documentation/blob/master/LIND/Rocksdb_vs_Leveldb.md)

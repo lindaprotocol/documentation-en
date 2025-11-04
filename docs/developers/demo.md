@@ -1,18 +1,18 @@
 # Development Example
 
-This document will detail the process of contributing to `java-tron` development, using the addition of a new `setPeer` HTTP API as a practical example. Before you begin, please ensure you have configured your development environment, for instance, by following the [IntelliJ IDEA Development Environment Setup Guide](run-in-idea.md).
+This document will detail the process of contributing to `java-linda` development, using the addition of a new `setPeer` HTTP API as a practical example. Before you begin, please ensure you have configured your development environment, for instance, by following the [IntelliJ IDEA Development Environment Setup Guide](run-in-idea.md).
 
-**Background**: At times, a `java-tron` node may fail to connect to peers due to network issues. To enhance the stability of the node's network connections, we want to implement a feature that enables you to dynamically add trusted nodes while the node is running, ensuring connectivity even if the node discovery service fails.
+**Background**: At times, a `java-linda` node may fail to connect to peers due to network issues. To enhance the stability of the node's network connections, we want to implement a feature that enables you to dynamically add trusted nodes while the node is running, ensuring connectivity even if the node discovery service fails.
 
 ## 1. Prepare the Development Environment
 
-### 1.1 Fork the `java-tron` Repository
+### 1.1 Fork the `java-linda` Repository
 
-First, fork the official TRON GitHub repository, [tronprotocol/java-tron](https://github.com/tronprotocol/java-tron), to your personal GitHub account. Then, clone your forked repository to your local machine and add the `upstream` remote to track official updates:
+First, fork the official LINDA GitHub repository, [lindaprotocol/java-linda](https://github.com/lindaprotocol/java-linda), to your personal GitHub account. Then, clone your forked repository to your local machine and add the `upstream` remote to track official updates:
 
 ```shell
-git clone https://github.com/yourname/java-tron.git
-git remote add upstream https://github.com/tronprotocol/java-tron.git
+git clone https://github.com/yourname/java-linda.git
+git remote add upstream https://github.com/lindaprotocol/java-linda.git
 ```
 
 ### 1.2 Synchronize the Repository
@@ -27,32 +27,32 @@ git merge upstream/develop --no-ff
 
 ### 1.3 Create a New Branch
 
-Create a new branch from your local `develop` branch for your development work. Please follow the [branch naming conventions](java-tron.md/#branch-naming-conventions) for naming your branch. For this example, we will use `feature/add-new-http-demo` as the branch name.
+Create a new branch from your local `develop` branch for your development work. Please follow the [branch naming conventions](java-linda.md/#branch-naming-conventions) for naming your branch. For this example, we will use `feature/add-new-http-demo` as the branch name.
 
 ```shell
 git checkout -b feature/add-new-http-demo develop
 ```
 ## 2. Code Implementation: Add the `setPeer` HTTP API
 
-Open the `java-tron` project in IntelliJ IDEA. Next, we will implement a `setPeer` HTTP API to allow users to add trusted nodes via a POST request.
+Open the `java-linda` project in IntelliJ IDEA. Next, we will implement a `setPeer` HTTP API to allow users to add trusted nodes via a POST request.
 
 ### 2.1 Create `SetPeerServlet.java`
 
-In the `java-tron/framework/src/main/java/org/tron/core/services/http` directory, create a new `Servlet` class named `SetPeerServlet.java`. This class will contain `doGet` and `doPost` methods to handle HTTP GET and POST requests, respectively. If a specific request type is not supported, you can leave the corresponding method empty.
+In the `java-linda/framework/src/main/java/org/linda/core/services/http` directory, create a new `Servlet` class named `SetPeerServlet.java`. This class will contain `doGet` and `doPost` methods to handle HTTP GET and POST requests, respectively. If a specific request type is not supported, you can leave the corresponding method empty.
 
 ```java
-package org.tron.core.services.http;
+package org.linda.core.services.http;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.tron.core.net.peer.ChannelManager;
-import org.tron.core.net.peer.Node;
-import org.tron.core.config.CommonParameter;
-import org.tron.core.Constant;
-import org.tron.core.exception.BadItemException;
-import org.tron.core.services.http.fullnode.PostParams;
-import org.tron.core.services.http.fullnode.Util;
+import org.linda.core.net.peer.ChannelManager;
+import org.linda.core.net.peer.Node;
+import org.linda.core.config.CommonParameter;
+import org.linda.core.Constant;
+import org.linda.core.exception.BadItemException;
+import org.linda.core.services.http.fullnode.PostParams;
+import org.linda.core.services.http.fullnode.Util;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -134,13 +134,13 @@ In the code above:
 After implementing `SetPeerServlet`, you need to register it with the node's HTTP API service. The `FullNodeHttpApiService` class serves as the entry point for registering all HTTP interfaces. In its `start` method, use `context.addServlet` to register `SetPeerServlet` as an HTTP API at the endpoint `/wallet/setpeer`:
 
 ```java
-package org.tron.core.services.http;
+package org.linda.core.services.http;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.tron.core.services.Service;
+import org.linda.core.services.Service;
 
 @Component
 public class FullNodeHttpApiService implements Service {
@@ -165,7 +165,7 @@ public class FullNodeHttpApiService implements Service {
 
 ### 2.3 Debuging and Testing
 
-Once the code changes are complete, you can start the `java-tron` node in IntelliJ IDEA for debugging. Then, use the `curl` command in your terminal to access the newly added HTTP API:
+Once the code changes are complete, you can start the `java-linda` node in IntelliJ IDEA for debugging. Then, use the `curl` command in your terminal to access the newly added HTTP API:
 
 ```bash
 curl --location --request POST 'http://127.0.0.1:16667/wallet/setpeer' \
@@ -185,11 +185,11 @@ At this point, the implementation of the `setPeer` feature is complete. Next, yo
 
 ## 3. Writing Unit Tests
 
-The `java-tron` project uses the JUnit framework for unit testing. For detailed information on using JUnit, please refer to the [official JUnit documentation](https://junit.org). Below is an introduction to the specifications and common annotations for `java-tron` unit test cases.
+The `java-linda` project uses the JUnit framework for unit testing. For detailed information on using JUnit, please refer to the [official JUnit documentation](https://junit.org). Below is an introduction to the specifications and common annotations for `java-linda` unit test cases.
 
-### 3.1 `java-tron`  Unit Test Case Guidelines
+### 3.1 `java-linda`  Unit Test Case Guidelines
 
-When writing unit tests for `java-tron`, please adhere to the following guidelines:
+When writing unit tests for `java-linda`, please adhere to the following guidelines:
 
 * **Directory and Package Structure**: All test classes should be located in the `test` directory and maintain the same package structure as the class being tested. We recommend suffixing test class names with `Test`.
 * **Test Method Definition**: Test methods must be annotated with `@Test` and declared as `public void`. We recommend prefixing method names with `test` to improve readability.
@@ -238,34 +238,34 @@ public class DemoTest {
 }
 ```
 
-For this example, we should create a new test class file, `SetPeerServletTest.java`, in the `framework/src/test/java/org/tron/core/services/http/` directory to write the corresponding test cases.
+For this example, we should create a new test class file, `SetPeerServletTest.java`, in the `framework/src/test/java/org/linda/core/services/http/` directory to write the corresponding test cases.
 
 ```java
-package org.tron.core.services.http;
+package org.linda.core.services.http;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.tron.core.config.args.Args;
-import org.tron.core.net.peer.ChannelManager;
-import org.tron.core.services.http.fullnode.SetPeerServlet;
-import org.tron.core.db.Manager;
-import org.tron.core.db.TronApplicationContext;
-import org.tron.core.Constant;
-import org.tron.core.services.Application;
-import org.tron.core.services.ApplicationFactory;
+import org.linda.core.config.args.Args;
+import org.linda.core.net.peer.ChannelManager;
+import org.linda.core.services.http.fullnode.SetPeerServlet;
+import org.linda.core.db.Manager;
+import org.linda.core.db.LindaApplicationContext;
+import org.linda.core.Constant;
+import org.linda.core.services.Application;
+import org.linda.core.services.ApplicationFactory;
 
 public class SetPeerServletTest {
 
-  private static TronApplicationContext context;
+  private static LindaApplicationContext context;
   private static Application appT;
   public static ChannelManager channelManager;
 
   @Before
   public void init() {
     Args.setParam(new String[]{}, Constant.TEST_CONF);
-    context = new TronApplicationContext(Manager.class);
+    context = new LindaApplicationContext(Manager.class);
     channelManager = context.getBean(ChannelManager.class);
     appT = ApplicationFactory.create(context);
     appT.initServices(Args.getInstance());
@@ -294,17 +294,17 @@ public class SetPeerServletTest {
 
 Before submitting your code, be sure to run a CheckStyle code style check on the files you have modified. In IntelliJ IDEA, you can right-click a file and select "Check Current File". Fix any code style issues based on the prompts until all warnings are resolved.
 
-![CheckStyle 代码风格错误示例](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/demo_codestyle_error.png)
+![CheckStyle 代码风格错误示例](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/demo_codestyle_error.png)
 
 After fixing the code style issues, run the check again to ensure all warnings have been resolved:
 
-![CheckStyle 代码风格修复后示例](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/demo_codestyle.png)
+![CheckStyle 代码风格修复后示例](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/demo_codestyle.png)
 
 ## 5. Submitting Code and Creating a Pull Request
 
 ### 5.1 Submit a Commit
 
-After you have finished writing and testing your code, commit your changes. Please refer to the [Commit Specification](java-tron.md/#commit-message-specifications).
+After you have finished writing and testing your code, commit your changes. Please refer to the [Commit Specification](java-linda.md/#commit-message-specifications).
 
 ```bash
 git add .
@@ -321,9 +321,9 @@ git push origin feature/add-new-http-demo
 
 ### 5.3 Submit a Pull Request
 
-On GitHub, create a Pull Request from your repository to `tronprotocol/java-tron`. This will propose your changes to the official repository.
+On GitHub, create a Pull Request from your repository to `lindaprotocol/java-linda`. This will propose your changes to the official repository.
 
-![提交 Pull Request 示例](https://raw.githubusercontent.com/tronprotocol/documentation-en/master/images/javatron_pr.png)
+![提交 Pull Request 示例](https://raw.githubusercontent.com/lindaprotocol/documentation-en/master/images/javalinda_pr.png)
 
 Please ensure your Pull Request description is clear and includes details about the changes you have made and their purpose.
 

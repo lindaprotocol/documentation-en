@@ -1,19 +1,19 @@
-# Connect to the TRON Network
+# Connect to the LINDA Network
 
-The TRON network is mainly divided into:
+The LINDA network is mainly divided into:
 
 - **Mainnet**
 - **Nile Testnet**
 - **Shasta Testnet** (currently does not support node joining)
 - **Private Network**
 
-This guide explains how to configure the java-tron client to connect to these networks, covering basic network configuration, node discovery, node connection, log and node status verification, and how to troubleshoot connection issues.
+This guide explains how to configure the java-linda client to connect to these networks, covering basic network configuration, node discovery, node connection, log and node status verification, and how to troubleshoot connection issues.
 
 
 
 ## Basic Network Configuration
 
-You can connect a java-tron node to a specific network by modifying the following key items in the [config file](https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/resources/config.conf):
+You can connect a java-linda node to a specific network by modifying the following key items in the [config file](https://github.com/lindaprotocol/java-linda/blob/develop/framework/src/main/resources/config.conf):
 
 ### Network ID 
 The P2P Network ID(`p2p.version`) specifies the network you want to join. Mainnet configuration:
@@ -216,7 +216,7 @@ node.discovery = {
 ```
 
 ### Boot Nodes
-Java-tron uses the [Kademlia](https://en.wikipedia.org/wiki/Kademlia) protocol to discover peers. Discovery requires boot nodes, which consist of seed nodes and actively configured peers, see [Active Connection (Active Peers)](#active-connection-active-peers). 
+Java-linda uses the [Kademlia](https://en.wikipedia.org/wiki/Kademlia) protocol to discover peers. Discovery requires boot nodes, which consist of seed nodes and actively configured peers, see [Active Connection (Active Peers)](#active-connection-active-peers). 
 
 ### seed.node
 `seed.node` is used to initialize connections. It should point to online and stable Fullnode:
@@ -233,7 +233,7 @@ seed.node = {
   ]
 }
 ```
-For TRON Mainnet, you can use [community public nodes](https://developers.tron.network/docs/networks#public-node) as seed nodes. To get the latest `seed.node` list, refer to the official [config file](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf).
+For LINDA Mainnet, you can use [community public nodes](https://developers.linda.network/docs/networks#public-node) as seed nodes. To get the latest `seed.node` list, refer to the official [config file](https://github.com/lindaprotocol/java-linda/blob/master/framework/src/main/resources/config.conf).
 If your network interface supports IPv6, you can remove the comment symbol `#` in the list.
 
 ### Persistent Nodes from Database
@@ -300,7 +300,7 @@ node {
   ...
   # dns urls to get nodes, url format tree://{pubkey}@{domain}, default empty
   treeUrls = [
-    #"tree://AKMQMNAJJBL73LXWPXDI4I5ZWWIZ4AWO34DWQ636QOBBXNFXH3LQS@main.trondisco.net",
+    #"tree://AKMQMNAJJBL73LXWPXDI4I5ZWWIZ4AWO34DWQ636QOBBXNFXH3LQS@main.lindadisco.net",
   ]
   ...
   }
@@ -331,15 +331,15 @@ node {
 
 Unlike node discovery, which uses UDP, peer connections use Transmission Control Protocol (TCP) on the same port (18888 by default). However, the port number bound for passive connection is the same as that bound for node discovery. If a node does not want to accept passive connections for security reasons, it can close the TCP 18888 port through the firewall. If a node disables passive connections, the entire network topology will be as shown in the figure below:
 
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_topology.png)
+![image](https://raw.githubusercontent.com/lindaprotocol/documentation-zh/master/images/network_topology.png)
 
 
 ## Logs and Node Status Verification
 ### View Sync Logs
-TRON node logs are stored in `logs/tron.log`：
+LINDA node logs are stored in `logs/linda.log`：
 
 ```
-$ tail -f logs/tron.log
+$ tail -f logs/linda.log
 ```
 ### Example Sync Logs：
 ```
@@ -349,7 +349,7 @@ Success process block Num:76,ID:000000000000004c9e3899ee9952a7f0d9e4f692c7070a48
 ### Example Block Production Logs (for Super Representatives):
 ```
 Generate block 79336 begin
-Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponedCount: 0
+Generate block 79336 success, linds:0, pendingCount: 0, rePushCount: 0, postponedCount: 0
 ```
 ### Check Node Status
 Use the HTTP API:
@@ -387,14 +387,14 @@ Example response：
 }
 ```
 ### Verify Node Synchronization
-Compare your local block height with [TRONSCAN](https://tronscan.org/) ：
+Compare your local block height with [LINDASCAN](https://lindascan.org/) ：
 ```
 curl http://127.0.0.1:16887/wallet/getnowblock
 ```
 If the heights match, synchronization is normal.
 
 ## Troubleshooting Common Connection Issues
-There are occasions when java-tron simply fails to connect to peers. The common reasons for this are:
+There are occasions when java-linda simply fails to connect to peers. The common reasons for this are:
 
 - **Local clock offset**
 
@@ -416,10 +416,10 @@ There are occasions when java-tron simply fails to connect to peers. The common 
     Use Nile Testnet instead.
 
 ## Connecting to a Private Network
-Developers can deploy a private instance of the TRON network.
+Developers can deploy a private instance of the LINDA network.
 
 ### Key Configuration:
 - Use a custom `node.p2p.version` to avoid conflicts with existing public networks.
 
 ### Reference Guide:
-- Please refer to [Private Network](https://tronprotocol.github.io/documentation-en/using_javatron/private_network/) for full instructions.
+- Please refer to [Private Network](https://lindaprotocol.github.io/documentation-en/using_javalinda/private_network/) for full instructions.

@@ -1,24 +1,24 @@
 # Account Model
 
 ## Introduction
-TRON employs an account model for its ledger. All activities on the network, such as transfers, voting, and contract deployment, revolve around accounts.
+LINDA employs an account model for its ledger. All activities on the network, such as transfers, voting, and contract deployment, revolve around accounts.
 
  - **Unique Identifier**: Each account is uniquely identified by its Address, which typically begins with a `T`.
  - **Access Control**: Any operation on an account (such as a transfer) requires a signature from the corresponding Private Key.
  - **Account Assets and Capabilities**: Each account can own and manage various resources, including:
 
-    - **Assets**: TRX, TRC-10, TRC-20, TRC-721/TRC-1155 NFTs, etc.
+    - **Assets**: LIND, LRC-10, LRC-20, LRC-721/LRC-1155 NFTs, etc.
     - **Network Resources**: Bandwidth and Energy.
     - **Permissions and Activities**: Initiating transactions, deploying and calling smart contracts, participating in Super Representative elections (voting or becoming a candidate), and more.
 
 ## How to Create an Account
 
-There are two primary ways to create a new TRON account:
+There are two primary ways to create a new LINDA account:
 
 **Method 1: Offline Generation and On-Chain Activation**
 
-   - Generate Address: Use a wallet application (like [TronLink](https://www.tronlink.org/)) to generate a new key pair (private key and address).
-   - Activate Account: At this stage, the account exists only conceptually and must be "activated" to be used on the blockchain. Activation is accomplished by sending any amount of TRX or a TRC-10 token from an existing account to this new address. Once the transaction is successful, the new account is officially created on the TRON network.
+   - Generate Address: Use a wallet application (like [LindaLink](https://www.lindalink.org/)) to generate a new key pair (private key and address).
+   - Activate Account: At this stage, the account exists only conceptually and must be "activated" to be used on the blockchain. Activation is accomplished by sending any amount of LIND or a LRC-10 token from an existing account to this new address. Once the transaction is successful, the new account is officially created on the LINDA network.
 
 **Method 2: Creation via System Contract**
 
@@ -26,18 +26,18 @@ There are two primary ways to create a new TRON account:
 
 **Account Creation Cost:**
 
-   - A fixed fee of 1 TRX is required to create and activate a new account.
-   - Additionally, if the creator's account has sufficient Bandwidth (either from staking TRX or delegated from others), the creation will only consume Bandwidth. Otherwise, 0.1 TRX will be burned to pay for the Bandwidth fee.
+   - A fixed fee of 1 LIND is required to create and activate a new account.
+   - Additionally, if the creator's account has sufficient Bandwidth (either from staking LIND or delegated from others), the creation will only consume Bandwidth. Otherwise, 0.1 LIND will be burned to pay for the Bandwidth fee.
 
 ## Key Pair Generation Algorithm
 
-TRON's signature algorithm is ECDSA, and the selected curve is SECP256K1. Its private key is a random number, and the public key is a point on the elliptic curve. The generation process is as follows: first, generate a random number `d` as the private key, then calculate `P = d × G` as the public key, where `G` is the base point of the elliptic curve, and the base point is public.
+LINDA's signature algorithm is ECDSA, and the selected curve is SECP256K1. Its private key is a random number, and the public key is a point on the elliptic curve. The generation process is as follows: first, generate a random number `d` as the private key, then calculate `P = d × G` as the public key, where `G` is the base point of the elliptic curve, and the base point is public.
 
 The private key is a 32-byte large number, and the public key consists of two 32-byte large numbers, which are the abscissa and ordinate of the above-mentioned `P` point respectively.
 
 
 
-## TRON Address Generation
+## LINDA Address Generation
 
 1. Take the public key P as input, calculate SHA3 to get the result H, and SHA3 uses Keccak256.
 2. Take the last 20 bytes of H, and prepend a byte 0x41 to get address.
@@ -54,7 +54,7 @@ The private key is a 32-byte large number, and the public key consists of two 32
 2. Splice data Append `check` to `address` to get `address||check`
 3. Base58 encoding Perform Base58 encoding on `address||check`. The character table for Base58 is: `"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"`, excluding easily confused characters:` 0` (Arabic numeral 0), `O` (uppercase letter O), `I` (uppercase letter I), `l` (lowercase letter L).
 
-### TRON Address Characteristics
+### LINDA Address Characteristics
 
 The principle of Base58 encoding is to convert a large integer with a base of 256 into a representation with a base of 58, and then map it to the character table. Since the first byte of `address||check` is fixed as `0x41`, its decimal value `N` satisfies: `65 × 256²⁴ ≤ N < 66 × 256²⁴`.
 
@@ -100,13 +100,13 @@ When a FullNode receives a transaction, it uses the transaction hash and signatu
     -  Multiply both sides by the base point `G` of the curve (using `K = k × G` and `P = d × G`): `s × K = hash × G + r × P`
     -  Since `s`, `K`, `hash`, `G`, and `r` are all known, `P` can be obtained.
 
-3. Generate TRON address: same as [TRON Address Generation](#tron-address-generation).
-4. Address verification: compare whether the generated TRON address is consistent with the address in the transaction contract.
+3. Generate LINDA address: same as [LINDA Address Generation](#linda-address-generation).
+4. Address verification: compare whether the generated LINDA address is consistent with the address in the transaction contract.
 
 ### Example
 
-Signature verification is performed by the FullNode. For [ECDSA algorithm signature verification](https://github.com/tronprotocol/java-tron/blob/master/crypto/src/main/java/org/tron/common/crypto/ECKey.java), you can refer to java-tron, and the core function is `signatureToAddress`.
+Signature verification is performed by the FullNode. For [ECDSA algorithm signature verification](https://github.com/lindaprotocol/java-linda/blob/master/crypto/src/main/java/org/linda/common/crypto/ECKey.java), you can refer to java-linda, and the core function is `signatureToAddress`.
 
 ### Signature normalization
 
-ECDSA signatures (using the secp256k1 curve) are malleable, meaning that for a signature $(r, s)$, where $r, s \in [1, n-1]$, the pair $(r, n - s)$ is also a valid signature. Since signatures affect transaction ID in both Bitcoin and Ethereum, [BIP-62](https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki) and [EIP-2](https://eips.ethereum.org/EIPS/eip-2) require signatures to be normalized, i.e., $s \leq n/2$. However, for the TRON network, the transaction ID does not include signature information, so there is no strict requirement for signature normalization, and signature verification does not need to check whether the signature is normalized. Although there is no strict restriction, both `java-tron` and `wallet-cli` currently perform signature normalization.
+ECDSA signatures (using the secp256k1 curve) are malleable, meaning that for a signature $(r, s)$, where $r, s \in [1, n-1]$, the pair $(r, n - s)$ is also a valid signature. Since signatures affect transaction ID in both Bitcoin and Ethereum, [BIP-62](https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki) and [EIP-2](https://eips.ethereum.org/EIPS/eip-2) require signatures to be normalized, i.e., $s \leq n/2$. However, for the LINDA network, the transaction ID does not include signature information, so there is no strict requirement for signature normalization, and signature verification does not need to check whether the signature is normalized. Although there is no strict restriction, both `java-linda` and `wallet-cli` currently perform signature normalization.

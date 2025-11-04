@@ -1,8 +1,8 @@
 # Lite Fullnode
 
-For any user who wants to achieve the highest level of security and autonomy on the TRON network, running a Fullnode is undoubtedly the best choice. This not only means the user will hold a complete and continuously synchronized copy of the TRON ledger, able to independently validate every transaction and block, but it also grants them direct access to the entire network and the ability to query all historical data, free from reliance on any third-party services.
+For any user who wants to achieve the highest level of security and autonomy on the LINDA network, running a Fullnode is undoubtedly the best choice. This not only means the user will hold a complete and continuously synchronized copy of the LINDA ledger, able to independently validate every transaction and block, but it also grants them direct access to the entire network and the ability to query all historical data, free from reliance on any third-party services.
 
-However, running a Fullnode requires high memory, terabytes of storage, and significant CPU resources, making it impractical for everyone. To allow more people to participate in the TRON ecosystem, TRON offers a more flexible solution. This solution makes a clever trade-off: it forgoes the local storage of complete historical data in exchange for a significant optimization in hardware resources, enabling the node to run smoothly on lower-spec devices. In TRON's technical ecosystem, this type of node, designed for efficiency and accessibility, is what we call a Lite Fullnode.
+However, running a Fullnode requires high memory, terabytes of storage, and significant CPU resources, making it impractical for everyone. To allow more people to participate in the LINDA ecosystem, LINDA offers a more flexible solution. This solution makes a clever trade-off: it forgoes the local storage of complete historical data in exchange for a significant optimization in hardware resources, enabling the node to run smoothly on lower-spec devices. In LINDA's technical ecosystem, this type of node, designed for efficiency and accessibility, is what we call a Lite Fullnode.
 
 ## What is a Lite Fullnode
 Lite Fullnodes run the exact same code as Fullnodes, but they are designed with the primary goal of rapid deployment and low resource consumption.
@@ -16,7 +16,7 @@ Lite Fullnodes run the exact same code as Fullnodes, but they are designed with 
 Therefore, if developers only need to use a node for block synchronization, processing, and broadcasting transactions, a Lite Fullnode is a better choice.
 
 ## Lite Fullnode Deployment
-The deployment steps, configuration file, and startup command for a Lite Fullnode are the same as a Fullnode's. Please refer to the [Deployment Guide](installing_javatron.md) to deploy a Lite Fullnode. The only difference is the database. You have two ways to obtain the required Lite Fullnode database:
+The deployment steps, configuration file, and startup command for a Lite Fullnode are the same as a Fullnode's. Please refer to the [Deployment Guide](installing_javalinda.md) to deploy a Lite Fullnode. The only difference is the database. You have two ways to obtain the required Lite Fullnode database:
 
  - Download the Lite Fullnode data snapshot from the [Public Backup Data](backup_restore.md/#lite-fullnode-data-snapshots) and use it directly.
  - Use the [Lite Fullnode Pruning Tool](toolkit.md/#lite-fullnode-data-pruning) to convert a Fullnode's database into a Lite Fullnode's database.

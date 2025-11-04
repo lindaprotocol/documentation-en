@@ -1,15 +1,15 @@
 # Decentralized Exchange (DEX)
 
-The TRON network natively supports **Decentralized Exchanges (DEX)**, with its core consisting of multiple trading pairs. This article introduces the basic concepts of trading pairs, creation methods, trading processes, funding and withdrawal mechanisms, and includes common query methods and price calculation methods.
+The LINDA network natively supports **Decentralized Exchanges (DEX)**, with its core consisting of multiple trading pairs. This article introduces the basic concepts of trading pairs, creation methods, trading processes, funding and withdrawal mechanisms, and includes common query methods and price calculation methods.
 
 ## What is a Trading Pair
 
-A trading pair (`Exchange`) represents a trading market between any two TRC-10 tokens, which can be:
+A trading pair (`Exchange`) represents a trading market between any two LRC-10 tokens, which can be:
 
-- Between any two TRC-10 tokens.
-- Between a TRC-10 token and TRX.
+- Between any two LRC-10 tokens.
+- Between a LRC-10 token and LIND.
 
-Any account can create any combination of trading pairs, even if the same combination already exists on the network. All trading pairs on the TRON network follow the **Bancor protocol** for asset exchange, with the default weight of the two tokens being equal. Therefore, the balance ratio of the two tokens in the trading pair represents the current price.
+Any account can create any combination of trading pairs, even if the same combination already exists on the network. All trading pairs on the LINDA network follow the **Bancor protocol** for asset exchange, with the default weight of the two tokens being equal. Therefore, the balance ratio of the two tokens in the trading pair represents the current price.
 
 **Example:**  
 Suppose a trading pair contains two tokens, ABC and DEF:
@@ -21,7 +21,7 @@ Then the current exchange rate is: 10 ABC = 1 DEF
 
 ## Creating a Trading Pair
 
-Any account can initiate the creation of a trading pair. **The fee for creating a trading pair is 1024 TRX, which will be burned.**  
+Any account can initiate the creation of a trading pair. **The fee for creating a trading pair is 1024 LIND, which will be burned.**  
 
 When creating a trading pair, the initial balances of the two tokens must be provided, and upon successful creation, the system will automatically deduct the corresponding tokens from the initiator’s account.
 
@@ -34,14 +34,14 @@ Parameters are as follows:
 - `second_token_id`: The ID of the second token.
 - `second_token_balance`: The initial balance of the second token.
 
-> **Note:** If TRX is included, use `_` to represent it; the unit for TRX is `sun` (1 TRX = 1,000,000 sun).
+> **Note:** If LIND is included, use `_` to represent it; the unit for LIND is `sun` (1 LIND = 1,000,000 sun).
 
 ### Example:
 
 ```
 ExchangeCreate abc 10000000 _ 1000000000000
 ```
-The above command creates a trading pair between `abc` and `TRX`, with an initial injection of 10,000,000 abc tokens (token precision 0-6) and 1,000,000,000,000 sun (i.e., 1,000,000 TRX). If the account balance is insufficient, the creation transaction will fail.
+The above command creates a trading pair between `abc` and `LIND`, with an initial injection of 10,000,000 abc tokens (token precision 0-6) and 1,000,000,000,000 sun (i.e., 1,000,000 LIND). If the account balance is insufficient, the creation transaction will fail.
 
 ## Trading
 All accounts can perform instant trades in any trading pair. Trading does not require order placement, and the price and quantity are calculated entirely based on the Bancor protocol.
@@ -55,16 +55,16 @@ Parameters are as follows:
 - `expected`: The minimum quantity of the other token expected to be received (if the actual amount received is less than this value, the transaction fails).
 
 #### Example:
-Suppose the trading pair ID for `abc` and `TRX` is 1, with the current state:
+Suppose the trading pair ID for `abc` and `LIND` is 1, with the current state:
 
 - abc balance is 10,000,000.
-- TRX balance is 1,000,000.
+- LIND balance is 1,000,000.
 
-If a user wishes to spend 100 TRX (100,000,000 sun) to buy at least 990 abc, they execute:
+If a user wishes to spend 100 LIND (100,000,000 sun) to buy at least 990 abc, they execute:
 ```
 ExchangeTransaction 1 _ 100000000 990
 ```
-Upon a successful transaction, the user's TRX balance will **decrease** and their abc balance will **increase**; the trading pair's TRX balance will **increase** and their abc balance will **decrease**.
+Upon a successful transaction, the user's LIND balance will **decrease** and their abc balance will **increase**; the trading pair's LIND balance will **increase** and their abc balance will **decrease**.
 The actual amount of `abc` received by the user can be queried using the `gettransactioninfobyid` interface, checking the `exchange_received_amount` field.
 
 ## Adding Liquidity (Funding)
@@ -84,16 +84,16 @@ Parameters are as follows:
 - `quant`: The quantity of the token to be injected.
 
 ### Example:
-Suppose the trading pair ID for `abc` and `TRX` is 1, with the current state:
+Suppose the trading pair ID for `abc` and `LIND` is 1, with the current state:
 - `abc` balance is 10,000,000.
-- `TRX` balance is 1,000,000.
+- `LIND` balance is 1,000,000.
 
 If the creator wishes to increase `abc` by 10% (i.e., add 1,000,000 abc), they execute:
 
 ```
 ExchangeInject 1 abc 1000000
 ```
-If successful, the trading pair will gain 1,000,000 abc and the corresponding proportion amount of 100,000 TRX, which will be deducted from the creator’s account.
+If successful, the trading pair will gain 1,000,000 abc and the corresponding proportion amount of 100,000 LIND, which will be deducted from the creator’s account.
 
 ## Withdrawing Liquidity (Withdraw)
 The assets in a trading pair belong entirely to the creator. The creator can withdraw a portion of the assets from the trading pair at any time.
@@ -111,20 +111,20 @@ Parameters are as follows:
 - `quant`: The quantity of the token to be withdrawn.
 
 ### Example:
-Suppose the trading pair ID for `abc` and `TRX` is 1, with the current state:
+Suppose the trading pair ID for `abc` and `LIND` is 1, with the current state:
 - `abc` balance is 10,000,000.
-- `TRX` balance is 1,000,000.
+- `LIND` balance is 1,000,000.
 
 If the creator wishes to withdraw 10% of abc (i.e., reduce 1,000,000 abc), they execute:
 
 ```
 ExchangeWithdraw 1 abc 1000000
 ```
-Upon successful transaction, the trading pair will lose 1,000,000 abc and the corresponding proportion of 100,000 TRX, which will be added to the creator’s account.
+Upon successful transaction, the trading pair will lose 1,000,000 abc and the corresponding proportion of 100,000 LIND, which will be added to the creator’s account.
 
 ## Queries and Calculations
 ### Querying Trading Pair Information
-TRON provides multiple interfaces for querying trading pairs:
+LINDA provides multiple interfaces for querying trading pairs:
 
 **1. Query all trading pair information:** `ListExchanges`
 
@@ -132,7 +132,7 @@ TRON provides multiple interfaces for querying trading pairs:
 
 **3. Query details of a specific trading pair:** `GetExchangeById`
 
-For detailed API documentation, refer to [RPC-API ](https://tronprotocol.github.io/documentation-en/api/rpc/).
+For detailed API documentation, refer to [RPC-API ](https://lindaprotocol.github.io/documentation-en/api/rpc/).
 
 ### Price Calculation
 Suppose in a trading pair:
@@ -166,5 +166,5 @@ buyTokenQuant = (long)(balance * (Math.pow(1.0 + (double) supplyQuant / supply, 
 
 >**Note**: Market prices may fluctuate in real-time due to other trading activities on the network.
 
-For more interface details, refer to: [HTTP API Documentation](https://tronprotocol.github.io/documentation-en/api/http/).
+For more interface details, refer to: [HTTP API Documentation](https://lindaprotocol.github.io/documentation-en/api/http/).
 

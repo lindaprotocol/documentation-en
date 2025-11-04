@@ -1,11 +1,11 @@
 # Issue Specification and Guidelines
 
-We encourage community contributors to actively participate in raising and discussing Issues for java-tron. You can submit any problems you encounter or new ideas you have as an Issue Participating in Issue discussions or helping to provide solutions will drive java-tron in a better direction. We sincerely thank you for every contribution you make to java-tron.
+We encourage community contributors to actively participate in raising and discussing Issues for java-linda. You can submit any problems you encounter or new ideas you have as an Issue Participating in Issue discussions or helping to provide solutions will drive java-linda in a better direction. We sincerely thank you for every contribution you make to java-linda.
 
 
 ## Submitting an Issue
 
-If you encounter a problem or find a **Bug** while using java-tron, we welcome you to submit an Issue Please follow these rules to ensure efficient processing:
+If you encounter a problem or find a **Bug** while using java-linda, we welcome you to submit an Issue Please follow these rules to ensure efficient processing:
 
 ### 1. Search Existing Issues
 
@@ -18,7 +18,7 @@ Please select the corresponding **Issue** type based on the problem you are repo
 * **`Ask a question`**
   Please describe the problem you are experiencing, the expected outcome, and the actual observed result in detail. A clear description helps community members better understand your problem and provide a solution faster.
 * **`Report a bug`**
-  In addition to describing the problem, expected outcome, and actual result, you should also detail the steps to reproduce the **Bug** and include the java-tron log and `stack trace` from when the problem occurred.
+  In addition to describing the problem, expected outcome, and actual result, you should also detail the steps to reproduce the **Bug** and include the java-linda log and `stack trace` from when the problem occurred.
 * **`Request a feature`**
   Please explain why this feature is needed, its specific use case, the suggested implementation plan, and whether you are willing to participate in implementing it.
 
@@ -41,4 +41,4 @@ The process for handling an Issue is as follows:
 
 To view all issue classification labels, please visit the following link:
 
-https://github.com/tronprotocol/java-tron/labels
+https://github.com/lindaprotocol/java-linda/labels

@@ -1,5 +1,5 @@
 # Developer Guide
-Thank you for contributing to the development of java-tron source code!
+Thank you for contributing to the development of java-linda source code!
 
 Whether it's a small fix or a significant feature improvement, we greatly appreciate your contributions.
 
@@ -11,14 +11,14 @@ On GitHub, you can:
 - Request new features
 - Collaborate on maintaining documentation
 
-If you plan to contribute to java-tron development, please follow the process below.
+If you plan to contribute to java-linda development, please follow the process below.
 
 
 
 ## Contribution Process Overview
 
 1. **Fork the Repository**
-    Fork the [java-tron repository](https://github.com/tronprotocol/java-tron) to your personal account.
+    Fork the [java-linda repository](https://github.com/lindaprotocol/java-linda) to your personal account.
 2. **Modify Code**
     Create a new branch based on the standard and start development.
 3. **Submit Changes**
@@ -33,15 +33,15 @@ If you plan to contribute to java-tron development, please follow the process be
 - **Minor Fixes**
     You can directly submit a PR, but ensure it includes a complete description.
 - **Complex Changes**
-    Please first submit an Issue in the [TIP repository](https://github.com/tronprotocol/tips), detailing the motivation and implementation plan.
-Refer to the [TIP Specification](tips.md).
+    Please first submit an Issue in the [LIP repository](https://github.com/lindaprotocol/tips), detailing the motivation and implementation plan.
+Refer to the [LIP Specification](tips.md).
 - **Early PR Submission**
-    We encourage developers to submit PRs early, even if the feature is not yet complete. This allows other developers to know that the related TIP Issue has entered the *In Progress* state.
+    We encourage developers to submit PRs early, even if the feature is not yet complete. This allows other developers to know that the related LIP Issue has entered the *In Progress* state.
 - **Development Branch**
     All development should be based on the `develop` branch, followed by a PR submission.
 
 ## Branch Management
-The `java-tron` repository includes the following main branch types:
+The `java-linda` repository includes the following main branch types:
 
 - **`develop` Branch**
     - Used for daily development
@@ -66,9 +66,9 @@ The `java-tron` repository includes the following main branch types:
 ## Code Submission Process
 ### 1. Fork and Clone the Repository
 ```
-git clone https://github.com/yourname/java-tron.git
-cd java-tron
-git remote add upstream https://github.com/tronprotocol/java-tron.git
+git clone https://github.com/yourname/java-linda.git
+cd java-linda
+git remote add upstream https://github.com/lindaprotocol/java-linda.git
 ```
 > `upstream` refers to the official repository. The name can be customized, but `upstream` is the conventional choice
 ### 2. Sync Upstream Code
@@ -92,12 +92,12 @@ git commit -m "commit message"
 git push origin feature/branch_name
 ```
 ### 6. Create a Pull Request
-From your own repository, submit a Pull Request (PR) to `tronprotocol/java-tron`.
-   ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/javatron_pr.png)
-It’s recommended to select the options in the red box, setting `develop` branch of the `tronprotocol/java-tron` as the base branch and your forked repository’s branch as the compare branch.
+From your own repository, submit a Pull Request (PR) to `lindaprotocol/java-linda`.
+   ![image](https://raw.githubusercontent.com/lindaprotocol/documentation-zh/master/images/javalinda_pr.png)
+It’s recommended to select the options in the red box, setting `develop` branch of the `lindaprotocol/java-linda` as the base branch and your forked repository’s branch as the compare branch.
 
 ## Code Review Guidelines
-The only way to merge code into **java-tron** is through **a Pull Request (PR)**.
+The only way to merge code into **java-linda** is through **a Pull Request (PR)**.
 All PRs must be reviewed before merging.
 
 ### Review Process

@@ -1,6 +1,6 @@
 # Node Data Backup and Restore
 
-java-tron nodes store their persistent data in a specified data directory, which defaults to `/output-directory/`. You can specify a different data storage location by adding the `-d` or `--output-directory` parameter to the java-tron node startup command. For example:
+java-linda nodes store their persistent data in a specified data directory, which defaults to `/output-directory/`. You can specify a different data storage location by adding the `-d` or `--output-directory` parameter to the java-linda node startup command. For example:
 
 ```
 java -jar FullNode.jar -d ./outputdir
@@ -11,13 +11,13 @@ java -jar FullNode.jar -d ./outputdir
 
 Before backing up node data, it's crucial to **shut down the node process**. You can do this by following these steps:
 
-First, get the PID of the java-tron process using the following command:
+First, get the PID of the java-linda process using the following command:
 
 ```
 ps -ef | grep FullNode.jar | grep -v grep | awk '{print $2}'
 ```
 
-Then, use the obtained PID to terminate the process. It's recommended to use the following shutdown script to safely close the java-tron process and avoid database corruption:
+Then, use the obtained PID to terminate the process. It's recommended to use the following shutdown script to safely close the java-linda process and avoid database corruption:
 
 ```
 #!/bin/bash
@@ -25,16 +25,16 @@ while true; do
   pid=`ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'`
   if [ -n "$pid" ]; then
     kill -15 $pid
-    echo "The java-tron process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently..."
+    echo "The java-linda process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently..."
     sleep 1
   else
-    echo "java-tron killed successfully!"
+    echo "java-linda killed successfully!"
     break
   fi
 done
 ```
 
-Once the java-tron process has successfully shut down, you can back up the data using the following command:
+Once the java-linda process has successfully shut down, you can back up the data using the following command:
 
 ```
 tar cvzf output-directory.`date "+%Y%m%d%H%M%S"`.etgz output-directory
@@ -54,9 +54,9 @@ tar xzvf output-directory.20220628152402.etgz
 
 ## Using Public Backup Data (Data Snapshots)
 
-For the Mainnet and Nile Testnet, new nodes require a significant amount of data to synchronize, leading to a lengthy synchronization process. To facilitate faster node deployment for developers, the TRON community regularly provides **data snapshots**.
+For the Mainnet and Nile Testnet, new nodes require a significant amount of data to synchronize, leading to a lengthy synchronization process. To facilitate faster node deployment for developers, the LINDA community regularly provides **data snapshots**.
 
-A data snapshot is a compressed database backup file of a TRON network node at a specific point in time. Developers can significantly accelerate the node synchronization process by downloading and using these data snapshots.
+A data snapshot is a compressed database backup file of a LINDA network node at a specific point in time. Developers can significantly accelerate the node synchronization process by downloading and using these data snapshots.
 
 ### Mainnet Data Snapshots
 
@@ -75,12 +75,12 @@ The table below lists the download addresses for FullNode data snapshots. Please
 **Note:** 
 
 - **LevelDB** and **RocksDB** data are not interchangeable. The database type for a FullNode is specified by the `db.engine` configuration item in the configuration file, with selectable values being `LEVELDB` or `ROCKSDB`.
-- Internal transactions can be enabled/disabled through the configuration items `vm.saveInternalTx` or `vm.saveFeaturedInternalTx` in the configuration file. Internal transactions are saved only when `vm.saveInternalTx` is enabled. If `saveFeaturedInternalTx` is also enabled, all types of internal transactions will be saved; otherwise, only `call`, `create`, and `suicide` transactions will be saved. Affected interface: [`gettransactioninfobyid`](https://developers.tron.network/reference/gettransactioninfobyid-1)
-- Historical accont balances can be enabled/disabled through the configuration item `storage.balance.history.lookup` in the configuration file. Affected interface: [`getaccountbalance`](https://developers.tron.network/reference/getaccountbalance)
+- Internal transactions can be enabled/disabled through the configuration items `vm.saveInternalTx` or `vm.saveFeaturedInternalTx` in the configuration file. Internal transactions are saved only when `vm.saveInternalTx` is enabled. If `saveFeaturedInternalTx` is also enabled, all types of internal transactions will be saved; otherwise, only `call`, `create`, and `suicide` transactions will be saved. Affected interface: [`gettransactioninfobyid`](https://developers.linda.network/reference/gettransactioninfobyid-1)
+- Historical accont balances can be enabled/disabled through the configuration item `storage.balance.history.lookup` in the configuration file. Affected interface: [`getaccountbalance`](https://developers.linda.network/reference/getaccountbalance)
 
 #### Lite FullNode Data Snapshots
 
-The TRON network has supported **Lite FullNode** type nodes since the GreatVoyage-V4.1.0 version. Compared to a regular FullNode, a Lite FullNode has a smaller database and faster startup speed because it only requires state data and necessary historical data to start. The table below lists the download addresses for Lite FullNode data snapshots.
+The LINDA network has supported **Lite FullNode** type nodes since the GreatVoyage-V4.1.0 version. Compared to a regular FullNode, a Lite FullNode has a smaller database and faster startup speed because it only requires state data and necessary historical data to start. The table below lists the download addresses for Lite FullNode data snapshots.
 
 | Lite FullNode Node Data Source | Download Address | Description |
 | :----------------------------- | :--------------- | :---------- |
@@ -103,7 +103,7 @@ The steps for using data snapshots are as follows:
 
 #### Data Snapshot Download and Extraction Methods
 
-The TRON network snapshot data size exceeds 2TB. To save disk space, we recommend using the streaming method, which downloads and extracts the data simultaneously. 
+The LINDA network snapshot data size exceeds 2TB. To save disk space, we recommend using the streaming method, which downloads and extracts the data simultaneously. 
 
 **Method 1: Streamed Download and Extract (Recommended, Saves Space)**
 

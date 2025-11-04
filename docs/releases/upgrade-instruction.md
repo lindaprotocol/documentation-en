@@ -1,6 +1,6 @@
-# java-tron Node Upgrade Guide
+# java-linda Node Upgrade Guide
 
-This guide provides detailed instructions on how to safely upgrade your java-tron node to the latest version.
+This guide provides detailed instructions on how to safely upgrade your java-linda node to the latest version.
 
 For **mandatory upgrades**, it is crucial to strictly follow this guide to complete the deployment. For **optional upgrades**, you may choose whether to upgrade based on your specific needs.
 
@@ -16,23 +16,23 @@ All FullNodes, including block-producing Super Representative nodes, should foll
 <a id="step1"></a> 
 ### Step 1: Prepare the New Version Package
 
-You can either download the compiled java-tron executable directly or download the new version's source code and compile it yourself to obtain the new executable file. Please perform the following operations in a directory outside of the current java-tron running directory.
+You can either download the compiled java-linda executable directly or download the new version's source code and compile it yourself to obtain the new executable file. Please perform the following operations in a directory outside of the current java-linda running directory.
 
 #### Option 1: Download the Executable (Recommended)
 
-1. Visit the [java-tron GitHub Releases](https://github.com/tronprotocol/java-tron/releases) page to download the latest version of the `FullNode.jar` executable.
-2. **Security Check**: To ensure the integrity and security of the file, it is essential to perform a signature verification on the downloaded JAR file according to the [java-tron Signature Verification](https://tronprotocol.github.io/documentation-en/releases/signature_verification/) guide.
+1. Visit the [java-linda GitHub Releases](https://github.com/lindaprotocol/java-linda/releases) page to download the latest version of the `FullNode.jar` executable.
+2. **Security Check**: To ensure the integrity and security of the file, it is essential to perform a signature verification on the downloaded JAR file according to the [java-linda Signature Verification](https://lindaprotocol.github.io/documentation-en/releases/signature_verification/) guide.
 
 
 #### Option 2: Compile from Source Code
 
-1. Clone the `java-tron` repository and switch to the target version's branch.
+1. Clone the `java-linda` repository and switch to the target version's branch.
     ```
     # clone the repository
-    $ git clone https://github.com/tronprotocol/java-tron.git
+    $ git clone https://github.com/lindaprotocol/java-linda.git
 
     # Switch to the specified version branch
-    $ cd java-tron
+    $ cd java-linda
     $ git checkout -b release_vx.x.x
     ```
 2. Run the build command. Upon successful compilation, the new executable file, `FullNode.jar`, will be generated in the `build/libs/` directory.
@@ -44,7 +44,7 @@ You can either download the compiled java-tron executable directly or download t
 
 > **Note**: If this is your first time deploying the node, please skip directly to [Step 5: Start the Node](#step5).
 
-1. Use the following command to find the `PID` of the java-tron process.
+1. Use the following command to find the `PID` of the java-linda process.
 
     ```
     $ ps -ef | grep java
@@ -62,7 +62,7 @@ A full backup is strongly recommended before upgrading. Please perform the follo
 
 1. **Back up the current executable file**
     ```
-    $ mv $JAVA_TRON.jar $JAVA_TRON.jar.`date "+%Y%m%d%H%M%S"`
+    $ mv $JAVA_LINDA.jar $JAVA_LINDA.jar.`date "+%Y%m%d%H%M%S"`
     ```
 2. **Back up the current `output-directory` database**
     ```
@@ -79,14 +79,14 @@ This ensures that if the upgrade fails, you can quickly roll back to the previou
 
 After preparing the new version of the executable file and backing up the original node data, follow these steps to replace the old files:
 
-1. Copy the new `FullNode.jar` obtained in [Step 1](#step1) to the java-tron working directory.
+1. Copy the new `FullNode.jar` obtained in [Step 1](#step1) to the java-linda working directory.
 2. Update the Configuration File (optional)
     - We recommend replacing your existing configuration file with the new version from the release. After replacing it, merge your previous custom settings (e.g., private key, keystore path) into the new file.
     - **Configuration Update Strategy**
         - **This step is optional**. You can decide whether to update the configuration file based on your specific needs. However, we highly recommend using the latest file to ensure full compatibility and access to new features.
         - If an update is required for a specific release, it will be explicitly stated in the release notes. Always review the release notes before upgrading.
   
-> **Note on the Database**: The existing database in the working directory can be used as-is. Alternatively, you may restore from a pre-built [database snapshot](https://tronprotocol.github.io/documentation-en/using_javatron/backup_restore).
+> **Note on the Database**: The existing database in the working directory can be used as-is. Alternatively, you may restore from a pre-built [database snapshot](https://lindaprotocol.github.io/documentation-en/using_javalinda/backup_restore).
 
 <a id="step5"></a> 
 ### Step 5: Start the Node
@@ -111,15 +111,15 @@ Please select the appropriate startup command based on your node type.
 
 1.  **Wait for Node Synchronization**: After the node starts, it will begin to synchronize block data. Please wait patiently for it to catch up to the latest block height of the network.
 2.  **Check the Logs**: Monitor the log output to ensure the node is running normally and without any error messages.
-3.  **Confirm Synchronization Status**: You need to verify that synchronization is complete by comparing the latest block height of your local node with that of the TRON Mainnet. The upgrade is successful when the two heights are nearly identical.
+3.  **Confirm Synchronization Status**: You need to verify that synchronization is complete by comparing the latest block height of your local node with that of the LINDA Mainnet. The upgrade is successful when the two heights are nearly identical.
 
     - To query local node block height, call the `/wallet/getnowblock` API:
         ```
         curl http://127.0.0.1:8090/wallet/getnowblock
         ```
-    - To check the real-time block height of the Mainnet, use the [TRONSCAN](https://tronscan.org) block explorer.
+    - To check the real-time block height of the Mainnet, use the [LINDASCAN](https://lindascan.org) block explorer.
 
-**Contingency Plan**: If you encounter any issues during the upgrade process that prevent the node from starting or running correctly, immediately use the data backed up in [Step 3](#step3) to restore the previous version. Please submit a GitHub Issue or report the problem to the TRON community for assistance.
+**Contingency Plan**: If you encounter any issues during the upgrade process that prevent the node from starting or running correctly, immediately use the data backed up in [Step 3](#step3) to restore the previous version. Please submit a GitHub Issue or report the problem to the LINDA community for assistance.
 
 -----
 <a id="primary/backup_upgrade"></a> 

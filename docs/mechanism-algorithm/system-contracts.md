@@ -1,5 +1,5 @@
 # System Contracts
-The TRON network supports many different types of transactions, such as TRX transfer transactions, TRC10 transfer transactions, creating smart contract transactions, triggering smart contract transactions, staking TRX transactions, and more. To create different types of transactions, you need to call different API. For example, the type of smart contract deployment transaction is `CreateSmartContract`, you need to call `wallet/deploycontractAPI` to create a transaction; the type of stake TRX transactions is `FreezeBalanceV2Contract`, you need to call` wallet/freezebalancev2API` to create transactions, we collectively refer to the implementation of these different transaction types as system contracts, the following are the types of system contracts and their contents:
+The LINDA network supports many different types of transactions, such as LIND transfer transactions, LRC10 transfer transactions, creating smart contract transactions, triggering smart contract transactions, staking LIND transactions, and more. To create different types of transactions, you need to call different API. For example, the type of smart contract deployment transaction is `CreateSmartContract`, you need to call `wallet/deploycontractAPI` to create a transaction; the type of stake LIND transactions is `FreezeBalanceV2Contract`, you need to call` wallet/freezebalancev2API` to create transactions, we collectively refer to the implementation of these different transaction types as system contracts, the following are the types of system contracts and their contents:
 
 ## AccountCreateContract
 ```
@@ -25,7 +25,7 @@ The TRON network supports many different types of transactions, such as TRX tran
 
 - `owner_address`: The owner of the current account.
 - `to_address`: The target address to transfer.
-- `amount`: The amount of TRX to transfer.
+- `amount`: The amount of LIND to transfer.
 
 ## TransferAssetContract
 ```
@@ -83,7 +83,7 @@ The TRON network supports many different types of transactions, such as TRX tran
       bytes abbr = 3;
       int64 total_supply = 4;
       repeated FrozenSupply frozen_supply = 5;
-      int32 trx_num = 6;
+      int32 lind_num = 6;
       int32 num = 8;
       int64 start_time = 9;
       int64 end_time = 10;
@@ -103,8 +103,8 @@ The TRON network supports many different types of transactions, such as TRX tran
 - `abbr`: The abbreviation of the token name.
 - `total_supply`: The amount of token to issue.
 - `frozen_supply`: The amount of token and staked days to stake.
-- `trx_num`: trx_num/num defines the token price.
-- `num`: trx_num/num defines the token price.
+- `lind_num`: lind_num/num defines the token price.
+- `num`: lind_num/num defines the token price.
 - `start_time`: ICO starts time.
 - `end_time`: ICO ends time.
 - `order`: Deprecated.
@@ -166,9 +166,9 @@ The TRON network supports many different types of transactions, such as TRX tran
 ```
 
 - `owner_address`: The owner of the current account.
-- `frozen_balance`: The amount of TRX to stake.
+- `frozen_balance`: The amount of LIND to stake.
 - `frozen_duration`: The stake duration.
-- `resource`: The type of resource get by staking TRX.
+- `resource`: The type of resource get by staking LIND.
 - `receiver_address`: The account address to receive resource.
 
 ## UnfreezeBalanceContract
@@ -278,8 +278,8 @@ The TRON network supports many different types of transactions, such as TRX tran
 
 - `owner_address`: The owner of the current account.
 - `new_contract`: the smart contract.
-- `call_token_value` : The amount of TRC-10 token to send to the contract when triggers.
-- `token_id` : The id of the TRC-10 token to be sent to the contract.
+- `call_token_value` : The amount of LRC-10 token to send to the contract when triggers.
+- `token_id` : The id of the LRC-10 token to be sent to the contract.
 
 ## TriggerSmartContract
 ```
@@ -295,10 +295,10 @@ The TRON network supports many different types of transactions, such as TRX tran
 
 - `owner_address`: The owner of the current account.
 - `contract_address`: The contract address.
-- `call_value`: The amount of TRX to send to the contract when triggers.
+- `call_value`: The amount of LIND to send to the contract when triggers.
 - `data`: The parameters to trigger the contract.
-- `call_token_value` : The amount of TRC-10 token to send to the contract when triggers.
-- `token_id` : The id of the TRC-10 token to be sent to the contract.
+- `call_token_value` : The amount of LRC-10 token to send to the contract when triggers.
+- `token_id` : The id of the LRC-10 token to be sent to the contract.
 
 ## UpdateSettingContract
 ```
@@ -484,7 +484,7 @@ message ReceiveDescription {
 ```
 
 * `owner_address`：Owner address
-* `frozen_balance`：TRX stake amount, the unit is sun
+* `frozen_balance`：LIND stake amount, the unit is sun
 * `resource`： Resource type
 
 ## UnfreezeBalanceV2Contract
@@ -498,7 +498,7 @@ message ReceiveDescription {
 ```
 
 * `owner_address`：Owner address
-* `unfreeze_balance`：The amount of TRX to unstake, in sun
+* `unfreeze_balance`：The amount of LIND to unstake, in sun
 * `resource`： Resource type
    
 
@@ -526,7 +526,7 @@ message ReceiveDescription {
 
 * `owner_address`：Owner address
 * `resource`： Resource type
-* `balance`： Amount of TRX staked for resources to be delegated, unit is sun
+* `balance`： Amount of LIND staked for resources to be delegated, unit is sun
 * `receiver_address`：Resource receiver address
 * `lock`：Whether it is locked, if it is set to true, the delegated resources cannot be undelegated within 3 days. When the lock time is not over, if the owner delegates the same type of resources using the lock to the same address, the lock time will be reset to 3 days
    
@@ -544,7 +544,7 @@ message ReceiveDescription {
 
 * `owner_address`：Owner address
 * `resource`： Resource type
-* `balance`：undelegated TRX, unit is sun
+* `balance`：undelegated LIND, unit is sun
 * `receiver_address`：Resource receiver address
    
 

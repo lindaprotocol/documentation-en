@@ -1,28 +1,28 @@
 # Resources
 
-* TRON Official Website
-[https://tron.network/](https://tron.network/)
+* LINDA Official Website
+[https://linda.network/](https://linda.network/)
 
 
-* TRON White Paper
-[https://tron.network/resources?lng=&name=1](https://tron.network/resources?lng=&name=1)
+* LINDA White Paper
+[https://linda.network/resources?lng=&name=1](https://linda.network/resources?lng=&name=1)
 
 
-* TRON Blockchain Browser
-[https://tronscan.org/](https://tronscan.org/)
+* LINDA Blockchain Browser
+[https://lindascan.org/](https://lindascan.org/)
 
 
-* TRON Wallet
-[https://github.com/tronprotocol/wallet-cli](https://github.com/tronprotocol/wallet-cli)
+* LINDA Wallet
+[https://github.com/lindaprotocol/wallet-cli](https://github.com/lindaprotocol/wallet-cli)
 
 
-* TRON Zksnark-java-sdk
-[https://github.com/tronprotocol/zksnark-java-sdk](https://github.com/tronprotocol/zksnark-java-sdk)
+* LINDA Zksnark-java-sdk
+[https://github.com/lindaprotocol/zksnark-java-sdk](https://github.com/lindaprotocol/zksnark-java-sdk)
 
 
-* TRON Sun-network
-[https://github.com/tronprotocol/sun-network](https://github.com/tronprotocol/sun-network)
+* LINDA Sun-network
+[https://github.com/lindaprotocol/sun-network](https://github.com/lindaprotocol/sun-network)
 
 
-* TRON Javascript API
-[https://github.com/tronprotocol/tronweb](https://github.com/tronprotocol/tronweb)
+* LINDA Javascript API
+[https://github.com/lindaprotocol/lindaweb](https://github.com/lindaprotocol/lindaweb)

@@ -1,6 +1,6 @@
 # Account Permission Management 
 
-The TRON network supports fine-grained control of account permissions. By configuring permissions (owner, witness, active), joint control of accounts, secure delegation, and functional permission separation can be achieved. The following document details the account permission model, contract structure, configuration methods, and common interface calls.
+The LINDA network supports fine-grained control of account permissions. By configuring permissions (owner, witness, active), joint control of accounts, secure delegation, and functional permission separation can be achieved. The following document details the account permission model, contract structure, configuration methods, and common interface calls.
 
 
 
@@ -13,13 +13,13 @@ Account permission management allows:
 - Implementing permission control through a threshold mechanism.
 - Flexibly configuring which addresses can execute which contract types.
 
-For detailed specifications, see [TIP-16: Account Permission Management](https://github.com/tronprotocol/tips/blob/master/tip-16.md).
+For detailed specifications, see [LIP-16: Account Permission Management](https://github.com/lindaprotocol/tips/blob/master/tip-16.md).
 
 
 
 ## Permission Level Concepts
 
-TRON supports three types of permission:
+LINDA supports three types of permission:
 
 | Permission Type | Description                          |
 |-----------------|--------------------------------------|
@@ -134,7 +134,7 @@ Active permissions configure which `ContractType` can be executed through the `o
 
 ```
 # config.conf
-//localWitnessAccountAddress = TMK5c1jd...m6FXFXEz  # TRON Address
+//localWitnessAccountAddress = TMK5c1jd...m6FXFXEz  # LINDA Address
 localwitness = [
   xxx  # Private key of TMK5c1jd...m6FXFXEz
 ]
@@ -162,8 +162,8 @@ localwitness = [
 
 | Operation                  | Fee Standard |
 | -------------------------- | ------------ |
-| Modify Account Permission  | 100 TRX      |
-| Transaction (2 or more signatures) | Additional 1 TRX |
+| Modify Account Permission  | 100 LIND      |
+| Transaction (2 or more signatures) | Additional 1 LIND |
 
 The above fees can be adjusted through proposals.
 
@@ -234,7 +234,7 @@ System.out.println(ByteArray.toHexString(operations));
 6. The last user signs and broadcasts.
 7. The node verifies if the total signature weight ≥ `threshold`; if yes, accepts the transaction.
 
->Example code reference: [wallet-cli Example](https://github.com/tronprotocol/wallet-cli/blob/develop/src/main/java/org/tron/common/utils/TransactionUtils.java)
+>Example code reference: [wallet-cli Example](https://github.com/lindaprotocol/wallet-cli/blob/develop/src/main/java/org/linda/common/utils/TransactionUtils.java)
 
 ## Auxiliary Interfaces
 
@@ -256,5 +256,5 @@ rpc GetTransactionSignWeight(Transaction) returns (TransactionSignWeight) {}
 
 ## References
 
-- [TIP-16 Permission Management Proposal](https://github.com/tronprotocol/tips/blob/master/tip-16.md)
-- [Tron.proto Contract Type Definitions](https://github.com/tronprotocol/java-tron/blob/master/protocol/src/main/protos/core/Tron.proto)
+- [LIP-16 Permission Management Proposal](https://github.com/lindaprotocol/tips/blob/master/tip-16.md)
+- [Linda.proto Contract Type Definitions](https://github.com/lindaprotocol/java-linda/blob/master/protocol/src/main/protos/core/Linda.proto)

@@ -1,4 +1,4 @@
-# The TRON FAQ
+# The LINDA FAQ
 
 <!-- markdownlint-disable MD026 -->
 
@@ -8,7 +8,7 @@
 
 ### How can I generate an account?
 
-You can use [wallet-cli](https://github.com/tronprotocol/wallet-cli) or [Tronscan](https://tronscan.org/#/wallet/new).
+You can use [wallet-cli](https://github.com/lindaprotocol/wallet-cli) or [Lindascan](https://lindascan.org/#/wallet/new).
 
 ### What is the network flow?
 
@@ -20,7 +20,7 @@ You need to wait till the time reaches the start time of participation you set w
 
 ### Is there a place to see if all the SuperNodes are producing blocks?
 
-Please refer to [Tronscan](https://tronscan.org/#/sr/representatives)
+Please refer to [Lindascan](https://lindascan.org/#/sr/representatives)
 
 ### Is the block producing time interval always remain the same?
 
@@ -40,13 +40,13 @@ When the amount of votes you get ranks into top 27, you will become a SR.
 
 ### 27 SRs shares the block producing reward equally or by their computing power?
 
-It has nothing to do with computing power. The reward is a fixed 32 TRX for each block produced.
+It has nothing to do with computing power. The reward is a fixed 32 LIND for each block produced.
 
-### Will there be an over 50% computing power issue in TRON network?
+### Will there be an over 50% computing power issue in LINDA network?
 
 No.
 
-### Will voting burns TRX?
+### Will voting burns LIND?
 
 No.
 
@@ -58,17 +58,17 @@ Every 6 hours, the votes will be counted to check the qualifications of all the 
 
 Transaction hash.
 
-### Why I Can't stake TRX longer than 3 days
+### Why I Can't stake LIND longer than 3 days
 
-Staked duration must be 3 days now. It means you can not unstake until the 3 days duration expires. If you don't unstake after 3 days, the staked TRX will remain in staked status until you unstake it.
+Staked duration must be 3 days now. It means you can not unstake until the 3 days duration expires. If you don't unstake after 3 days, the staked LIND will remain in staked status until you unstake it.
 
 ### How to watch my account for transactions
 
-To meet your needs, you can use TRON event subscription plugin. For more detail, please refer to [https://tronprotocol.github.io/documentation-en/architecture/plugin/#tron-event-subscription](https://tronprotocol.github.io/documentation-en/architecture/plugin/#tron-event-subscription)
+To meet your needs, you can use LINDA event subscription plugin. For more detail, please refer to [https://lindaprotocol.github.io/documentation-en/architecture/plugin/#linda-event-subscription](https://lindaprotocol.github.io/documentation-en/architecture/plugin/#linda-event-subscription)
 
 ### How to calculate the transaction fee?
 
-please refer to [https://tronprotocol.github.io/documentation-en/mechanism-algorithm/resource/](https://tronprotocol.github.io/documentation-en/mechanism-algorithm/resource/)
+please refer to [https://lindaprotocol.github.io/documentation-en/mechanism-algorithm/resource/](https://lindaprotocol.github.io/documentation-en/mechanism-algorithm/resource/)
 
 ### How to calculate the number of bytes of transactions?
 
@@ -80,7 +80,7 @@ You need to vote again, set your votes number to 0.
 
 ## Node Configuration
 
-### If I replace the field value of 'genesis.block.witnesses' with the address generated in [Tronscan](https://tronscan.org/) in config.conf, do I need to delete other addresses? Do I need to delete the field 'url' and 'voteCount'?
+### If I replace the field value of 'genesis.block.witnesses' with the address generated in [Lindascan](https://lindascan.org/) in config.conf, do I need to delete other addresses? Do I need to delete the field 'url' and 'voteCount'?
 
 No need to delete other addresses, these addresses will be a part of your net, but if you do not own the private keys of these addresses, they will act like abandoned addresses.
 Note: The addresses of Zion、Sun and Blackhole can not be deleted, but can be modified.
@@ -97,7 +97,7 @@ java -jar FullNode.jar -c config.conf -d /data/output
 
 Steps to send logs to stdout:
 
-Download [https://github.com/tronprotocol/java-tron/blob/develop/src/main/resources/logback.xml](https://github.com/tronprotocol/java-tron/blob/develop/src/main/resources/logback.xml)
+Download [https://github.com/lindaprotocol/java-linda/blob/develop/src/main/resources/logback.xml](https://github.com/lindaprotocol/java-linda/blob/develop/src/main/resources/logback.xml)
 
 Uncomment the configuration:
 
@@ -170,7 +170,7 @@ genesis.block = {
 
 ## Compile and Build
 
-### java-tron build failed with unit test issue
+### java-linda build failed with unit test issue
 
 Please use './gradlew build -x test' to skip the test cases.
 
@@ -178,10 +178,10 @@ Please use './gradlew build -x test' to skip the test cases.
 
 ### How to test if the deployment works normally, if there is a test api or command like redis: get ping return pong?
 
-java-tron does not provide a default api to test. Once the service start, grpc commands can be sent. Based on that, there are several ways to test if the deployment is successful. You can also use the following command to test:
+java-linda does not provide a default api to test. Once the service start, grpc commands can be sent. Based on that, there are several ways to test if the deployment is successful. You can also use the following command to test:
 
 ```text
-> tail -f logs/tron.log |grep "MyheadBlockNumber"
+> tail -f logs/linda.log |grep "MyheadBlockNumber"
 ```
 
 ### When to deploy private environment, what's the relationship of SuperNode and FullNode? Should I firstly deploy a SuperNode, and then deploy a FullNode？
@@ -193,7 +193,7 @@ Under private environment, there should be at least one SuperNode, there is no a
 Using the following command
 
 ```text
-> tail -f logs/tron.log |grep "Try Produce Block"
+> tail -f logs/linda.log |grep "Try Produce Block"
 ```
 
 ### Can SolidityNode and FullNode be deployed in one machine? Will they share the data?
@@ -206,9 +206,9 @@ They can be deployed in one machine. You can specify the data storage path in co
 
 If it is related to ip list: You need to update 'seed.ip' in config.conf, if it is the same as your public ip, and your computer is connected to the internet, it will try to connect other nodes, even if it fails to connect, the ip list will be stored into DB. If it is related to block and transaction: Under private environment, you need to modify the p2p version and parent hash. If they are the same as MainNet or TestNet, and the computer is connected to internet, the node will sync data from public node.
 
-### Under private environment, should I submit application information to TRON to become a SR?
+### Under private environment, should I submit application information to LINDA to become a SR?
 
-Under private environment, no need to submit application information to TRON to become a SR.
+Under private environment, no need to submit application information to LINDA to become a SR.
 
 Ask：Which service port should be public to public network?
 
@@ -228,7 +228,7 @@ No, but the node provides wallet rpc api.
 
 ### Why does the block process time take so long?
 
-java-tron need more RAM to process transactions.
+java-linda need more RAM to process transactions.
 
 ## Test Net
 
@@ -240,9 +240,9 @@ Yes. Under test environment, we can vote you to become SR.
 
 to be answered
 
-### Where can I get the test TRX?
+### Where can I get the test LIND?
 
-[http://testnet.tronex.io/join/getJoinPage](http://testnet.tronex.io/join/getJoinPage)
+[http://testnet.lindaex.io/join/getJoinPage](http://testnet.lindaex.io/join/getJoinPage)
 
 ## Smart Contract
 
@@ -251,9 +251,9 @@ to be answered
 
 ### How to sign transaction from offline node and broadcast to online node?
 
-You can use [tronweb](https://developers.tron.network/docs/api-sign-flow)
+You can use [lindaweb](https://developers.linda.network/docs/api-sign-flow)
 
-### How to sync wallet-cli with wallet on Tronscan?
+### How to sync wallet-cli with wallet on Lindascan?
 
 By using wallet-cli api 'ImportWallet'.
 
@@ -289,7 +289,7 @@ triggercontract contractaddress balanceOf(address) "youraddress" false 0 0 0 #
 This message means your node does not sync with the network. Before producing blocks, it needs to sync data. You can use the following command to check the block height.
 
 ```text
-> tail -f logs/tron.log |grep "MyheadBlockNumber"
+> tail -f logs/linda.log |grep "MyheadBlockNumber"
 ```
 
 ## Other Questions
@@ -298,4 +298,4 @@ This message means your node does not sync with the network. Before producing bl
 
 Feel free to join our community, just open an Issue on github:
 
-- Github: [tronprotocol/java-tron](https://github.com/tronprotocol/java-tron)
+- Github: [lindaprotocol/java-linda](https://github.com/lindaprotocol/java-linda)

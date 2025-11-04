@@ -1,42 +1,42 @@
-# Shielded TRC-20 Contract
+# Shielded LRC-20 Contract
 
 ## Introduction
 
-TRC-20 token contract allows users to issue and transfer tokens, but it can not guarantee the privacy since it leaks the token ownership. When transferring the token, the source address, destination address, and the token amount are  public. The shielded TRC-20 contract ([TIP-135](https://github.com/tronprotocol/tips/blob/master/tip-135.md)) aims to solve this problem and provides users better privacy of token ownership and transactions.
+LRC-20 token contract allows users to issue and transfer tokens, but it can not guarantee the privacy since it leaks the token ownership. When transferring the token, the source address, destination address, and the token amount are  public. The shielded LRC-20 contract ([LIP-135](https://github.com/lindaprotocol/tips/blob/master/tip-135.md)) aims to solve this problem and provides users better privacy of token ownership and transactions.
 
-The shielded TRC-20 contract has three core functions: `mint`, `transfer` and `burn`.
+The shielded LRC-20 contract has three core functions: `mint`, `transfer` and `burn`.
 
--  `mint` is used to transform the public TRC-20 token to shielded token, which makes token ownership invisible. `mint` has only one transparent input and one shielded output.
+-  `mint` is used to transform the public LRC-20 token to shielded token, which makes token ownership invisible. `mint` has only one transparent input and one shielded output.
 -  `transfer` is used for shielded token transactions, which can hide the source address, the destination address, and the transaction amount. `transfer` has at most two shielded input and two shielded output.
-- `burn` is used to transform the shielded token to the public TRC-20 token. `burn` has only one shielded input, one transparent output and zero or one shielded output.
+- `burn` is used to transform the shielded token to the public LRC-20 token. `burn` has only one shielded input, one transparent output and zero or one shielded output.
 
 The technical implementation is based on zk-SNARK(Zero-Knowledge Succinct Non-Interactive Argument of Knowledge) proof system, which is secure and efficient. 
 
 ### Contract Deployment
 
-1. Use `deployContract` method in the wallet-cli to deploy the TRC-20 contract. 
+1. Use `deployContract` method in the wallet-cli to deploy the LRC-20 contract. 
 
-   Note: the deployed TRC-20 contract address of `TokenTRC20` on Nile Testnet is:  [TFUD8x3iAZ9dF7NDCGBtSjznemEomE5rP9](https://nile.tronscan.org/#/contract/TFUD8x3iAZ9dF7NDCGBtSjznemEomE5rP9/code).
+   Note: the deployed LRC-20 contract address of `TokenLRC20` on Nile Testnet is:  [TFUD8x3iAZ9dF7NDCGBtSjznemEomE5rP9](https://nile.lindascan.org/#/contract/TFUD8x3iAZ9dF7NDCGBtSjznemEomE5rP9/code).
 
-2. Use the `deployContract` method to deploy the shielded TRC-20 contract. The shielded TRC-20 contract will bind the TRC-20 contract. The `scalingFactor` is also specified when deploying the shielded TRC-20 contract. For more details about `scalingFactor`, please refer [TIP-135](https://github.com/tronprotocol/tips/blob/master/tip-135.md).
+2. Use the `deployContract` method to deploy the shielded LRC-20 contract. The shielded LRC-20 contract will bind the LRC-20 contract. The `scalingFactor` is also specified when deploying the shielded LRC-20 contract. For more details about `scalingFactor`, please refer [LIP-135](https://github.com/lindaprotocol/tips/blob/master/tip-135.md).
 
-   Note: the deployed shielded TRC-20 contract address of `ShieldedTRC20` on Nile Testnet is:  [TPcKtz5TRfP4xUZSos81RmXB9K2DBqj2iu](https://nile.tronscan.org/#/contract/TPcKtz5TRfP4xUZSos81RmXB9K2DBqj2iu/code) and the corresponding `scalingFactor` is set 10.
+   Note: the deployed shielded LRC-20 contract address of `ShieldedLRC20` on Nile Testnet is:  [TPcKtz5TRfP4xUZSos81RmXB9K2DBqj2iu](https://nile.lindascan.org/#/contract/TPcKtz5TRfP4xUZSos81RmXB9K2DBqj2iu/code) and the corresponding `scalingFactor` is set 10.
 
 ### Usage Guide
 
-1.&nbsp;The sender needs to create an ordianry account by api. The account is used to trigger the shielded TRC-20 contract, so it should has some trx to pay the transaction fee.  
+1.&nbsp;The sender needs to create an ordianry account by api. The account is used to trigger the shielded LRC-20 contract, so it should has some lind to pay the transaction fee.  
 
-2.&nbsp;The sender should create the shielded address, which is used to send and receive the shielded TRC-20 notes.
+2.&nbsp;The sender should create the shielded address, which is used to send and receive the shielded LRC-20 notes.
 
-3.&nbsp;The sender calls the api to create shielded TRC-20 contract parameters for `mint`, `transfer` and `burn`.
+3.&nbsp;The sender calls the api to create shielded LRC-20 contract parameters for `mint`, `transfer` and `burn`.
 
-4.&nbsp;The sender triggers the shielded TRC-20 contract by using the generated parameters and generates the shielded TRC-20 transaction.
+4.&nbsp;The sender triggers the shielded LRC-20 contract by using the generated parameters and generates the shielded LRC-20 transaction.
 
-5.&nbsp;The sender broadcasts the shielded TRC-20 transaction.
+5.&nbsp;The sender broadcasts the shielded LRC-20 transaction.
 
 6.&nbsp;The receiver scans to get the received shielded notes.
 
-The document below describes how to use TRON Shielded TRC-20 contract with http api.
+The document below describes how to use LINDA Shielded LRC-20 contract with http api.
 
 ### Create the account
 
@@ -216,7 +216,7 @@ Return:
         "d": "dd6b441bd5dcb9c25ec41f"
     },
     "pkD": "297198e7d4a024a3b5ef9b68ed15e7463fbf03e6aa590aa551d7bd0c1cfa828d",
-    "payment_address": "ztron1m445gx74mjuuyhkyru5hrx886jszfga4a7dk3mg4uarrl0cru649jz4928tm6rqul2pg645hqv5"
+    "payment_address": "zlinda1m445gx74mjuuyhkyru5hrx886jszfga4a7dk3mg4uarrl0cru649jz4928tm6rqul2pg645hqv5"
 }
 ```
 
@@ -243,12 +243,12 @@ Return:
     "ivk": "9c3eacfe786e67c6f3b567cfcf129dcfdc21347ce6f192cc3ca1e994df570c05",
     "d": "987adf3b4d8da446327d17",
     "pkD": "09f3c4576c4f836b3472a6a5738606866607a6ffcd1c7299e31ec40455b1cd35",
-    "payment_address": "ztron1npad7w6d3kjyvvnazuyl83zhd38cx6e5w2n22uuxq6rxvpaxllx3cu5euv0vgpz4k8xn2rsga28"
+    "payment_address": "zlinda1npad7w6d3kjyvvnazuyl83zhd38cx6e5w2n22uuxq6rxvpaxllx3cu5euv0vgpz4k8xn2rsga28"
 }
 ```
 
 
-### Create shielded TRC-20 contract parameters for `mint`
+### Create shielded LRC-20 contract parameters for `mint`
 
 **1. Call api: wallet/createshieldedcontractparameters to build the parameters**
 
@@ -263,14 +263,14 @@ Parameters:
     "shielded_receives": {
        "note": {
           "value": 50,
-          "payment_address": "ztron15js0jkuxczt8caq5hp59rnh6rgf34sek7vqn9u6ljelxv4nuzz2x9qe3ffm2wzz6ck53yxyhxs6",
+          "payment_address": "zlinda15js0jkuxczt8caq5hp59rnh6rgf34sek7vqn9u6ljelxv4nuzz2x9qe3ffm2wzz6ck53yxyhxs6",
           "rcm": "74baec30dfac8ed59968955ff245ae002009005194e5b824c35ab88c52e5170e"
        }
     },
-    "shielded_TRC20_contract_address": "41f3392eaa7d38749176e0671dbc6912f8ef956943"
+    "shielded_LRC20_contract_address": "41f3392eaa7d38749176e0671dbc6912f8ef956943"
 }
 ```
-Note: 1. the shielded TRC-20 contract should be deployed before calling the api; 2. the `from_amount` is the real value, the `value` in note is the scaled value by `scalingFactor` set in the shielded TRC-20 contract, namely `from_amount` = `value` * `scalingFactor`. In this example, the value of `scalingFactor` is 100; 3. the `rcm` is a random field element with the length of 32 bytes,  which should be generated by `GetRcm` api. 
+Note: 1. the shielded LRC-20 contract should be deployed before calling the api; 2. the `from_amount` is the real value, the `value` in note is the scaled value by `scalingFactor` set in the shielded LRC-20 contract, namely `from_amount` = `value` * `scalingFactor`. In this example, the value of `scalingFactor` is 100; 3. the `rcm` is a random field element with the length of 32 bytes,  which should be generated by `GetRcm` api. 
 
 Return:
 
@@ -292,9 +292,9 @@ Return:
 }
 ```
 
-The `trigger_contract_input` can be used as the input data to trigger the `mint` function of the shielded token contract. Before triggering the shielded TRC-20 contract, the user should trigger the `approve` method   of TRC-20 contract, to authorize the shielded TRC-20 contract to transfer the token from TRC-20 contract to shielded TRC-20 contract.  
+The `trigger_contract_input` can be used as the input data to trigger the `mint` function of the shielded token contract. Before triggering the shielded LRC-20 contract, the user should trigger the `approve` method   of LRC-20 contract, to authorize the shielded LRC-20 contract to transfer the token from LRC-20 contract to shielded LRC-20 contract.  
 
-Note: when the shielded TRC-20 contract is deployed, it will bind the corresponding TRC-20 contract.
+Note: when the shielded LRC-20 contract is deployed, it will bind the corresponding LRC-20 contract.
 
 **2. Call api: wallet/createshieldedcontractparameterswithoutask to build the parameters**
 
@@ -309,14 +309,14 @@ Parameters:
     "shielded_receives": {
        "note": {
           "value": 50,
-          "payment_address": "ztron13lvfnt4rau4ad9mmgztd3aftw49e3amz8gm2kvyzrsaw0ugz2grxwkvcfys5e2gkchj7cnnetjz",
+          "payment_address": "zlinda13lvfnt4rau4ad9mmgztd3aftw49e3amz8gm2kvyzrsaw0ugz2grxwkvcfys5e2gkchj7cnnetjz",
           "rcm": "499e73f2f8aaf05fac41a35b8343bde27f6629cbe66d35da5364a99b94a55a06"
        }
     },
-    "shielded_TRC20_contract_address": "41f3392eaa7d38749176e0671dbc6912f8ef956943"
+    "shielded_LRC20_contract_address": "41f3392eaa7d38749176e0671dbc6912f8ef956943"
 }
 ```
-Note: the `from_amount` is the real value, the `value` in note is the scaled value by `scalingFactor` set in the shielded TRC-20 contract, namely `from_amount` = `value` * `scalingFactor`. In this example, the value of `scalingFactor` is 100. 
+Note: the `from_amount` is the real value, the `value` in note is the scaled value by `scalingFactor` set in the shielded LRC-20 contract, namely `from_amount` = `value` * `scalingFactor`. In this example, the value of `scalingFactor` is 100. 
 
 Return:
 
@@ -338,7 +338,7 @@ Return:
 }
 ```
 
-The `trigger_contract_input` can be used as the input data to trigger the `mint` function of the shielded TRC-20 contract.
+The `trigger_contract_input` can be used as the input data to trigger the `mint` function of the shielded LRC-20 contract.
 
 
 ### Create shielded contract parameters for `transfer`
@@ -358,7 +358,7 @@ Parameters:
       {
         "note": {
             "value": 60,
-            "payment_address":"ztron1n2xqnggktc8tfhskevgfvnjjkd4tj6n98e28vdwjyu9p4dz5t55nwazay5y3qnv8cp0xs3fgzgv",
+            "payment_address":"zlinda1n2xqnggktc8tfhskevgfvnjjkd4tj6n98e28vdwjyu9p4dz5t55nwazay5y3qnv8cp0xs3fgzgv",
             "rcm": "6760c1f7681752bf9ec18316dfbc2d66ddaae690d77302bdc6d127ff3084af00"
         },
         "alpha": "9a22f748597f7dc83edb3b05b3a3def34f47c4cb13d216be7ce03d2ea9da7e0a",
@@ -369,7 +369,7 @@ Parameters:
      {
         "note": {
             "value": 40,
-            "payment_address":"ztron135rhyme9sqgfdzszmvj0pzhvnthzdl59fqag362lsyrme3xrcjat9am35a390uk0yudskaqppf5",
+            "payment_address":"zlinda135rhyme9sqgfdzszmvj0pzhvnthzdl59fqag362lsyrme3xrcjat9am35a390uk0yudskaqppf5",
             "rcm": "9ff13d57e9c5a92405da71d6187bb0c11d6260914788a54f38ad62e4a04ffa04"
         },
         "alpha": "6865f8058e33b3d3dccb8f0b5c39993760d305a711165724d90998fb68c64b00",
@@ -382,19 +382,19 @@ Parameters:
      {
        "note": {
            "value": 30,
-           "payment_address":"ztron16455ldgqwz3sfamz0nymymwcvg0v6qsvn8prqtnznu6dmuuud965ar6rqw3yas48dn9w7ejne59",
+           "payment_address":"zlinda16455ldgqwz3sfamz0nymymwcvg0v6qsvn8prqtnznu6dmuuud965ar6rqw3yas48dn9w7ejne59",
            "rcm": "75ba6b5949879ae11229f53728cd6f1eadbb999898e0927d7e9dc4045d806602"
         }
      },
      {
         "note": {
            "value": 70,
-           "payment_address":"ztron1fkcy3738mx4h448cpx76yz5fjsa8c4ra8r4ff8x6s5n4ak5303a5hrgcw66c5syf0y87wqwcrnh",
+           "payment_address":"zlinda1fkcy3738mx4h448cpx76yz5fjsa8c4ra8r4ff8x6s5n4ak5303a5hrgcw66c5syf0y87wqwcrnh",
            "rcm": "43e419fb8abef141f7b9d5d5a30ac743edebf9eb80cd24a344efe3ca091b6008"
         }
      }
    ],
-    "shielded_TRC20_contract_address": "41e6e90fbc958ba09483550882b1f0327e0193250a"
+    "shielded_LRC20_contract_address": "41e6e90fbc958ba09483550882b1f0327e0193250a"
 }
 ```
 Return:
@@ -441,9 +441,9 @@ Return:
 }
 ```
 
-The `trigger_contract_input` can be used as the input data to trigger the `transfer` function of the shielded TRC-20 contract.
+The `trigger_contract_input` can be used as the input data to trigger the `transfer` function of the shielded LRC-20 contract.
 
-Note: 1. the notes in `shielded_spends` is obtained by `scanshieldedtrc20notesbyivk` api; 2. the `root` and `path` is obtained by triggering the `getPath` function of the shielded TRC-20 contract.
+Note: 1. the notes in `shielded_spends` is obtained by `scanshieldedtrc20notesbyivk` api; 2. the `root` and `path` is obtained by triggering the `getPath` function of the shielded LRC-20 contract.
 
 **2. Call api: wallet/createshieldedcontractparameterswithoutask to build the parameters**
 
@@ -460,7 +460,7 @@ Parameters:
       {
         "note": {
             "value": 60,
-            "payment_address":"ztron1nx3cnncmlcl72ppcrz23krpurxphz9g5yj85zvpgm94g46zs8pq8gd7qrcv8xezp9rryzlar4az",
+            "payment_address":"zlinda1nx3cnncmlcl72ppcrz23krpurxphz9g5yj85zvpgm94g46zs8pq8gd7qrcv8xezp9rryzlar4az",
             "rcm": "4636333870ccc91fb8bfe53ed559f8cf64505672a58d82875694dd38eb3d6404"
         },
         "alpha": "d0f0768664f5c807f9e70d05993f029c71da529afaa5c037b44c63d6e13bc907",
@@ -471,7 +471,7 @@ Parameters:
      {
         "note": {
             "value": 40,
-            "payment_address":"ztron1x54s8nrzf2g85grp729s4pxx7ta3s38lj0jw57qwnuqx0e2wy8sfdcyldyfs9hazhqrs6jjzxhw",
+            "payment_address":"zlinda1x54s8nrzf2g85grp729s4pxx7ta3s38lj0jw57qwnuqx0e2wy8sfdcyldyfs9hazhqrs6jjzxhw",
             "rcm": "74908b43975847d5df6c0b40c4d5b1dbe732cb720e6b5bd5a55e7cd10e2a3a05"
         },
         "alpha": "ff3bd6babd3e28da098c67c67f26f2e613a5d1cec966b2f25ca4a943218ee805",
@@ -484,19 +484,19 @@ Parameters:
      {
        "note": {
            "value": 30,
-           "payment_address":"ztron127acwjxf499f43t8mk42ch5jyru68fsw7jun9hfu7pv87we3dnfrwtml8np80gsegksnjfz87vd",
+           "payment_address":"zlinda127acwjxf499f43t8mk42ch5jyru68fsw7jun9hfu7pv87we3dnfrwtml8np80gsegksnjfz87vd",
            "rcm": "4172682e3f0398abb7f204220279948b3dd930bc901b1c9223a5cac51b1a7703"
         }
      },
      {
         "note": {
            "value": 70,
-           "payment_address":"ztron1f6dfsq8mxj8pd2f2dvnle4x6ahfrqr4ll2ezp2ez90jmcjtksr2r6s8095ljf7a3mfpn2uklc9r",
+           "payment_address":"zlinda1f6dfsq8mxj8pd2f2dvnle4x6ahfrqr4ll2ezp2ez90jmcjtksr2r6s8095ljf7a3mfpn2uklc9r",
            "rcm": "7b4d06b6e0b5ea0172063f7f7e495bb840ff279787bd49adffdcfde65d68700e"
         }
      }
    ],
-    "shielded_TRC20_contract_address": "41e6e90fbc958ba09483550882b1f0327e0193250a"
+    "shielded_LRC20_contract_address": "41e6e90fbc958ba09483550882b1f0327e0193250a"
 }
 ```
 Return:
@@ -580,7 +580,7 @@ Parameters:
 
 ```
 {
-    "shielded_TRC20_Parameters": {
+    "shielded_LRC20_Parameters": {
         "spend_description": [
             {
                 "value_commitment": "68b6f57d972dfeef1784017d0a669b45a367091671c098ea99fc9654d7bdc0e7",
@@ -636,9 +636,9 @@ Return:
 }
 ```
 
-The `value` can be used as the input data to trigger the `transfer` function of the shielded TRC-20 contract.
+The `value` can be used as the input data to trigger the `transfer` function of the shielded LRC-20 contract.
 
-### Create shielded TRC-20 contract parameters for `burn`
+### Create shielded LRC-20 contract parameters for `burn`
 
 **1. Call api: wallet/createshieldedcontractparameters to build the parameters**
 
@@ -655,7 +655,7 @@ Parameters:
       {
         "note": {
             "value": 60,
-            "payment_address":"ztron1mpwx0380fvw7gacf5hm4vl625ltmdezt0dwp3ssyd84y8jxzp3guqz9utzn35u7038jx6a6ucly",
+            "payment_address":"zlinda1mpwx0380fvw7gacf5hm4vl625ltmdezt0dwp3ssyd84y8jxzp3guqz9utzn35u7038jx6a6ucly",
             "rcm": "b67b18fee3133440bfc4509912b96482fdcacbc0b5679af1785247c94224200c"
         },
         "alpha": "b6de1a3a40764bd7a24147f155011624805bfcd6d21283c69a3f21aea9401201",
@@ -669,18 +669,18 @@ Parameters:
      {
         "note": {
            "value": 40,
-           "payment_address":"ztron1nupklnacqyjc7ge998f6v2wutm7urdcdupl6j4ypq7qwws5yqfqrlxwvnylucwre8yewx5s0keu",
+           "payment_address":"zlinda1nupklnacqyjc7ge998f6v2wutm7urdcdupl6j4ypq7qwws5yqfqrlxwvnylucwre8yewx5s0keu",
            "rcm": "f2aa138d0d04b685b236d797458d0cf53749b96bbb6d5f1e6c5f2db31b0b2d09"
         }
      }
    ],
    "transparent_to_address":"TBaBXpRAeBhs75TZT751LwyhrcR25XeUot",
    "to_amount":"2000",
-    "shielded_TRC20_contract_address": "TDxka3zetrpWsWoeWWjSAQDwM186UmzwQn",
+    "shielded_LRC20_contract_address": "TDxka3zetrpWsWoeWWjSAQDwM186UmzwQn",
     "visible": true
 }
 ```
-Note: the `to_amount` is the real value, the `value` in note is the scaled value by `scalingFactor` set in the shielded TRC-20 contract. In this example, the value of `scalingFactor` is 100. , namely 60 * 100 =  40 * 100 + 2000.
+Note: the `to_amount` is the real value, the `value` in note is the scaled value by `scalingFactor` set in the shielded LRC-20 contract. In this example, the value of `scalingFactor` is 100. , namely 60 * 100 =  40 * 100 + 2000.
 
 Return:
 
@@ -711,7 +711,7 @@ Return:
 }
 ```
 
-The `trigger_contract_input` can be used as the input data to trigger the `burn` function of the shielded TRC-20 contract.
+The `trigger_contract_input` can be used as the input data to trigger the `burn` function of the shielded LRC-20 contract.
 
 **2. Call api: wallet/createshieldedcontractparameterswithoutask to build the parameters**
 
@@ -728,7 +728,7 @@ Parameters:
       {
         "note": {
             "value": 60,
-            "payment_address":"ztron1mpwx0380fvw7gacf5hm4vl625ltmdezt0dwp3ssyd84y8jxzp3guqz9utzn35u7038jx6a6ucly",
+            "payment_address":"zlinda1mpwx0380fvw7gacf5hm4vl625ltmdezt0dwp3ssyd84y8jxzp3guqz9utzn35u7038jx6a6ucly",
             "rcm": "b67b18fee3133440bfc4509912b96482fdcacbc0b5679af1785247c94224200c"
         },
         "alpha": "b6de1a3a40764bd7a24147f155011624805bfcd6d21283c69a3f21aea9401201",
@@ -741,18 +741,18 @@ Parameters:
      {
         "note": {
            "value": 40,
-           "payment_address":"ztron1nupklnacqyjc7ge998f6v2wutm7urdcdupl6j4ypq7qwws5yqfqrlxwvnylucwre8yewx5s0keu",
+           "payment_address":"zlinda1nupklnacqyjc7ge998f6v2wutm7urdcdupl6j4ypq7qwws5yqfqrlxwvnylucwre8yewx5s0keu",
            "rcm": "f2aa138d0d04b685b236d797458d0cf53749b96bbb6d5f1e6c5f2db31b0b2d09"
         }
      }
    ],
    "transparent_to_address":"TBaBXpRAeBhs75TZT751LwyhrcR25XeUot",
    "to_amount":"2000",
-    "shielded_TRC20_contract_address": "TDxka3zetrpWsWoeWWjSAQDwM186UmzwQn",
+    "shielded_LRC20_contract_address": "TDxka3zetrpWsWoeWWjSAQDwM186UmzwQn",
     "visible": true
 }
 ```
-Note: the `to_amount` is the real value, the `value` in note is the scaled value by `scalingFactor` set in the shielded TRC-20 contract. In this example, the value of `scalingFactor` is 100, namely 60 * 100 =  40 * 100 + 2000.
+Note: the `to_amount` is the real value, the `value` in note is the scaled value by `scalingFactor` set in the shielded LRC-20 contract. In this example, the value of `scalingFactor` is 100, namely 60 * 100 =  40 * 100 + 2000.
 
 Return:
 
@@ -782,7 +782,7 @@ Return:
 }
 ```
 
-Because of lacking the `ask`, the api can not generate the `spend_authority_signature`. Here, the `trigger_contract_input ` is some ciphertext used to generate the trigger shielded TRC-20 contract input for `burn`. To generate the `trigger_contract_input`, the user first needs to generate the spend `spend_authority_signature` by calling the api:
+Because of lacking the `ask`, the api can not generate the `spend_authority_signature`. Here, the `trigger_contract_input ` is some ciphertext used to generate the trigger shielded LRC-20 contract input for `burn`. To generate the `trigger_contract_input`, the user first needs to generate the spend `spend_authority_signature` by calling the api:
 
 **wallet/createspendauthsig**
 
@@ -816,7 +816,7 @@ Parameters:
 
 ```
 {
-    "shielded_TRC20_Parameters": {
+    "shielded_LRC20_Parameters": {
         "spend_description": [
             {
                 "value_commitment": "c8565a546d8922f7b5fdba99504961ccf827fc3ffa23905e50ac2f4eef819766",
@@ -858,10 +858,10 @@ Return:
 }
 ```
 
-The `value` can be used as the input data to trigger the `burn` function of the shielded TRC-20 contract.
+The `value` can be used as the input data to trigger the `burn` function of the shielded LRC-20 contract.
 
-### Trigger the shielded TRC-20 contract 
-**Call api: wallet/triggersmartcontract to trigger the shielded TRC-20 contract and generate the shielded TRC-20 transaction**
+### Trigger the shielded LRC-20 contract 
+**Call api: wallet/triggersmartcontract to trigger the shielded LRC-20 contract and generate the shielded LRC-20 transaction**
 
 Method: Post
 
@@ -914,7 +914,7 @@ Return:
 
 Note: the above is an example for triggering the `mint` function. For `transfer` and `burn`, it's similar.
 
-### Broadcast the shielded TRC-20 transaction 
+### Broadcast the shielded LRC-20 transaction 
 
 **Call api: wallet/broadcasttransaction to broadcast this transaction**
 
@@ -954,9 +954,9 @@ Return:
 ```
 Note: before broadcasting the transaction, the sender should sign the transaction by its private key to generate the signature and add it to the transaction.
 
-### Scan shielded TRC-20 notes by `ivk`
+### Scan shielded LRC-20 notes by `ivk`
 
-**Call api: wallet/scanshieldedtrc20notesbyivk to scan the shielded TRC-20 notes**
+**Call api: wallet/scanshieldedtrc20notesbyivk to scan the shielded LRC-20 notes**
 
 Method: Post and Get
 
@@ -966,7 +966,7 @@ Parameters:
 {
     "start_block_index": 46079,
     "end_block_index": 46091,
-    "shielded_TRC20_contract_address": "TDxka3zetrpWsWoeWWjSAQDwM186UmzwQn",
+    "shielded_LRC20_contract_address": "TDxka3zetrpWsWoeWWjSAQDwM186UmzwQn",
     "ivk": "c1898b84ced7e5c8840632ad1203d56b4a8ebbaa8425dd8b5a5b3d43578e1006",
     "ak": "66fda71a704eb463a13b6f43be7e296dd7ff3e6075e64badf462eca042f0b269",
     "nk": "b5f558a783c968b624f7cfc9a4f2c909332c0c514a8a419e552337e82e073f66",
@@ -979,7 +979,7 @@ Return:
     "noteTxs":[
         {
             "note":{
-                "payment_address":"ztron1e453jrrxwsvj6s480a2rduz28jfedrsjwu0xsfk8psd85hajeyc6jx56nh0x7ngclh6tytr28wn",
+                "payment_address":"zlinda1e453jrrxwsvj6s480a2rduz28jfedrsjwu0xsfk8psd85hajeyc6jx56nh0x7ngclh6tytr28wn",
                 "value":60,
                 "rcm":"e51c6ef6c51ab1bb289056db13d44c0af35e70e18d76d8e9f270176663d8f50d"
             },
@@ -990,9 +990,9 @@ Return:
         }]
 }
 ```
-### Scan shielded TRC-20 notes by `ovk` 
+### Scan shielded LRC-20 notes by `ovk` 
 
-**Call api: wallet/scanshieldedtrc20notesbyovk to scan the shileded TRC-20 notes**
+**Call api: wallet/scanshieldedtrc20notesbyovk to scan the shileded LRC-20 notes**
 
 Method: Post and Get
 
@@ -1002,7 +1002,7 @@ Parameters:
 {
     "start_block_index": 46079,
     "end_block_index": 46091,
-    "shielded_TRC20_contract_address": "TDxka3zetrpWsWoeWWjSAQDwM186UmzwQn",
+    "shielded_LRC20_contract_address": "TDxka3zetrpWsWoeWWjSAQDwM186UmzwQn",
     "ovk": "4364c875deeb663781a2f1530f9e4f87ea81cc3c757ca2a30fa4768940de2f98",
     "visible": true
 }
@@ -1013,7 +1013,7 @@ Return:
     "noteTxs":[
         {
             "note":{
-                "payment_address": "ztron1e453jrrxwsvj6s480a2rduz28jfedrsjwu0xsfk8psd85hajeyc6jx56nh0x7ngclh6tytr28wn",
+                "payment_address": "zlinda1e453jrrxwsvj6s480a2rduz28jfedrsjwu0xsfk8psd85hajeyc6jx56nh0x7ngclh6tytr28wn",
                 "value":60,
                 "rcm":"e51c6ef6c51ab1bb289056db13d44c0af35e70e18d76d8e9f270176663d8f50d"
             },
@@ -1022,7 +1022,7 @@ Return:
         },
         {
             "note":{
-                "payment_address": "ztron129rzep2kymh87rwpp6eqk65l7a395y4w2t4zdma7chca4f8thncedlhkynta8655v3swqwna6qc",
+                "payment_address": "zlinda129rzep2kymh87rwpp6eqk65l7a395y4w2t4zdma7chca4f8thncedlhkynta8655v3swqwna6qc",
                 "value":20,
                 "rcm":"05f8adce01aa4aa61058b77924d46554edbecb3138f7704d7dc98180c3d88c07"
             },
@@ -1038,9 +1038,9 @@ Return:
 }
 ```
 
-### Check the shielded TRC-20 note status 
+### Check the shielded LRC-20 note status 
 
-**Call api: wallet/isshieldedtrc20contractNoteSpent to check the shielded TRC-20 note status whether it is spent**
+**Call api: wallet/isshieldedtrc20contractNoteSpent to check the shielded LRC-20 note status whether it is spent**
 
 Method: Post
 
@@ -1050,13 +1050,13 @@ Parameters:
 {
    "note": {
        "value": 40,
-       "payment_address":"ztron1nzfh9270dvpn0gysedl9gx6wfmh2hve3rtf0m57vla04pfjm3ermmrh9yasa2xnuy2zycsvwawe",
+       "payment_address":"zlinda1nzfh9270dvpn0gysedl9gx6wfmh2hve3rtf0m57vla04pfjm3ermmrh9yasa2xnuy2zycsvwawe",
        "rcm": "b269a741bde1de2df79ffccf96d6eb646aa996e6567c208d774e851aef3e1909"
     },
     "ak": "8072d9110c9de9d9ade33d5d0f5890a7aa65b0cde42af7816d187297caf2fd64",
     "nk": "590bf33f93f792be659fd404df91e75c3b08d38d4e08ee226c3f5219cf598f14",
     "position": 1,
-    "shielded_TRC20_contract_address": "41e6e90fbc958ba09483550882b1f0327e0193250a"
+    "shielded_LRC20_contract_address": "41e6e90fbc958ba09483550882b1f0327e0193250a"
 }
 ```
 Return:

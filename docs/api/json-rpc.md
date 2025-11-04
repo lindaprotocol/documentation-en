@@ -2,7 +2,7 @@
 
 ## Overview
 
-JSON-RPC is a stateless, lightweight remote procedure call (RPC) protocol. The JSON-RPC interface supported by the TRON network is compatible with Ethereum's. However, due to the difference in chain mechanism and design, TRON cannot support some interfaces on Ethereum. At the same time, TRON also provides dedicated APIs to create different types of transactions.
+JSON-RPC is a stateless, lightweight remote procedure call (RPC) protocol. The JSON-RPC interface supported by the LINDA network is compatible with Ethereum's. However, due to the difference in chain mechanism and design, LINDA cannot support some interfaces on Ethereum. At the same time, LINDA also provides dedicated APIs to create different types of transactions.
 
 **Please pay attention**
 
@@ -10,7 +10,7 @@ JSON-RPC is a stateless, lightweight remote procedure call (RPC) protocol. The J
 
 ### How to enable or disable JSON-RPC service of a node
 
-Add below items in node's [configuration file](https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/resources/config.conf), then enable or disable it:  
+Add below items in node's [configuration file](https://github.com/lindaprotocol/java-linda/blob/develop/framework/src/main/resources/config.conf), then enable or disable it:  
 ```
 node.jsonrpc {  
     httpFullNodeEnable = true  
@@ -62,7 +62,7 @@ Empty List
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '
 
 {"jsonrpc": "2.0", "id": 1, "method": "eth_accounts", "params": []}'
 
@@ -91,7 +91,7 @@ The latest block number.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":64}'
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":64}'
 
 ```
 
@@ -129,7 +129,7 @@ DATA - the return value of executed contract function.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
 	"jsonrpc": "2.0",
 
@@ -170,7 +170,7 @@ Result
 
 ### eth_chainId
 
-*Returns the chainId of the TRON network which is the last four bytes of the genesis block hash*
+*Returns the chainId of the LINDA network which is the last four bytes of the genesis block hash*
 
 **Parameters**  
 
@@ -178,13 +178,13 @@ None
 
 **Returns**  
 
-DATA - The chainId of the TRON network
+DATA - The chainId of the LINDA network
 
 **Example**
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":79}'
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":79}'
 
 ```
 
@@ -213,7 +213,7 @@ DATA - The super representative address of the node.   (Note: Return the first a
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc": "2.0", "id": 1, "method": "eth_coinbase", "params": []}'
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"jsonrpc": "2.0", "id": 1, "method": "eth_coinbase", "params": []}'
 
 ```
 
@@ -251,7 +251,7 @@ The amount of energy used.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
 	"jsonrpc": "2.0",
 
@@ -304,7 +304,7 @@ Integer of the current energy price in sun.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc": "2.0", "id": 1, "method": "eth_gasPrice", "params": []}'
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"jsonrpc": "2.0", "id": 1, "method": "eth_gasPrice", "params": []}'
 
 ```
 
@@ -336,7 +336,7 @@ QUANTITY - integer of the current balance in sun.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
 	"jsonrpc": "2.0",
 
@@ -400,7 +400,7 @@ object - a block object  or null when no block was found. The block includes ite
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
 	"jsonrpc": "2.0",
 
@@ -436,13 +436,13 @@ Result
 
 **Returns**
 
-object - a block object  or null when no block was found. See [eth_getBlockByHash](https://developers.tron.network/reference#eth_getblockbyhash)
+object - a block object  or null when no block was found. See [eth_getBlockByHash](https://developers.linda.network/reference#eth_getblockbyhash)
 
 **Example**
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
 	"jsonrpc": "2.0",
 
@@ -481,7 +481,7 @@ QUANTITY - integer of the number of transactions in this block.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
 	"jsonrpc": "2.0",
 
@@ -520,7 +520,7 @@ QUANTITY - integer of the number of transactions in this block.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
 	"jsonrpc": "2.0",
 
@@ -562,7 +562,7 @@ DATA - the runtime code from the given address.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
 	"jsonrpc": "2.0",
 
@@ -605,7 +605,7 @@ DATA - the value at this storage position.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
 	"jsonrpc": "2.0",
 
@@ -664,7 +664,7 @@ object - a transaction object  or null when no transaction was found. The transa
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
 	"jsonrpc": "2.0",
 
@@ -740,13 +740,13 @@ Result
 
 **Returns**
 
-object - a transaction object  or null when no transaction was found. See [eth_getTransactionByBlockHashAndIndex](https://developers.tron.network/reference#eth_gettransactionbyblockhashandindex)
+object - a transaction object  or null when no transaction was found. See [eth_getTransactionByBlockHashAndIndex](https://developers.linda.network/reference#eth_gettransactionbyblockhashandindex)
 
 **Example**
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
 	"jsonrpc": "2.0",
 
@@ -779,13 +779,13 @@ DATA, 32 Bytes - hash of a transaction
 
 **Returns**
 
-object - a transaction object  or null when no transaction was found. See [eth_getTransactionByBlockHashAndIndex](https://developers.tron.network/reference#eth_gettransactionbyblockhashandindex)
+object - a transaction object  or null when no transaction was found. See [eth_getTransactionByBlockHashAndIndex](https://developers.linda.network/reference#eth_gettransactionbyblockhashandindex)
 
 **Example**
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
 	"jsonrpc": "2.0",
 
@@ -850,7 +850,7 @@ Result
 
 ### eth_getTransactionReceipt
 
-*Returns the  transaction info: receipt, transaction fee, block height ... by transaction hash. Please refer to http api: [wallet/gettransactioninfobyid](https://developers.tron.network/reference#transaction-info-by-id)*
+*Returns the  transaction info: receipt, transaction fee, block height ... by transaction hash. Please refer to http api: [wallet/gettransactioninfobyid](https://developers.linda.network/reference#transaction-info-by-id)*
 
 **Parameters**
 
@@ -880,7 +880,7 @@ object - A transaction receipt object, or null when no receipt was found. The it
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
 	"jsonrpc": "2.0",
 
@@ -963,7 +963,7 @@ Array - Array with the following properties:
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
 	"jsonrpc": "2.0",
 
@@ -996,7 +996,7 @@ Result
 
 ### eth_protocolVersion
 
-*Returns the java-tron block version*
+*Returns the java-linda block version*
 
 **Parameters**  
 
@@ -1004,13 +1004,13 @@ None
 
 **Returns**  
 
-String - The current java-tron block version
+String - The current java-linda block version
 
 **Example**
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"eth_protocolVersion","params":[],"id":64}'
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"eth_protocolVersion","params":[],"id":64}'
 
 ```
 
@@ -1045,7 +1045,7 @@ Object|Boolean, An object with sync status data or FALSE, when not syncing, the 
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":64}'
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":64}'
 
 ```
 
@@ -1097,7 +1097,7 @@ QUANTITY - A filter id.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"eth_newFilter","params":[{"address":["cc2e32f2388f0096fae9b055acffd76d4b3e5532","E518C608A37E2A262050E10BE0C9D03C7A0877F3"],"fromBlock":"0x989680","toBlock":"0x9959d0","topics":["0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",null,["0x0000000000000000000000001806c11be0f9b9af9e626a58904f3e5827b67be7","0x0000000000000000000000003c8fb6d064ceffc0f045f7b4aee6b3a4cefb4758"]]}],"id":1}'
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"eth_newFilter","params":[{"address":["cc2e32f2388f0096fae9b055acffd76d4b3e5532","E518C608A37E2A262050E10BE0C9D03C7A0877F3"],"fromBlock":"0x989680","toBlock":"0x9959d0","topics":["0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",null,["0x0000000000000000000000001806c11be0f9b9af9e626a58904f3e5827b67be7","0x0000000000000000000000003c8fb6d064ceffc0f045f7b4aee6b3a4cefb4758"]]}],"id":1}'
 
 ```
 
@@ -1126,7 +1126,7 @@ QUANTITY - A filter id.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"eth_newBlockFilter","params":[],"id":1}'
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"eth_newBlockFilter","params":[],"id":1}'
 
 ```
 
@@ -1169,7 +1169,7 @@ QUANTITY - the filter id.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
     "jsonrpc": "2.0",
 
@@ -1228,7 +1228,7 @@ See [eth_getFilterChanges](#eth_getfilterchanges)。
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
     "jsonrpc": "2.0",
 
@@ -1287,7 +1287,7 @@ QUANTITY - the filter id.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
     "jsonrpc": "2.0",
 
@@ -1346,7 +1346,7 @@ Object - The filter options which include below fields:
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"eth_getLogs","params":[{"address":["cc2e32f2388f0096fae9b055acffd76d4b3e5532","E518C608A37E2A262050E10BE0C9D03C7A0877F3"],"fromBlock":"0x989680","toBlock":"0x9959d0","topics":["0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",null,["0x0000000000000000000000001806c11be0f9b9af9e626a58904f3e5827b67be7","0x0000000000000000000000003c8fb6d064ceffc0f045f7b4aee6b3a4cefb4758"]]}],"id":1}'
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"eth_getLogs","params":[{"address":["cc2e32f2388f0096fae9b055acffd76d4b3e5532","E518C608A37E2A262050E10BE0C9D03C7A0877F3"],"fromBlock":"0x989680","toBlock":"0x9959d0","topics":["0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",null,["0x0000000000000000000000001806c11be0f9b9af9e626a58904f3e5827b67be7","0x0000000000000000000000003c8fb6d064ceffc0f045f7b4aee6b3a4cefb4758"]]}],"id":1}'
 
 ```
 
@@ -1385,7 +1385,7 @@ Boolean - true when listening, otherwise false.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"net_listening","params":[],"id":64}'
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"net_listening","params":[],"id":64}'
 
 ```
 
@@ -1414,7 +1414,7 @@ QUANTITY - integer of the number of connected peers.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":64}'
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":64}'
 
 ```
 
@@ -1443,7 +1443,7 @@ String - The hash of genesis block
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":64}'
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":64}'
 
 ```
 
@@ -1474,7 +1474,7 @@ String - The current client version
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc": "2.0", "id": 1, "method": "web3_clientVersion", "params": []}'
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"jsonrpc": "2.0", "id": 1, "method": "web3_clientVersion", "params": []}'
 
 ```
 
@@ -1482,7 +1482,7 @@ Result
 
 ```json
 
-{"jsonrpc":"2.0","id":1,"result":"TRON/v4.3.0/Linux/Java1.8/GreatVoyage-v4.2.2.1-281-gc1d9dfd6c"}
+{"jsonrpc":"2.0","id":1,"result":"LINDA/v4.3.0/Linux/Java1.8/GreatVoyage-v4.2.2.1-281-gc1d9dfd6c"}
 
 ```
 
@@ -1503,7 +1503,7 @@ DATA - The SHA3 result of the given string.
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc": "2.0", "id": 1, "method": "web3_sha3", "params": ["0x68656c6c6f20776f726c64"]}'
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"jsonrpc": "2.0", "id": 1, "method": "web3_sha3", "params": ["0x68656c6c6f20776f726c64"]}'
 
 ```
 
@@ -1541,7 +1541,7 @@ Object - transaction of TransferContract or an error
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
     "id": 1337,
 
@@ -1582,7 +1582,7 @@ Object - the items in object as below:
 | from       | DATA, 20 Bytes | The address the transaction is sent from   |
 | to         | DATA, 20 Bytes | The address the transaction is directed to |
 | tokenId    | QUANTITY       | Token ID                                   |
-| tokenValue | QUANTITY       | The transfer amount of TRC10               |
+| tokenValue | QUANTITY       | The transfer amount of LRC10               |
 
 **Returns**
 
@@ -1592,7 +1592,7 @@ Object - transaction of TransferAssetContract or an error
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
     "method": "buildTransaction",
 
@@ -1647,7 +1647,7 @@ Object - the items in object as below:
 | originEnergyLimit          | QUANTITY       | The origin energy limit.                 |
 | value                      | DATA           | The data passed through call_value.      |
 | tokenId                    | QUANTITY       | Token ID                                 |
-| tokenValue                 | QUANTITY       | The transfer amount of TRC10             |
+| tokenValue                 | QUANTITY       | The transfer amount of LRC10             |
 
 **Returns**
 
@@ -1657,7 +1657,7 @@ Object - transaction of CreateSmartContract or an error
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{
 
     "id": 1337,
 
@@ -1675,7 +1675,7 @@ curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
 
             "gas": "0x245498",
 
-            "abi": "[{\"constant\":false,\"inputs\":[],\"name\":\"getResultInCon\",\"outputs\":[{\"name\":\"\",\"type\":\"trcToken\"},{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"toAddress\",\"type\":\"address\"},{\"name\":\"id\",\"type\":\"trcToken\"},{\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"TransferTokenTo\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"msgTokenValueAndTokenIdTest\",\"outputs\":[{\"name\":\"\",\"type\":\"trcToken\"},{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"constructor\"}]\n",
+            "abi": "[{\"constant\":false,\"inputs\":[],\"name\":\"getResultInCon\",\"outputs\":[{\"name\":\"\",\"type\":\"lrcToken\"},{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"toAddress\",\"type\":\"address\"},{\"name\":\"id\",\"type\":\"lrcToken\"},{\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"TransferTokenTo\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"msgTokenValueAndTokenIdTest\",\"outputs\":[{\"name\":\"\",\"type\":\"lrcToken\"},{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"constructor\"}]\n",
 
             "data": "6080604052d3600055d2600155346002556101418061001f6000396000f3006080604052600436106100565763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166305c24200811461005b5780633be9ece71461008157806371dc08ce146100aa575b600080fd5b6100636100b2565b60408051938452602084019290925282820152519081900360600190f35b6100a873ffffffffffffffffffffffffffffffffffffffff600435166024356044356100c0565b005b61006361010d565b600054600154600254909192565b60405173ffffffffffffffffffffffffffffffffffffffff84169082156108fc029083908590600081818185878a8ad0945050505050158015610107573d6000803e3d6000fd5b50505050565bd3d2349091925600a165627a7a72305820a2fb39541e90eda9a2f5f9e7905ef98e66e60dd4b38e00b05de418da3154e7570029",
 
@@ -1703,7 +1703,7 @@ Result
 
 ```json
 
-{"jsonrpc":"2.0","id":1337,"result":{"transaction":{"visible":false,"txID":"598d8aafbf9340e92c8f72a38389ce9661b643ff37dd2a609f393336a76025b9","contract_address":"41dfd93697c0a978db343fe7a92333e11eeb2f967d","raw_data":{"contract":[{"parameter":{"value":{"token_id":1000033,"owner_address":"41c4db2c9dfbcb6aa344793f1dda7bd656598a06d8","call_token_value":100000,"new_contract":{"bytecode":"6080604052d3600055d2600155346002556101418061001f6000396000f3006080604052600436106100565763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166305c24200811461005b5780633be9ece71461008157806371dc08ce146100aa575b600080fd5b6100636100b2565b60408051938452602084019290925282820152519081900360600190f35b6100a873ffffffffffffffffffffffffffffffffffffffff600435166024356044356100c0565b005b61006361010d565b600054600154600254909192565b60405173ffffffffffffffffffffffffffffffffffffffff84169082156108fc029083908590600081818185878a8ad0945050505050158015610107573d6000803e3d6000fd5b50505050565bd3d2349091925600a165627a7a72305820a2fb39541e90eda9a2f5f9e7905ef98e66e60dd4b38e00b05de418da3154e7570029","consume_user_resource_percent":100,"name":"transferTokenContract","origin_address":"41c4db2c9dfbcb6aa344793f1dda7bd656598a06d8","abi":{"entrys":[{"outputs":[{"type":"trcToken"},{"type":"uint256"},{"type":"uint256"}],"payable":true,"name":"getResultInCon","stateMutability":"Payable","type":"Function"},{"payable":true,"inputs":[{"name":"toAddress","type":"address"},{"name":"id","type":"trcToken"},{"name":"amount","type":"uint256"}],"name":"TransferTokenTo","stateMutability":"Payable","type":"Function"},{"outputs":[{"type":"trcToken"},{"type":"uint256"},{"type":"uint256"}],"payable":true,"name":"msgTokenValueAndTokenIdTest","stateMutability":"Payable","type":"Function"},{"payable":true,"stateMutability":"Payable","type":"Constructor"}]},"origin_energy_limit":11111111111111,"call_value":500}},"type_url":"type.googleapis.com/protocol.CreateSmartContract"},"type":"CreateSmartContract"}],"ref_block_bytes":"80be","ref_block_hash":"ac7c3d59c55ac92c","expiration":1634030190000,"fee_limit":333333280,"timestamp":1634030131693},"raw_data_hex":"0a0280be2208ac7c3d59c55ac92c40b0fba79ec72f5ad805081e12d3050a30747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e437265617465536d617274436f6e7472616374129e050a1541c4db2c9dfbcb6aa344793f1dda7bd656598a06d812fc040a1541c4db2c9dfbcb6aa344793f1dda7bd656598a06d81adb010a381a0e676574526573756c74496e436f6e2a0a1a08747263546f6b656e2a091a0775696e743235362a091a0775696e743235363002380140040a501a0f5472616e73666572546f6b656e546f22141209746f416464726573731a0761646472657373220e120269641a08747263546f6b656e22111206616d6f756e741a0775696e743235363002380140040a451a1b6d7367546f6b656e56616c7565416e64546f6b656e4964546573742a0a1a08747263546f6b656e2a091a0775696e743235362a091a0775696e743235363002380140040a0630013801400422e0026080604052d3600055d2600155346002556101418061001f6000396000f3006080604052600436106100565763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166305c24200811461005b5780633be9ece71461008157806371dc08ce146100aa575b600080fd5b6100636100b2565b60408051938452602084019290925282820152519081900360600190f35b6100a873ffffffffffffffffffffffffffffffffffffffff600435166024356044356100c0565b005b61006361010d565b600054600154600254909192565b60405173ffffffffffffffffffffffffffffffffffffffff84169082156108fc029083908590600081818185878a8ad0945050505050158015610107573d6000803e3d6000fd5b50505050565bd3d2349091925600a165627a7a72305820a2fb39541e90eda9a2f5f9e7905ef98e66e60dd4b38e00b05de418da3154e757002928f40330643a157472616e73666572546f6b656e436f6e747261637440c7e3d28eb0c30218a08d0620e1843d70edb3a49ec72f9001a086f99e01"}}}
+{"jsonrpc":"2.0","id":1337,"result":{"transaction":{"visible":false,"txID":"598d8aafbf9340e92c8f72a38389ce9661b643ff37dd2a609f393336a76025b9","contract_address":"41dfd93697c0a978db343fe7a92333e11eeb2f967d","raw_data":{"contract":[{"parameter":{"value":{"token_id":1000033,"owner_address":"41c4db2c9dfbcb6aa344793f1dda7bd656598a06d8","call_token_value":100000,"new_contract":{"bytecode":"6080604052d3600055d2600155346002556101418061001f6000396000f3006080604052600436106100565763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166305c24200811461005b5780633be9ece71461008157806371dc08ce146100aa575b600080fd5b6100636100b2565b60408051938452602084019290925282820152519081900360600190f35b6100a873ffffffffffffffffffffffffffffffffffffffff600435166024356044356100c0565b005b61006361010d565b600054600154600254909192565b60405173ffffffffffffffffffffffffffffffffffffffff84169082156108fc029083908590600081818185878a8ad0945050505050158015610107573d6000803e3d6000fd5b50505050565bd3d2349091925600a165627a7a72305820a2fb39541e90eda9a2f5f9e7905ef98e66e60dd4b38e00b05de418da3154e7570029","consume_user_resource_percent":100,"name":"transferTokenContract","origin_address":"41c4db2c9dfbcb6aa344793f1dda7bd656598a06d8","abi":{"entrys":[{"outputs":[{"type":"lrcToken"},{"type":"uint256"},{"type":"uint256"}],"payable":true,"name":"getResultInCon","stateMutability":"Payable","type":"Function"},{"payable":true,"inputs":[{"name":"toAddress","type":"address"},{"name":"id","type":"lrcToken"},{"name":"amount","type":"uint256"}],"name":"TransferTokenTo","stateMutability":"Payable","type":"Function"},{"outputs":[{"type":"lrcToken"},{"type":"uint256"},{"type":"uint256"}],"payable":true,"name":"msgTokenValueAndTokenIdTest","stateMutability":"Payable","type":"Function"},{"payable":true,"stateMutability":"Payable","type":"Constructor"}]},"origin_energy_limit":11111111111111,"call_value":500}},"type_url":"type.googleapis.com/protocol.CreateSmartContract"},"type":"CreateSmartContract"}],"ref_block_bytes":"80be","ref_block_hash":"ac7c3d59c55ac92c","expiration":1634030190000,"fee_limit":333333280,"timestamp":1634030131693},"raw_data_hex":"0a0280be2208ac7c3d59c55ac92c40b0fba79ec72f5ad805081e12d3050a30747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e437265617465536d617274436f6e7472616374129e050a1541c4db2c9dfbcb6aa344793f1dda7bd656598a06d812fc040a1541c4db2c9dfbcb6aa344793f1dda7bd656598a06d81adb010a381a0e676574526573756c74496e436f6e2a0a1a08747263546f6b656e2a091a0775696e743235362a091a0775696e743235363002380140040a501a0f5472616e73666572546f6b656e546f22141209746f416464726573731a0761646472657373220e120269641a08747263546f6b656e22111206616d6f756e741a0775696e743235363002380140040a451a1b6d7367546f6b656e56616c7565416e64546f6b656e4964546573742a0a1a08747263546f6b656e2a091a0775696e743235362a091a0775696e743235363002380140040a0630013801400422e0026080604052d3600055d2600155346002556101418061001f6000396000f3006080604052600436106100565763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166305c24200811461005b5780633be9ece71461008157806371dc08ce146100aa575b600080fd5b6100636100b2565b60408051938452602084019290925282820152519081900360600190f35b6100a873ffffffffffffffffffffffffffffffffffffffff600435166024356044356100c0565b005b61006361010d565b600054600154600254909192565b60405173ffffffffffffffffffffffffffffffffffffffff84169082156108fc029083908590600081818185878a8ad0945050505050158015610107573d6000803e3d6000fd5b50505050565bd3d2349091925600a165627a7a72305820a2fb39541e90eda9a2f5f9e7905ef98e66e60dd4b38e00b05de418da3154e757002928f40330643a157472616e73666572546f6b656e436f6e747261637440c7e3d28eb0c30218a08d0620e1843d70edb3a49ec72f9001a086f99e01"}}}
 
 ```
 
@@ -1721,7 +1721,7 @@ Object - the items in object as below:
 | gas        | DATA           | Fee limit                                    |
 | value      | DATA           | The data passed through call_value           |
 | tokenId    | QUANTITY       | Token ID                                     |
-| tokenValue | QUANTITY       | The transfer amount of TRC10                 |
+| tokenValue | QUANTITY       | The transfer amount of LRC10                 |
 
 **Returns**
 
@@ -1731,7 +1731,7 @@ Object - transaction of TriggerSmartContract or an error
 
 ```curl
 
-curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"id": 1337,
+curl -X POST 'https://api.shasta.lindagrid.io/jsonrpc' --data '{"id": 1337,
 
     "jsonrpc": "2.0",
 

@@ -1,7 +1,7 @@
 # RPC List
 
 **For the specific definition of API, please refer to the following link:**
-[api/api.proto](https://github.com/tronprotocol/protocol/blob/master/api/api.proto)
+[api/api.proto](https://github.com/lindaprotocol/protocol/blob/master/api/api.proto)
 
 !!! note
     SolidityNode is deprecated. Now a FullNode supports all RPCs of a SolidityNode. New developers should deploy FullNode only.
@@ -13,7 +13,7 @@ rpc GetAccount (Account) returns (Account) {}
 ```
 Nodes: Fullnode and SolidityNode
 
-## TRX transfer
+## LIND transfer
 
 ```protobuf
 rpc CreateTransaction (TransferContract) returns (Transaction) {}
@@ -86,7 +86,7 @@ rpc CreateWitness (WitnessCreateContract) returns (Transaction) {}
 Nodes: FullNode
 
 Description:
-To apply to become TRON’s Super Representative candidate.
+To apply to become LINDA’s Super Representative candidate.
 
 ## Information update of Super Representative candidates
 ```protobuf
@@ -168,15 +168,15 @@ rpc getTransactionsByTimestamp (TimeMessage) returns (TransactionList) {}
 ```
 Nodes: SolidityNode
 
-## Stake TRX
-This interface has been deprecated, please use FreezeBalanceV2 to stake TRX to obtain resources.
+## Stake LIND
+This interface has been deprecated, please use FreezeBalanceV2 to stake LIND to obtain resources.
 ```protobuf
 rpc FreezeBalance (FreezeBalanceContract) returns (Transaction) {}
 ```
 Nodes: FullNode
 
-## Unstake TRX
-Unstake the TRX staked during Stake1.0.
+## Unstake LIND
+Unstake the LIND staked during Stake1.0.
 ```protobuf
 rpc UnfreezeBalance (UnfreezeBalanceContract) returns (Transaction) {}
 ```
@@ -289,7 +289,7 @@ rpc GetAccountBalance (AccountBalanceRequest) returns (AccountBalanceResponse){}
 ```
 Nodes: FullNode
 
-**Notice**: Only node where `storage.balance.history.lookup= true` is set in the configuration file supports querying the account's historical balance. The supported official nodes can be queried [here](../using_javatron/backup_restore.md/#fullnode-data-snapshots).
+**Notice**: Only node where `storage.balance.history.lookup= true` is set in the configuration file supports querying the account's historical balance. The supported official nodes can be queried [here](../using_javalinda/backup_restore.md/#fullnode-data-snapshots).
 
 ## fetch all balance-changing transactions in a block      
 ```
@@ -297,25 +297,25 @@ rpc GetBlockBalanceTrace (BlockBalanceTrace.BlockIdentifier) returns (BlockBalan
 ```
 Nodes: FullNode 
 
-## get the burn trx amount      
+## get the burn lind amount      
 ```
-rpc GetBurnTrx (EmptyMessage) returns (NumberMessage) {}; 
+rpc GetBurnLind (EmptyMessage) returns (NumberMessage) {}; 
 ```
 Nodes: FullNode and SolidityNode
 
-## Freeze TRX
+## Freeze LIND
 ```protobuf
 rpc FreezeBalanceV2 (FreezeBalanceV2Contract) returns (TransactionExtention) {}
 ```
 Nodes: FullNode
 
-## UnFreeze TRX
+## UnFreeze LIND
 ```protobuf
 rpc UnfreezeBalanceV2 (UnfreezeBalanceV2Contract) returns (TransactionExtention) {}
 ```
 Nodes: FullNode
 
-## Withdraw Staked TRX
+## Withdraw Staked LIND
 ```protobuf
 rpc WithdrawExpireUnfreeze (WithdrawExpireUnfreezeContract) returns (TransactionExtention) {}
 ```
